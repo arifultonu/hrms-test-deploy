@@ -1,0 +1,11 @@
+.content {
+	padding: 30px;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+tr {
+  border-bottom: 1pt solid ghostwhite;
+}

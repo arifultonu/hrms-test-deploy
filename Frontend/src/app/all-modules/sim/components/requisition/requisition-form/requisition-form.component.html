@@ -1,0 +1,277 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col">
+        <h3 class="page-title">Sim Requisition</h3>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+          <li class="breadcrumb-item active">Sim Requisition</li>
+          <li class="breadcrumb-item active">Create</li>
+        </ul>
+      </div>
+      <div class="col-auto float-right ml-auto">
+        <a class="btn add-btn" routerLink="/sim/requisition/list"><i class="fa fa-share"></i> Back To
+          List</a>
+      </div>
+    </div>
+  </div>
+  <!-- /Page Header -->
+
+
+
+  <div class="row">
+    <div class="col-lg-12">
+      <div class="card">
+        <!-- <div class="card-header"> -->
+        <!-- <h4 class="card-title mb-0">Payroll Item Value</h4> -->
+        <!-- </div>  -->
+        <div class="card-body">
+          <form id="formERP" novalidate (ngSubmit)="onSubmit()" [formGroup]="form" id="formERP">
+
+            <div hidden class="form-group row" *ngIf="formMode !='create' ">
+              <label class="col-form-label col-md-2">ID</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control" formControlName="id" readonly disabled>
+              </div>
+            </div>
+
+            <!-- <div class="form-group row">
+              <label class="col-form-label col-md-2">Employee name</label>
+              <div class="col-md-10">
+                <ng-select [items]="configDDL.listData" formControlName="hrCrEmp" placeholder="Select employee"
+                  bindLabel="ddlDescription" bindValue="ddlCode" [searchable]="true" [clearable]="true"
+                  [virtualScroll]="true" [clearOnBackspace]="true" (search)="searchDDL($event)"
+                  (scrollToEnd)="scrollToEndDDL()" (clear)="clearDDL()"
+                  (click)="initSysParamsDDL($event, 'ddlDescription', '/api/common/getEmp', 'hrCrEmp')"
+                  ddlActiveFieldName="ddlDescription" class="custom-ng-select">
+                </ng-select>
+              </div>
+            </div> -->
+            <div class="form-group row">
+              <label class="col-form-label col-md-2">Employee</label>
+              <div class="col-md-10">
+                  <input type="text" class="form-control" formControlName="hrCrEmp"  disabled>
+
+              </div>
+          </div>
+
+            <div class="form-group row">
+              <label class="col-form-label col-md-2">Sim Requisition / Limit Extension : *</label>
+              <div class="col-md-10">
+                <select class="form-control" formControlName="newSimOrLimitExtension">
+                  <option value="">Select</option>
+                  <option value="Sim_Requisition">Sim Requisition</option>
+                  <option value="Limit_Extension">Limit Extension</option>
+                  <option value="Limit_Reduce">Limit Reduce</option>
+                  <option value="Sim_Return">Sim Return</option>
+
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-form-label col-md-2">Proposed Limit</label>
+              <div class="col-md-10">
+                <input type="text" class="form-control" formControlName="proposedLimit">
+              </div>
+            </div>
+
+
+            <div class="form-group row" *ngIf="alkpDataPackListData">
+              <label class="col-form-label col-md-2">Propose Internet (GB):</label>
+              <div class="col-md-10">
+                <select class="form-control" formControlName="alkpDataPack">
+                  <option value="">Select</option>
+                  <option *ngFor="let data of alkpDataPackListData?.objectList" [value]='data.id'>
+                    {{data.title}}
+                  </option>
+                </select>
+              </div>
+            </div>
+
+
+            <div class="form-group row">
+              <label class="col-form-label col-md-2">Is ISD</label>
+              <div class="col-md-10">
+                <select class="form-control" formControlName="isISD">
+                  <option value="">Select</option>
+                  <option value="true">YES</option>
+                  <option value="false">NO</option>
+
+                </select>
+              </div>
+            </div>
+
+            <div class="form-group row">
+              <label class="col-form-label col-md-2">Reason</label>
+              <div class="col-md-10">
+                <input [ngClass]="{ 'is-invalid': isSubmitted && requisitionForm.reasonForSim.errors }" type="text"
+                  class="form-control" formControlName="reasonForSim">
+                <span></span>
+              </div>
+              <div *ngIf="isSubmitted && requisitionForm.reasonForSim.errors" class="invalid-feedback">
+                <div *ngIf="reasonForSim.reasonForSim.errors.required">Reason is required</div>
+              </div>
+            </div>
+            <div class="form-group row">
+              <label class="col-form-label col-md-2">Remarks</label>
+              <div class="col-md-10">
+                <textarea rows="5" cols="5" formControlName="remarks" class="form-control"
+                  spellcheck="false"></textarea>
+              </div>
+            </div>
+
+            <div class="text-right">
+              <button type="button" class="btn btn-warning btn-ripple" routerLink="/sim/requisition/list"><i
+                  class="fa fa-share"></i> Cancel</button>
+              &nbsp; &nbsp;
+              <button type="button" id="reset" class="btn btn-secondary btn-ripple" (click)="resetFormValues()">
+                <i class="fa fa-undo" aria-hidden="true"></i> Reset
+              </button>
+              &nbsp; &nbsp; &nbsp;
+              <button type="submit" id="submit" class="btn btn-primary btn-ripple">
+                <i class="fa fa-check" aria-hidden="true"></i> Save &nbsp;&nbsp;&nbsp;
+              </button>
+            </div>
+
+
+
+          </form>
+
+
+          <!-- Approval Process -->
+          <div id="approvalProcess" class="row" *ngIf="formMode=='read' ">
+            <div class="col-md-8">
+              <fieldset class="row fieldsetBorder logBox ">
+                <legend>Approval Status</legend>
+                <div class="table-responsive">
+                  <table class="table">
+                    <thead>
+                      <tr>
+                        <th>S/L</th>
+                        <th>Approval Step</th>
+                        <th>Sign By</th>
+                        <th>Action</th>
+                        <th>Date</th>
+                        <th>Remarks</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let thisObj of approvalProcessDataList;let i = index">
+                        <td>
+                          {{ 1 + i}}
+                        </td>
+                        <td>{{thisObj.approvalStep.approvalGroupName?thisObj.approvalStep.approvalGroupName:'null'}}
+                        </td>
+                        <td>
+                          <span  class="badge badge-warning">{{thisObj.approvalStepApproverEmp?thisObj.approvalStepApproverEmp.displayName:'null'}}</span>
+                        </td>
+                        <td>
+                          <span *ngIf="thisObj.actionStatus ==='Rejected'" class="badge badge-danger">{{thisObj.actionStatus?thisObj.actionStatus:'null'}}</span>
+
+                          <span *ngIf="thisObj.actionStatus !='Rejected'" class="badge badge-success">{{thisObj.actionStatus?thisObj.actionStatus:'null'}}</span>
+
+                        </td>
+                        <td>{{thisObj.updateDateTime?thisObj.updateDateTime:'null'}}</td>
+                        <td>{{thisObj.remarks?thisObj.remarks:'null'}}</td>
+
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+
+              </fieldset>
+            </div>
+            <div class="col-md-4">
+              <form novalidate [formGroup]="approvalForm" id="FormApproval">
+                <fieldset class="row fieldsetBorder">
+                  <legend>Take Action</legend>
+                  <label class="col-form-label col-md-4">Status</label>
+                  <div class="col-md-8">
+                    <select id="status_id" class="form-control" formControlName="approvalStepAction">
+                      <option value="">Select</option>
+                      <option *ngFor="let data of approvalProcessActionDataList" [value]='data.id'>
+                        {{data.activityStatusTitle}}
+                      </option>
+                    </select>
+                  </div>
+                  <br><br> <br>
+
+                  <label class="col-form-label col-md-4">Remarks</label>
+                  <div class="col-md-8">
+                    <textarea id="remarks" formControlName="remarks" class="form-control mb-3"></textarea>
+
+                  </div>
+                  <div class=" col align-self-end " style="margin-bottom:5px;">
+                    <button (click)="_takeAction()" id="approval_action_btn" type="submit"
+                      class="btn btn-secondary btn-sm ">
+                      Confirm
+                    </button>
+                  </div>
+
+                </fieldset>
+              </form>
+            </div>
+          </div>
+
+          <!-- System Log -->
+          <fieldset id="systemLog" *ngIf="formMode=='read' " class="row fieldsetBorder">
+            <legend>System Log Information</legend>
+
+            <div class="form-group">
+              <label class="col-form-label">ID</label>
+              <div class="">
+                <span>{{myFormData.id}}</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Creation Time</label>
+              <div class="">
+                <span>{{myFormData.creationDateTime | date: 'yyyy-MM-dd h:mm:ss a'}}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-form-label">Creation User</label>
+              <div class="">
+                <span>{{myFormData.creationUser}}</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label class="col-form-label">Last Update Time</label>
+              <div class="">
+                <span>{{myFormData.lastUpdateDateTime | date: 'yyyy-MM-dd h:mm:ss a'}}</span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label class="col-form-label">Last Update User</label>
+              <div class="">
+                <span>{{myFormData.lastUpdateUser}}</span>
+              </div>
+            </div>
+
+          </fieldset>
+
+
+
+          <div *ngIf="formMode=='read' " class="text-right">
+            <a class="btn btn-warning btn-ripple" routerLink="/sim/requisition/list"><i class="fa fa-share"></i>
+              Cancel</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</div>
+<!-- /Page Content -->
+
+
+<ngx-spinner bdColor="rgba(255,255,255,0.5)" size="medium" color="#667eea" type="ball-clip-rotate" [fullScreen]="false">
+  <p style="color: black"> Processing... </p>
+</ngx-spinner>

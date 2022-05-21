@@ -1,0 +1,1653 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Employee</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Employee</a></li>
+                    <li *ngIf="id" class="breadcrumb-item active">edit </li>
+                    <li *ngIf="!id" class="breadcrumb-item active">add </li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <!-- <a  class="btn add-btn" data-toggle="modal" data-target="#add_employee"><i
+                        class="fa fa-plus"></i> Add Employee</a> -->
+                <a class="btn add-btn" routerLink="/employees/employeepage"><i class="fa fa-share"></i> Back To
+                    Employees</a>
+                <!-- <div class="view-icons">
+                    <a routerLink="/employees/employeepage" class="grid-view btn btn-link active"><i
+                            class="fa fa-th"></i></a>
+                    <a routerLink="/employees/employeelist" class="list-view btn btn-link"><i
+                            class="fa fa-bars"></i></a>
+                </div> -->
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="card tab-box">
+        <div class="row user-tabs">
+            <div class="col-lg-12 col-md-12 col-sm-12 line-tabs">
+                <ul class="nav nav-tabs nav-tabs-bottom">
+                    <li class="nav-item"><a href="#hrCrEmp" data-toggle="tab" class="nav-link active">Employee Basic
+                            Info</a>
+                    </li>
+                    <li class="nav-item"><a href="#hrCrEmpAssignment" data-toggle="tab" class="nav-link">Employee
+                            Assignment</a></li>
+                    <li class="nav-item"><a href="#bank_statutory" (click)="initAllowance($event.target.value)" data-toggle="tab" class="nav-link">Bank & Payroll
+                            Elements
+                            <small class="text-danger"></small></a></li>
+                    <li class="nav-item"><a href="#education" (click)="getEducationData()"  data-toggle="tab" class="nav-link">Education
+                            <small class="text-danger"></small></a></li>
+                    <li class="nav-item"><a href="#PreExp" (click)="getPreExpData()"  data-toggle="tab" class="nav-link">Job Experience
+                              <small class="text-danger"></small></a></li>
+                    <li class="nav-item"><a href="#nominee" (click)="getNomineeData()"  data-toggle="tab" class="nav-link">Nominee
+                             <small class="text-danger"></small></a></li>
+                    <li class="nav-item"><a href="#training" (click)="getTrainingData()"  data-toggle="tab" class="nav-link">Training
+                            <small class="text-danger"></small></a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <div class="tab-content">
+
+        <!-- Profile Info Tab -->
+        <div id="hrCrEmp" class="pro-overview tab-pane fade show active">
+            <div class="card">
+                <div class="card-body">
+                    <h3 class="card-title"> Basic Information</h3>
+                    <form (ngSubmit)="empBscInfOnSubmit()" [formGroup]="addEmployeeForm">
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>First Name<span class="text-danger">*</span></label>
+                                    <input class="form-control" formControlName="firstName" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.firstName.errors }" type="text">
+                                    <div *ngIf="submitted && f.firstName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.firstName.errors.required">*First Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Middle Name</label>
+                                    <input class="form-control" formControlName="middleName" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Last Name<span class="text-danger">*</span></label>
+                                    <input class="form-control" formControlName="lastName" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" type="text">
+                                    <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.lastName.errors.required">*Last Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  -->
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Father Name<span class="text-danger">*</span></label>
+                                    <input class="form-control" formControlName="fatherName" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.fatherName.errors }" type="text">
+                                    <div *ngIf="submitted && f.fatherName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.fatherName.errors.required">*Father Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Mother Name<span class="text-danger">*</span></label>
+                                    <input class="form-control" formControlName="motherName" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.motherName.errors }" type="text">
+                                    <div *ngIf="submitted && f.motherName.errors" class="invalid-feedback">
+                                        <div *ngIf="f.motherName.errors.required">*Mother Name is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Spouse Name</label>
+                                    <input class="form-control" formControlName="spouseName" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Date of Birth<span class="text-danger">*</span></label>
+                                    <div class="cal-icon">
+                                        <input class="form-control datetimepicker" formControlName="dob"
+                                            class="form-control" bsDatepicker type="text"
+                                            [ngClass]="{ 'is-invalid': submitted && f.dob.errors }" type="text"
+                                            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD',  returnFocusToInput: true }">
+                                        <div *ngIf="submitted && f.dob.errors" class="invalid-feedback">
+                                            <div *ngIf="f.dob.errors.required">*Date of Birth is required</div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Email<span class="text-danger">*</span></label>
+                                    <input class="form-control" formControlName="email" class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.email.errors }" type="email">
+                                    <div *ngIf="submitted && f.email.errors" class="invalid-feedback">
+                                        <div *ngIf="f.email.errors.required">Email is required</div>
+                                        <div *ngIf="f.email.errors.email">Email must be a valid email address</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>NID No.</label>
+                                    <input class="form-control" formControlName="voterIdentityNumber"
+                                        class="form-control" type="text">
+
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <!-- No problem below -->
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Mobile No<span class="text-danger">*</span></label>
+                                    <input class="form-control" [ngClass]="{ 'is-invalid': submitted && f.mobCode.errors }"  formControlName="mobCode" class="form-control"
+                                        type="text">
+                                        <div *ngIf="submitted && f.mobCode.errors" class="invalid-feedback">
+                                          <div *ngIf="f.mobCode.errors.required">*Mobile no is required</div>
+                                      </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Weight</label>
+                                    <input type="number" class="form-control" formControlName="weight" class="form-control">
+
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Height</label>
+                                    <input class="form-control" formControlName="height" class="form-control"
+                                        type="number" >
+
+                                </div>
+
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngFor="let bdlGrp of bloodGrp">
+                                    <label>Blood Group<span class="text-danger">*</span></label>
+                                    <select class="select form-control" formControlName="alkpBloodGrpIdAlkp">
+                                        <option value="">Select Blood Group</option>
+                                        <option *ngFor="let data of bdlGrp.subALKP" [ngValue]='data.id'>{{data.title}}
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngFor="let gender of genders">
+                                    <label>Gender<span class="text-danger">*</span></label>
+                                    <select class="select form-control" formControlName="alkpGenderIdAlkp" [ngClass]="{ 'is-invalid': submitted && f.alkpGenderIdAlkp.errors }">
+                                        <option value="">Select Gender</option>
+                                        <option *ngFor="let data of gender.subALKP" [ngValue]='data.id'>{{data.title}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="submitted && f.alkpGenderIdAlkp.errors" class="invalid-feedback">
+                                      <div *ngIf="f.alkpGenderIdAlkp.errors.required">*Mobile no is required</div>
+                                  </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngFor="let mStatus of maritalStatus">
+                                    <label>Marital Status<span class="text-danger">*</span></label>
+                                    <select class="select form-control" formControlName="alkpMaritalStsIdAlkp" [ngClass]="{ 'is-invalid': submitted && f.alkpMaritalStsIdAlkp.errors }">
+                                        <option value="">Select Marital Status</option>
+                                        <option *ngFor="let data of mStatus.subALKP" [ngValue]='data.id'>{{data.title}}
+                                        </option>
+                                    </select>
+                                    <div *ngIf="submitted && f.alkpMaritalStsIdAlkp.errors" class="invalid-feedback">
+                                      <div *ngIf="f.alkpMaritalStsIdAlkp.errors.required">*Mobile no is required</div>
+                                  </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <!-- <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Nationality<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="bankAccNo" class="form-control"
+                                        type="text">
+                                </div>
+                            </div> -->
+
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="designations">
+                                    <label>Designation Order<span class="text-danger"></span></label>
+                                    <select class="select form-control" formControlName="dgOrder">
+                                        <option value="">Select Designation Order</option>
+                                        <option *ngFor="let data of designations" [ngValue]='data.dgOrder'>
+                                            {{data.dgOrder}} - {{data.title}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                              <div class="form-group">
+                                  <label>Religion</label>
+                                  <select class="select form-control" formControlName="religion">
+                                      <!-- <option value="" (click)="showReligion.current;showReligion.previous = false">Select Religion</option>
+                                      <option value="Islam" (click)="showReligion.current;showReligion.previous = false">Islam</option>
+                                      <option value="Hinduism" (click)="showReligion.current;showReligion.previous = false">Hinduism</option>
+                                      <option value="Christianity" (click)="showReligion.current;showReligion.previous = false">Christianity</option>
+                                      <option value="Buddhism" (click)="showReligion.current;showReligion.previous = false">Buddhism</option>
+                                      <option value="" (click)="showReligion.previous = !showReligion.previous">Others*</option> -->
+                                      <option value="">Select Religion</option>
+                                      <option value="Islam">Islam</option>
+                                      <option value="Hinduism">Hinduism</option>
+                                      <option value="Christianity">Christianity</option>
+                                      <option value="Buddhism">Buddhism</option>
+                                  </select>
+                              </div>
+                              <!-- <input class="form-control" formControlName="religion" type="text" *ngIf="showReligion.previous" placeholder="religion"> -->
+                          </div>
+
+
+
+                        </div>
+                        <hr>
+                        <h3 class="card-title">Permanent Address Information</h3>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Division</label>
+                                    <select (change)="loadAllDistrict($event.target.value[0])"
+                                        class="select form-control" formControlName="division">
+                                        <option value="">Select Division</option>
+                                        <option *ngFor="let data of divisions" [ngValue]='data.id'>{{data.name}}
+
+                                        </option>
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="districts">
+                                    <label>Districts</label>
+                                    <ng-select [items]="districts" formControlName="district" bindLabel="name"
+                                        bindValue="id" (change)="loadAllUpazila($event.id)"
+                                        placeholder="Select District" [searchable]="true" [clearable]="false"
+                                        [virtualScroll]="true" [loading]="ngSelLoader"
+                                        (search)="searchProdDistrict($event)" (scrollToEnd)="scrollToEndDistrict()"
+                                        (open)="openDropdownDistrict($event)" class="custom-ng-select">
+                                    </ng-select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="upazilas">
+                                    <label>Upazila / Thana</label>
+                                    <ng-select [items]="upazilas" formControlName="upazila" bindLabel="name"
+                                        bindValue="id" (change)="loadAllUnion($event.id)" placeholder="Select Upazila"
+                                        [searchable]="true" [clearable]="false" [virtualScroll]="true"
+                                        [loading]="ngSelLoader" (search)="searchProdUpazila($event)"
+                                        (scrollToEnd)="scrollToEndUpazila()" class="custom-ng-select">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="unions">
+                                    <label>Union</label>
+                                    <ng-select [items]="unions" formControlName="union" bindLabel="name" bindValue="id"
+                                        placeholder="Select Union" [searchable]="true" [clearable]="false"
+                                        [virtualScroll]="true" [loading]="ngSelLoader"
+                                        (search)="searchProdUnion($event)" (scrollToEnd)="scrollToEndUnion()" class="custom-ng-select">
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <textarea rows="" class="form-control" formControlName="addressPrmnt" placeholder="eg. PO: Gouripur , Vill: Tilatia , Road: 7"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <h3 class="card-title">Present Address Information</h3>
+                         <div class="row">
+
+                            <div class="col-sm-4">
+                              <div class="form-group">
+                                  <label>Present Address</label>
+                                  <textarea rows="" class="form-control" formControlName="addressPrsnt"></textarea>
+                              </div>
+                          </div>
+                        </div>
+                        <hr>
+
+
+
+                        <h3 class="card-title">Emergency Contact Information</h3>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Name</label>
+                                    <input class="form-control" formControlName="emergencyCntName" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Phone</label>
+                                    <input class="form-control" formControlName="emergencyCntPhone" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Relation</label>
+                                    <input class="form-control" formControlName="emergencyCntRelation"
+                                        class="form-control" type="text">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Address</label>
+                                    <textarea rows="2" class="form-control"
+                                        formControlName="emergencyCntAddress"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <h3 class="card-title"> Official Summary</h3>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Career Summary</label>
+                                    <textarea rows="2" class="form-control" formControlName="careerSummary"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Objective</label>
+                                    <textarea rows="2" class="form-control" formControlName="objective"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Date of Joining<span class="text-danger">*</span></label>
+                                    <div class="cal-icon">
+                                        <input class="form-control datetimepicker" formControlName="joiningDate"
+                                            class="form-control" bsDatepicker type="text"
+                                            [ngClass]="{ 'is-invalid': submitted && f.joiningDate.errors }" type="text"
+                                            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD',  returnFocusToInput: true }">
+                                        <div *ngIf="submitted && f.joiningDate.errors" class="invalid-feedback">
+                                            <div *ngIf="f.joiningDate.errors.required">*Date of Joining is required
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Sal.Expected</label>
+                                    <input class="form-control" formControlName="salExpected" class="form-control"
+                                        type="number">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Tin Number</label>
+                                    <input class="form-control" formControlName="tinNumber" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4" *ngIf="isAddMode">
+                                <div class="form-group" *ngIf="notEmpUsers">
+                                    <label>User</label>
+                                    <!-- <select class="select form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.user.errors }" formControlName="user">
+                                        <option value="">Select user</option>
+                                        <option *ngFor="let usrs of notEmpUsers" [ngValue]='usrs.id'>{{usrs.username}}
+                                        </option>
+                                    </select> -->
+                                    <ng-select  [virtualScroll]="true" class="custom" bindValue="id"
+                                        formControlName="user" [items]="notEmpUsers" bindLabel="username"
+                                        placeholder="Select User" (change)="selectEvent($event)" class="custom-ng-select">
+                                    </ng-select>
+                                    <!-- <div *ngIf="submitted && f.user.errors" class="invalid-feedback">
+                                        <div *ngIf="f.user.errors.required">*User is required</div>
+                                    </div> -->
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Experience Year</label>
+                                    <input class="form-control" formControlName="experienceYear" class="form-control"
+                                        type="number">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="submit-section" *ngIf="isAddMode">
+                            <button class="btn btn-primary submit-btn" type="submit">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                Save
+                                <!-- [disabled]="!addEmployeeForm.valid" -->
+                            </button>
+                        </div>
+                        <div class="submit-section" *ngIf="!isAddMode">
+                            <button class="btn btn-primary submit-btn" type="submit">
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                Update
+                                <!-- [disabled]="!addEmployeeForm.valid" -->
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /Profile Info Tab -->
+
+        <!-- Projects Tab -->
+        <div class="tab-pane fade" id="hrCrEmpAssignment">
+            <div class="card">
+                <div class="card-body">
+                    <!-- <h3 class="card-title"> Employee Assignment Information</h3> -->
+                    <form (ngSubmit)="empAssignmentInfOnSubmit()" [formGroup]="addEmployeeAssgnmntForm">
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="group">
+                                    <label>Business Group<span class="text-danger"></span></label>
+                                    <select class="select form-control" formControlName="allOrgMstGroupId">
+                                        <option value="">Select Group</option>
+                                        <option *ngFor="let data of group" [ngValue]='data.id'>{{data.title}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="organization">
+                                    <label>Organization<span class="text-danger">*</span></label>
+                                    <select class="select form-control" formControlName="allOrgMstOrganizationId">
+                                        <option value="">Select Organization</option>
+                                        <option *ngFor="let data of organization" [ngValue]='data.id'>{{data.title}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="operatingUnit">
+                                    <label>Operating Unit<span class="text-danger"></span></label>
+                                    <select class="select form-control" formControlName="allOrgMstOperatingUnitId">
+                                        <option value="">Select Operating Unit</option>
+                                        <option *ngFor="let data of operatingUnit" [ngValue]='data.id'>{{data.title}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="product">
+                                    <label>Product<span class="text-danger"></span></label>
+                                    <select class="select form-control" formControlName="allOrgMstProductId">
+                                        <option value="">Select Product</option>
+                                        <option *ngFor="let data of product" [ngValue]='data.id'>{{data.title}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="department">
+                                    <label>Department<span class="text-danger">*</span></label>
+                                    <select class="select form-control" formControlName="allOrgMstDepartmentId">
+                                        <option value="">Select Department</option>
+                                        <option *ngFor="let data of department" [ngValue]='data.id'>{{data.title}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="section">
+                                    <label>Section <span class="text-danger"></span></label>
+                                    <select class="select form-control" formControlName="allOrgMstSectionId">
+                                        <option value="">Select Section</option>
+                                        <option *ngFor="let data of section" [ngValue]='data.id'>{{data.title}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="subSection">
+                                    <label>Sub Section<span class="text-danger"></span></label>
+                                    <select class="select form-control" formControlName="allOrgMstSubSectionId">
+                                        <option value="">Select Product</option>
+                                        <option *ngFor="let data of subSection" [ngValue]='data.id'>{{data.title}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="team">
+                                    <label>Team<span class="text-danger"></span></label>
+                                    <select class="select form-control" formControlName="allOrgMstTeamId">
+                                        <option value="">Select Team</option>
+                                        <option *ngFor="let data of team" [ngValue]='data.id'>{{data.title}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="subTeam">
+                                    <label>Sub Team<span class="text-danger"></span></label>
+                                    <select class="select form-control" formControlName="allOrgMstSubTeamId">
+                                        <option value="">Select Sub Team</option>
+                                        <option *ngFor="let data of subTeam" [ngValue]='data.id'>{{data.title}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngFor="let empSts of empStatus">
+                                    <label>Status<span class="text-danger">*</span></label>
+                                    <select class="select form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.empSts.errors }"
+                                        formControlName="empSts">
+                                        <option value="">Select Emp Status</option>
+                                        <option *ngFor="let data of empSts.subALKP" [ngValue]='data.id'>{{data.title}}
+                                        </option>
+
+                                    </select>
+                                    <div *ngIf="submitted && f.empSts.errors" class="invalid-feedback">
+                                        <div *ngIf="f.empSts.errors.required">*Emp Status is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Employee Reference</label>
+                                    <input class="form-control" formControlName="empRef" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Probation Duration<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="probationDuration" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+
+
+                        </div>
+                        <div class="row">
+                            <!-- <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Gross<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="gross" class="form-control"
+                                        type="text">
+                                </div>
+                            </div> -->
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngIf="designations">
+                                    <label>Designations<span class="text-danger">*</span></label>
+                                    <select class="select form-control" formControlName="hrEmpDesignations">
+                                        <option value="">Select Designation</option>
+                                        <option *ngFor="let data of designations" [ngValue]='data.id'>{{data.title}}
+                                        </option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngFor="let cat of empCat">
+                                    <label>Category<span class="text-danger">*</span></label>
+                                    <select class="select form-control" formControlName="alkpEmpCatId">
+                                        <option value="">Select Category</option>
+                                        <option *ngFor="let data of cat.subALKP" [ngValue]='data.id'>{{data.title}}
+                                        </option>
+
+                                    </select>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Position<span class="text-danger"></span></label>
+                                    <input class="form-control" class="form-control" type="text">
+
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Bank Name<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="bankName" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+
+                        </div> -->
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Responsibility<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="responsibility" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>In Charge<span class="text-danger"></span></label>
+                                    <input class="form-control" (input)="searchInchargeId($event.target.value)"
+                                        formControlName="hrCrEmpInChrgId" class="form-control" type="text"
+                                        placeholder="Enter employee Id">
+                                    <p>{{incharge[0]?.displayName ? incharge[0]?.displayName : ''  }}</p>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Concern HR<span class="text-danger">*</span></label>
+                                    <input class="form-control" (input)="searchHrId($event.target.value)"
+                                        formControlName="hrCrEmpHrmId" class="form-control" type="text"
+                                        placeholder="Enter employee Id">
+                                    <p>{{hr[0]?.displayName ? hr[0]?.displayName : ''  }}</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Is Single Punch<span class="text-danger">*</span></label>
+                                    <select class="form-control" formControlName="isSingleCardPunch" >
+                                        <option value="">-- Select --</option>
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="submit-section">
+                            <button class="btn btn-primary submit-btn" type="submit">
+                                <span *ngIf="assgnmntLoading" class="spinner-border spinner-border-sm mr-1"></span>
+                                Save
+                                <!-- [disabled]="!addEmployeeForm.valid" -->
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /Projects Tab -->
+
+        <!-- Bank Statutory Tab -->
+        <div class="tab-pane fade" id="bank_statutory">
+            <div class="card">
+                <div class="card-body">
+                    <form (ngSubmit)="empBankAndPayRollSubmit()" [formGroup]="addBankAndPayrollForm">
+                        <h3 class="card-title">Bank Information</h3>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Bank Name<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="bankName" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Branch Name<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="branchName" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Bank Acc No.<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="bankAccNo" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <hr>
+                        <h3 class="card-title">Payroll Information</h3>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Active Start Date</label>
+                                    <div class="cal-icon">
+                                        <input class="form-control datetimepicker" formControlName="activeStartDate"
+                                            class="form-control" bsDatepicker type="text"
+                                            [ngClass]="{ 'is-invalid': submitted && f.activeStartDate.errors }"
+                                            type="text"
+                                            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD',  returnFocusToInput: true }">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Active End Date</label>
+                                    <div class="cal-icon">
+                                        <input class="form-control datetimepicker" formControlName="activeEndDate"
+                                            class="form-control" bsDatepicker type="text"
+                                            [ngClass]="{ 'is-invalid': submitted && f.activeEndDate.errors }"
+                                            [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD',  returnFocusToInput: true }"
+                                            ng-model-options="{timezone:'UTC'}">
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Gross Salary<span class="text-danger"></span></label>
+                                    <input class="form-control" (input)="inputGrossSal($event.target.value)" formControlName="grossSalary" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Basic Salary<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="basicSalary" class="form-control" readonly
+                                        type="text">
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+                        <div class="row">
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>House Rent<span class="text-danger">(%)</span></label>
+                                    <div class="input-group">
+                                        <input class="form-control" formControlName="houseRentAlwPct" class="form-control" readonly type="text" style="width: 30%;">
+                                        <input class="form-control" formControlName="houseRentAlwAmt" class="form-control" readonly type="text" style="width: 70%;">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Convey Alowance<span class="text-danger">(%)</span></label>
+                                    <div class="input-group">
+                                        <input class="form-control" formControlName="conveyanceAlwPct" class="form-control" readonly type="text" style="width: 30%;">
+                                        <input class="form-control" formControlName="conveyanceAlwAmt" class="form-control" readonly type="text" style="width: 70%;">
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Medical Alowance<span class="text-danger">(%)</span></label>
+                                    <div class="input-group">
+                                        <input class="form-control" formControlName="medicalAlwPct" class="form-control" readonly type="text" style="width: 30%;">
+                                        <input class="form-control" formControlName="medicalAlwAmt" class="form-control" readonly type="text" style="width: 70%;">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Other Alowance<span class="text-danger">(%)</span></label>
+                                    <div class="input-group">
+                                        <input class="form-control" formControlName="otherAlwPct" class="form-control" readonly type="text" style="width: 30%;">
+                                        <input class="form-control" formControlName="otherAlwAmt" class="form-control" readonly type="text" style="width: 70%;">
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+
+                        <div class="submit-section">
+                            <button class="btn btn-primary submit-btn" type="submit">
+                                <span *ngIf="bankLoading" class="spinner-border spinner-border-sm mr-1"></span>
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <!-- /Bank Statutory Tab -->
+
+        <!-- Education Tab -->
+        <div class="tab-pane fade" id="education">
+            <div class="card">
+                <div class="card-body">
+                    <form (ngSubmit)="empEduFormSubmit()" [formGroup]="addEducationForm">
+                        <h3 class="card-title">Education Information</h3>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Code<span class="text-danger"></span></label>
+                                    <input class="form-control" placeholder="eg. ssc" formControlName="code" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                              <div class="form-group">
+                                  <label>Institute Title<span class="text-danger"></span></label>
+                                  <input class="form-control" formControlName="titleInstitute" class="form-control"
+                                      type="text">
+                              </div>
+                          </div>
+
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Passing Year<span class="text-danger"></span></label>
+                                <input class="form-control" formControlName="passingYear" class="form-control"
+                                    type="number">
+                            </div>
+                        </div>
+
+                        </div>
+                        <div class="row">
+
+                          <div class="col-sm-4">
+                            <div class="form-group">
+                                <label>Result type</label>
+
+                                    <select class="select form-control" formControlName="typeRes" (click)="resultType($event.target.value)">
+                                      <option value="">Select Result type</option>
+                                      <option value="gpa">Gpa / Cgpa</option>
+                                      <option value="division">Division</option>
+                                    </select>
+
+                            </div>
+                        </div>
+
+                          <div class="col-sm-4" *ngIf="showRes.gpa">
+                            <div class="form-group">
+                                <label>Result<span style="color: gray;"> (In Gpa/Cgpa) </span></label>
+                                <input class="form-control" formControlName="result" placeholder="eg. 3.44" min="0" class="form-control"
+                                    type="number">
+                            </div>
+                        </div>
+                            <div class="col-sm-4" *ngIf="showRes.gpa">
+                                <div class="form-group">
+                                    <label>Result Out Of<span style="color: gray;"> (In Gpa/Cgpa) </span></label>
+                                    <input class="form-control" formControlName="resultOutOf" placeholder="eg. 4.00" min="0" class="form-control"
+                                        type="number">
+                                </div>
+                            </div>
+
+                            <div class="col-sm-4" *ngIf="showRes.division">
+                              <div class="form-group">
+                                  <label>Result<span style="color: gray;"> (In Division) </span></label>
+                                  <input class="form-control" placeholder="eg. 1st Division" formControlName="resultInDivision" class="form-control"
+                                      type="text">
+                              </div>
+                          </div>
+
+                        </div>
+                        <div class="row">
+                          <div class="col-sm-4">
+                            <div class="form-group" *ngFor="let edb of educationBoard">
+                                <label>Education Board<span class="text-danger"></span></label>
+                                <select class="select form-control" formControlName="alkpEduBoard">
+                                    <option value="">Select Board</option>
+                                    <option *ngFor="let data of edb.subALKP" [ngValue]='data.id'>{{data.title}}
+                                    </option>
+
+                                </select>
+                            </div>
+                        </div>
+                            <div class="col-sm-4">
+                                <div class="form-group" *ngFor="let sg of subjectGroup">
+                                    <label>Subject Group<span class="text-danger"></span></label>
+                                    <select class="select form-control" formControlName="alkpSubGroup">
+                                        <option value="">Select Group</option>
+                                        <option *ngFor="let data of sg.subALKP" [ngValue]='data.id'>{{data.title}}
+                                        </option>
+
+                                    </select>
+                                </div>
+                            </div>
+
+
+                            <div class="col-sm-4">
+                              <div class="form-group">
+                                <label>Subject<span class="text-danger"></span></label>
+                                <input class="form-control" formControlName="subject" class="form-control"
+                                    type="text">
+
+                              </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                            <!-- <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>ID<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="id" class="form-control"
+                                        type="text" readonly>
+                                </div>
+                            </div> -->
+                            <div class="col-sm-4">
+                              <div class="form-group">
+                                  <label>Reg. No<span class="text-danger"></span></label>
+                                  <input class="form-control" formControlName="regNo" class="form-control"
+                                      type="text">
+                              </div>
+                            </div>
+                        </div>
+                        <div class="submit-section">
+                            <button class="btn btn-primary submit-btn" type="submit">
+                                Save
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <h3>List of Education Info</h3>
+                    <table id="eduListTable" class="table table-striped custom-table">
+                        <thead>
+                          <tr>
+                            <th>Examination</th>
+                            <th>Institute</th>
+                            <th>Passing Year</th>
+                            <th>Group</th>
+                            <th>Subject</th>
+                            <th>Result</th>
+                            <th>Reg No</th>
+                            <th class="text-right no-sort">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let thisObj of hrCrEmpEduInfo">
+                            <td>{{ thisObj.code }} </td>
+                            <td>{{ thisObj.titleInstitute }}</td>
+                            <td>{{ thisObj.passingYear }}</td>
+                            <td>{{ thisObj.alkpSubGroup? thisObj.alkpSubGroup.title:''}}</td>
+                            <td>{{thisObj.subject}}</td>
+                            <td *ngIf="thisObj.resultInDivision ===null && thisObj.result !== null ">
+                             {{thisObj.result}} <span style="color: gray;">out of</span>  {{thisObj.resultOutOf}}.00
+                            </td>
+                            <td *ngIf="thisObj.resultInDivision !=='' && thisObj.result === null ">
+                              {{thisObj.resultInDivision}}
+                             </td>
+                             <td *ngIf="thisObj.resultInDivision ==='' && thisObj.result === null ">
+                             </td>
+
+                            <td>{{ thisObj.regNo }}</td>
+                            <td class="text-right">
+                              <div class="dropdown dropdown-action">
+                                <a class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                                    class="material-icons">more_vert</i></a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                  <a class="dropdown-item" (click)="editEducationClickEvent(thisObj.id)"><i
+                                      class="fa fa-pencil m-r-5"></i> Edit</a>
+                                  <a class="dropdown-item" (click)="tempEduId = thisObj.id" data-toggle="modal"
+                                    data-target="#delete_hrCrEmpEducation"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                </div>
+                              </div>
+                            </td>
+                          </tr>
+
+                          <tr *ngIf="hrCrEmpEduInfo.length === 0">
+                            <td colspan="10">
+                              <h5 style="text-align: center">No data found</h5>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                </div>
+            </div>
+        </div>
+        <!-- /End Education Tab -->
+
+        <!-- Delete education  -->
+        <div class="modal custom-modal fade" id="delete_hrCrEmpEducation" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div class="form-header">
+                    <h3>Delete Education</h3>
+                    <p>Are you sure want to delete?</p>
+                  </div>
+                  <div class="modal-btn delete-action">
+                    <div class="row">
+                      <div class="col-6">
+                        <a class="btn btn-primary continue-btn" (click)="deleteHrCrEmpEducation()">Delete</a>
+                      </div>
+                      <div class="col-6">
+                        <a data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Delete education -->
+
+ <!-- Experience Tab -->
+ <div class="tab-pane fade" id="PreExp">
+  <div class="card">
+      <div class="card-body">
+          <form (ngSubmit)="preExpFormSubmit()" [formGroup]="addEmpExpForm">
+              <h3 class="card-title">Previous Experience</h3>
+              <div class="row">
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>Organization<span class="text-danger"></span></label>
+                          <input class="form-control" placeholder="previous org name" formControlName="organizationTitle" class="form-control"
+                              type="text">
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>Designation<span class="text-danger"></span></label>
+                          <input class="form-control" formControlName="designation" class="form-control"
+                              type="text">
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>Salary</label>
+                          <input class="form-control" formControlName="salary" class="form-control"
+                              type="text">
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>Reason Of Leave</label>
+                          <input class="form-control" formControlName="reasonOfLeave" class="form-control"
+                              type="text">
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>From Date<span class="text-danger"></span></label>
+                          <input class="form-control datetimepicker" formControlName="fromDate"
+                                    class="form-control invalid" bsDatepicker type="text"
+                                     type="text"
+                                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD',  returnFocusToInput: true }" placeholder="yyyy-mm-dd">
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>To Date<span class="text-danger"></span></label>
+                          <input class="form-control datetimepicker" formControlName="toDate"
+                                    class="form-control invalid" bsDatepicker type="text"
+                                     type="text"
+                                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD',  returnFocusToInput: true }" placeholder="yyyy-mm-dd">
+                      </div>
+                  </div>
+              </div>
+
+
+              <div class="submit-section">
+                  <button class="btn btn-primary submit-btn" type="submit">
+                      Save
+                  </button>
+              </div>
+
+          </form>
+      </div>
+  </div>
+  <div class="card">
+      <div class="card-body">
+          <h3>List of Exp</h3>
+          <table id="eduListTable" class="table table-striped custom-table">
+              <thead>
+                <tr>
+                  <th>Organization</th>
+                  <th>Salary</th>
+                  <th>Designation</th>
+                  <th>From</th>
+                  <th>To</th>
+                  <th>Reason Of Leave</th>
+                  <th class="text-right no-sort">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="let thisObj of hrCrEmpPreExpInfo">
+
+                  <td>{{thisObj.organizationTitle}}</td>
+                  <td>{{thisObj.salary}}</td>
+                  <td>{{thisObj.designation}}</td>
+                  <td>{{thisObj.fromDate |date:'mediumDate'}}</td>
+                  <td>{{thisObj.toDate |date:'mediumDate'}}</td>
+                  <td>{{thisObj.reasonOfLeave}}</td>
+                  <td class="text-right">
+                    <div class="dropdown dropdown-action">
+                      <a class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                          class="material-icons">more_vert</i></a>
+
+                          <div class="dropdown-menu dropdown-menu-right">
+                            <a class="dropdown-item" (click)="tempEduId = thisObj.id" data-toggle="modal"
+                              data-target="#delete_hrCrEmpExp"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                          </div>
+
+                    </div>
+                  </td>
+                </tr>
+
+                <tr *ngIf="hrCrEmpPreExpInfo.length === 0">
+                  <td colspan="10">
+                    <h5 style="text-align: center">No data found</h5>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+      </div>
+  </div>
+</div>
+<!-- /End Experience Tab -->
+
+<!-- Delete Experience  -->
+<div class="modal custom-modal fade" id="delete_hrCrEmpExp" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Delete Experience</h3>
+          <p>Are you sure want to delete?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a class="btn btn-primary continue-btn" (click)="deleteHrCrEmpExp()">Delete</a>
+            </div>
+            <div class="col-6">
+              <a data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete Experience -->
+
+<!-- Nominee Tab -->
+<div class="tab-pane fade" id="nominee">
+  <div class="card">
+      <div class="card-body">
+          <form (ngSubmit)="nomineeFormSubmit()" [formGroup]="addNomineeForm" enctype="multipart/form-data">
+              <h3 class="card-title">Nominee</h3>
+              <div class="row">
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>Nominee Name<span class="text-danger">*</span></label>
+                          <input class="form-control" placeholder="Nominee name" formControlName="nomineeName" class="form-control"
+                              type="text">
+                              <span style="font-size: 12px;" class="text-danger" *ngIf="nomineeName && nomineeName.invalid && nomineeName.touched">Field is required</span>
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>Relation with Employee<span class="text-danger">*</span></label>
+                          <select class="select form-control invalid" formControlName="relation">
+                            <option value="" (click)="showDivv.current;showDivv.previous = false">Select Relation</option>
+                            <option value="Father" (click)="showDivv.current;showDivv.previous = false">Father</option>
+                            <option value="Mother" (click)="showDivv.current;showDivv.previous = false">Mother</option>
+                            <option value="Brother" (click)="showDivv.current;showDivv.previous = false">Brother</option>
+                            <option value="Sister" (click)="showDivv.current;showDivv.previous = false">Sister</option>
+                            <option value="Spouse" (click)="showDivv.current;showDivv.previous = false">Spouse</option>
+                            <option value="Child" (click)="showDivv.current;showDivv.previous = false">Child</option>
+                            <option value="" (click)="showDivv.previous = !showDivv.previous">Others*</option>
+                          </select>
+                          <input *ngIf="showDivv.previous" class="form-control m-1"  formControlName="relation" class="form-control"
+                          type="text">
+                          <span style="font-size: 12px;" class="text-danger" *ngIf="relation && relation.invalid && relation.touched">Field is required</span>
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>Mobile</label><span class="text-danger">*</span>
+                          <input class="form-control" formControlName="mobile" class="form-control"
+                              type="text">
+                              <span style="font-size: 12px;" class="text-danger" *ngIf="mobile && mobile.invalid && mobile.touched">Field is required</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>NID</label><span class="text-danger">*</span>
+                          <input class="form-control" formControlName="nidNominee" class="form-control"
+                              type="text">
+                              <span style="font-size: 12px;" class="text-danger" *ngIf="nidNominee && nidNominee.invalid && nidNominee.touched">Field is required</span>
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>Birth ID no<span class="text-danger"></span></label>
+                          <input class="form-control" formControlName="birsNo" class="form-control"
+                          type="text">
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Percentage<span class="text-danger">*</span></label>
+                        <input class="form-control" formControlName="shareOfPercentage" max="100" min="1" class="form-control"
+                        type="number">
+                        <span style="font-size: 12px;" class="text-danger" *ngIf="shareOfPercentage && shareOfPercentage.invalid && shareOfPercentage.touched">Please enter valid data</span>
+                    </div>
+                </div>
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>DOB<span class="text-danger">*</span></label>
+                          <input class="form-control datetimepicker" formControlName="dob"
+                                    class="form-control invalid" bsDatepicker type="text"
+                                     type="text"
+                                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD',  returnFocusToInput: true }" placeholder="yyyy-mm-dd">
+                                    <span style="font-size: 12px;" class="text-danger" *ngIf="dob && dob.invalid && dob.touched">Field is required</span>
+                      </div>
+                  </div>
+                  <div class="col-sm-8">
+                    <div class="form-group">
+                        <label>Bank Account Info<span class="text-danger"></span></label>
+                        <textarea formControlName="bankAccInfo" class="form-control"></textarea>
+                    </div>
+                </div>
+
+
+              </div>
+
+
+              <div class="submit-section">
+                  <button class="btn btn-primary submit-btn" type="submit" [disabled]="addNomineeForm.invalid">
+                      Save
+                  </button>
+              </div>
+
+          </form>
+      </div>
+  </div>
+  <div class="card">
+      <div class="card-body">
+          <h3>List of Nominee</h3>
+          <table id="eduListTable" class="table table-striped custom-table">
+            <thead>
+              <tr>
+                <th>Nominee Name</th>
+                <th>Relation</th>
+                <th>Mobile</th>
+                <th>Dob</th>
+                <th>NID</th>
+                <th>Birth Id no</th>
+                <th>Percentage</th>
+                <th>Image</th>
+                <th>Bank Account Details</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let thisObj of hrCrEmpNomineeInfo">
+                <td>{{ thisObj.nomineeName }}</td>
+                <td>{{ thisObj.relation }}</td>
+                <td>{{ thisObj.mobile }}</td>
+                <td>{{ thisObj.dob |date:'mediumDate'}}</td>
+                <td>{{ thisObj.nidNominee }}</td>
+                <td>{{ thisObj.birsNo }}</td>
+                <td>{{ thisObj.shareOfPercentage }}%</td>
+
+                <td><img class="avatar" data-target="#nominee_Image" data-toggle="modal" data-toggle="modal" (click)="tempEduId = thisObj.id" alt="" style="height:70px;width:70px;" src="{{ baseUrl + thisObj.image}}"></td>
+                <td>{{ thisObj.bankAccInfo }}</td>
+                <td class="text-right">
+                  <div class="dropdown dropdown-action">
+                    <a class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                        class="material-icons">more_vert</i></a>
+                    <div class="dropdown-menu dropdown-menu-right">
+
+                      <a class="dropdown-item" data-target="#nominee_Image" data-toggle="modal" data-toggle="modal" (click)="tempEduId = thisObj.id">
+                        <i class="fa fa-upload m-r-5"></i> Documents Upload
+                      </a>
+
+                      <a class="dropdown-item" (click)="tempEduId = thisObj.id" data-toggle="modal"
+                        data-target="#delete_hrCrEmpNominee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                    </div>
+                  </div>
+                </td>
+              </tr>
+
+              <tr *ngIf="hrCrEmpNomineeInfo.length === 0">
+                <td colspan="10">
+                  <h5 style="text-align: center">No data found</h5>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+<!-- /End Nominee Tab -->
+
+
+  <!-- Image upload modal -->
+  <div id="nominee_Image" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Upload Nominee Image</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="uploadNomineeForm" (ngSubmit)="Submitt()">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="profile-img-wrap edit-img" >
+
+                  <img [src]="imgSrc" height="100" *ngIf="imgSrc">
+                  <div class="fileupload btn">
+                    <span class="btn-text">Select</span>
+                    <input class="upload" type="file" name="nominee" accept="image/x-png,image/jpeg,image/jpg"
+                      (change)="onFileSelect($event)" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="submit-section">
+              <button class="btn btn-primary submit-btn">Upload</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- /Image upload modal -->
+
+<!-- Delete Experience  -->
+<div class="modal custom-modal fade" id="delete_hrCrEmpNominee" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="form-header">
+          <h3>Delete Nominee</h3>
+          <p>Are you sure want to delete?</p>
+        </div>
+        <div class="modal-btn delete-action">
+          <div class="row">
+            <div class="col-6">
+              <a class="btn btn-primary continue-btn" (click)="deleteHrCrEmpNominee()">Delete</a>
+            </div>
+            <div class="col-6">
+              <a data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Delete Experience -->
+
+
+<!-- training Tab -->
+<div class="tab-pane fade" id="training">
+  <div class="card">
+      <div class="card-body">
+          <form (ngSubmit)="trainingFormSubmit()" [formGroup]="addTrainingForm" enctype="multipart/form-data">
+              <h3 class="card-title">Training</h3>
+              <div class="row">
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>Training Type</label>
+
+                              <select class="select form-control invalid" formControlName="trainingType">
+                                <option value="">Select Training Type</option>
+                                <option value="External">External</option>
+                                <option value="Internal">Internal</option>
+                              </select>
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                    <div class="form-group">
+                        <label>Training Title<span class="text-danger">*</span></label>
+                        <input class="form-control"  formControlName="trainingTitle" class="form-control"
+                            type="text">
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="trainingTitle && trainingTitle.invalid && trainingTitle.touched">Field is required</span>
+                    </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                      <label>Major<span class="text-danger">*</span></label>
+                      <input class="form-control"  formControlName="major" class="form-control"
+                          type="text">
+                          <span style="font-size: 12px;" class="text-danger" *ngIf="major && major.invalid && major.touched">Field is required</span>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                      <label>Organization<span class="text-danger">*</span></label>
+                      <input class="form-control"  formControlName="organization" class="form-control"
+                          type="text">
+                          <span style="font-size: 12px;" class="text-danger" *ngIf="organizationn && organizationn.invalid && organizationn.touched">Field is required</span>
+                  </div>
+                </div>
+
+
+
+                  <div class="col-sm-2">
+                      <div class="form-group">
+                          <label>Duration Type<span class="text-danger">*</span></label>
+                          <select class="select form-control invalid" formControlName="durationType">
+                            <option value="">Select Relation</option>
+                            <option value="hours">Hours</option>
+                            <option value="days">Days</option>
+                            <option value="weeks">Weeks</option>
+                            <option value="months">Months</option>
+                            <option value="years">Years</option>
+                          </select>
+                          <span style="font-size: 12px;" class="text-danger" *ngIf="durationType && durationType.invalid && durationType.touched">Field is required</span>
+                  </div>
+                  </div>
+                  <div class="col-sm-2">
+                    <div class="form-group">
+                        <label>Duration (in number)<span class="text-danger">*</span></label>
+                          <input class="form-control"  formControlName="durationValue" class="form-control"
+                          type="text">
+                          <span style="font-size: 12px;" class="text-danger" *ngIf="durationValue && durationValue.invalid && durationValue.touched">Field is required</span>
+                      </div>
+                  </div>
+                  <div class="col-sm-4">
+                      <div class="form-group">
+                          <label>Achievement</label>
+                          <input class="form-control" formControlName="achievement" class="form-control"
+                              type="text">
+                              <span style="font-size: 12px;" class="text-danger" *ngIf="achievement && achievement.invalid && achievement.touched">Field is required</span>
+                      </div>
+                  </div>
+              </div>
+
+
+
+              <div class="submit-section">
+                  <button class="btn btn-primary submit-btn" type="submit" [disabled]="addTrainingForm.invalid">
+                      Save
+                  </button>
+              </div>
+
+          </form>
+      </div>
+  </div>
+  <div class="card">
+      <div class="card-body">
+          <h3>List of Trainings</h3>
+          <table id="eduListTable" class="table table-striped custom-table">
+            <thead>
+              <tr>
+                  <th>Training Type</th>
+                  <th>Training Title</th>
+                  <th>Major</th>
+                  <th>Organization</th>
+                  <th>Duration</th>
+                  <th>Achievement</th>
+                  <th>Attachment</th>
+              </tr>
+          </thead>
+            <tbody>
+              <tr *ngFor="let thisObj of hrCrEmpTrainingInfo">
+                <td>{{thisObj.trainingType}}</td>
+                <td>{{thisObj.trainingTitle}}</td>
+                <td>{{thisObj.major}}</td>
+                <td>{{thisObj.organization}}</td>
+                <td>{{thisObj.durationValue}} {{thisObj.durationType}}</td>
+                <td>{{thisObj.achievement}}</td>
+                <td>
+                  <a *ngIf="thisObj.files != null" href="{{ baseUrl + thisObj.files}}" target="_blank" class="btn-sm btn btn-outline-primary"><i class="fa fa-download"
+                    aria-hidden="true"></i> Download</a>
+                </td>
+                <td class="text-right">
+                    <div class="dropdown dropdown-action">
+                      <a class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                          class="material-icons">more_vert</i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+
+                        <a class="dropdown-item" data-target="#training_doc" data-toggle="modal" data-toggle="modal" (click)="tempEduId = thisObj.id">
+                          <i class="fa fa-upload m-r-5"></i> Documents Upload
+                        </a>
+
+                        <a class="dropdown-item" (click)="tempEduId = thisObj.id" data-toggle="modal"
+                          data-target="#delete_hrCrEmpTraining"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                      </div>
+                    </div>
+                  </td>
+            </tr>
+              <tr *ngIf="hrCrEmpTrainingInfo.length === 0">
+                <td colspan="10">
+                  <h5 style="text-align: center">No data found</h5>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+      </div>
+  </div>
+</div>
+<!-- /End Training Tab -->
+
+
+<!-- Delete Training  -->
+<div class="modal custom-modal fade" id="delete_hrCrEmpTraining" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-body">
+          <div class="form-header">
+            <h3>Delete Training</h3>
+            <p>Are you sure want to delete?</p>
+          </div>
+          <div class="modal-btn delete-action">
+            <div class="row">
+              <div class="col-6">
+                <a class="btn btn-primary continue-btn" (click)="deleteHrCrEmpTraining()">Delete</a>
+              </div>
+              <div class="col-6">
+                <a data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Delete Training -->
+
+ <!-- Doc upload modal -->
+  <div id="training_doc" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Upload Training Certificates</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="formData" (ngSubmit)="SubmitDoc()">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-8">
+                  <input class="form-control" type="file" name="files" (change)="onFileSelectDoc($event)" accept="application/pdf,application/msword,image/png,image/jpeg"/>
+                  <span class="text-muted" *ngIf="documentsSave==true">File type should be PNG, JPG, PDF, DOC</span>
+                </div>
+                <div class="col-md-4" *ngIf="documentsSave == false">
+                  <button type="submit"
+                    class="btn btn btn-outline-primary">
+                    <i class="fa fa-upload" aria-hidden="true"></i>
+                    Upload &nbsp;
+                  </button>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- /Doc upload modal -->
+
+    </div>
+</div>
+
+<!-- /Page Content -->
+<ngx-spinner bdColor="rgba(255,255,255,0.5)" size="medium" color="#667eea" type="ball-clip-rotate" [fullScreen]="true">
+    <p style="color: black"> Processing... </p>
+</ngx-spinner>

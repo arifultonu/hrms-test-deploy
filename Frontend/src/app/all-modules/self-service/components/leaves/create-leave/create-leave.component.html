@@ -1,0 +1,195 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Leave</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item active">Self Service</li>
+                    <li class="breadcrumb-item active">Leave</li>
+                    <li class="breadcrumb-item active">Create</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a class="btn add-btn" routerLink="/sefl-service/employeeleaves"><i class="fa fa-share"></i> Back To List</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <!-- <div class="card-header"> -->
+                    <!-- <h4 class="card-title mb-0">Payroll Item Value</h4> -->
+                <!-- </div>  -->
+                <div class="card-body">
+                    <form novalidate (ngSubmit)="myFormSubmit()" [formGroup]="myForm">
+
+                        <!-- <div class="form-group row">
+                            <label class="col-form-label col-md-2">Employee </label>
+                            <div class="col-md-10">
+                                <ng-select
+                                    [items]="configDDL.listData" formControlName="hrCrEmp" placeholder="Select employee"
+                                    bindLabel="ddlDescription" bindValue="ddlCode"
+                                    [searchable]="true" [clearable]="true" [virtualScroll]="true" [clearOnBackspace]="true"
+                                    (search)="searchDDL($event)" (scrollToEnd)="scrollToEndDDL()" (clear)="clearDDL()"
+                                    (click)="initSysParamsDDL($event, 'ddlDescription', '/api/common/getEmp', 'hrCrEmp')"
+
+                                    ddlActiveFieldName="ddlDescription" class="custom-ng-select">
+                                </ng-select>
+                            </div>
+                        </div> -->
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Employee</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" formControlName="hrCrEmp" disabled>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Contact No</label>
+                            <div class="col-md-10">
+                                <input  oninput="javascript: if (this.value.length > this.maxLength) this.value = this.value.slice(0, this.maxLength);"
+                                 type="number" class="form-control" maxlength="11" formControlName="contactNo" readonly>
+                            </div>
+                        </div>
+
+
+
+
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2 val-required">Responsible Employee </label>
+                            <div class="col-md-10">
+                                <ng-select
+                                    [items]="configDDL.listData" formControlName="hrCrEmpResponsible"
+                                    bindLabel="ddlDescription" bindValue="ddlCode"
+                                    [searchable]="true" [clearable]="true" [virtualScroll]="true" [clearOnBackspace]="true"
+                                    (search)="searchDDL($event)" (scrollToEnd)="scrollToEndDDL()" (clear)="clearDDL()"
+                                    (click)="initSysParamsDDL($event, 'ddlDescription', '/api/common/getEmp', 'hrCrEmp')"
+                                    ddlActiveFieldName="ddlDescription" class="custom-ng-select" (change)="nam($event.ddlCode)">
+                                </ng-select>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group row">
+                            <label class="col-form-label col-md-2">Responsible Employee Contact No</label>
+                            <div class="col-md-10">
+                                <input type="number" class="form-control"  formControlName="contactNo">
+                            </div>
+                        </div> -->
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2 val-required">Leave Type</label>
+                        <div class="col-md-10">
+                            <ng-select formControlName="alkpLeaveType" [items]="leaveList" bindLabel="title" bindValue="id" class="custom-ng-select"
+                                placeholder="Select Leave type" appendTo="body" (change)="LType($event.id)">
+                            </ng-select>
+
+                        </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2 val-required">Start Date</label>
+                            <div class="col-md-10">
+                                <div class="cal-icon">
+                                    <input type="text" class="form-control datetimepicker" formControlName="startDate" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" bsDatepicker>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2 val-required">End Date</label>
+                            <div class="col-md-10">
+                                <div class="cal-icon">
+                                    <input type="text" class="form-control datetimepicker" formControlName="endDate" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }"  bsDatepicker>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- <div class="form-group row">
+                            <label class="col-form-label col-md-2">Leave Days</label>
+                            <div class="col-md-10">
+                                <input type="number" class="form-control"  formControlName="leaveDays">
+                            </div>
+                        </div> -->
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2 val-required">Address During Leave</label>
+                            <div class="col-md-10">
+                                <textarea type="text" class="form-control"  formControlName="addressDuringLeave"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2 val-required">Reason For Leave</label>
+                            <div class="col-md-10">
+                                <textarea type="text" class="form-control"  formControlName="reasonForLeave"></textarea>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Remarks</label>
+                            <div class="col-md-10">
+                                <textarea type="text" class="form-control"  formControlName="remarks"></textarea>
+                            </div>
+                        </div>
+
+                        <div class="text-right">
+                            <a class="btn btn-warning btn-ripple" routerLink="/sefl-service/employeeleaves"><i class="fa fa-share"></i> Cancel</a>
+                            &nbsp; &nbsp;
+                            <button type="button" class="btn btn-secondary btn-ripple" (click)="resetFormValues()">
+                                <i class="fa fa-undo" aria-hidden="true"></i> Reset
+                            </button>
+                            &nbsp; &nbsp;
+                            <button type="submit" class="btn btn-primary btn-ripple">
+                                <i class="fa fa-check" aria-hidden="true"></i> Save &nbsp;&nbsp;&nbsp;
+                            </button>
+
+                        </div>
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<!-- Delete Modal -->
+<div class="modal custom-modal fade" id="delete_entity" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-body">
+              <div class="form-header">
+                  <h3>Hello {{phr}}!</h3>
+                  <p class="clearfix">You are taking leave from <b>{{psd |date:'mediumDate'}}</b> to <b>{{ped|date:'mediumDate'}}</b>.</p>
+                  <p class="clearfix">Type of your leave is : <b>{{Ltype.title}}</b></p>
+                  <p class="clearfix">Reason of taking leave: <b>{{paddr}}</b></p>
+                  <p class="clearfix"><b>{{empl.firstName}} {{empl.lastName}}</b> will take your responsibilities during leave period.</p>
+              </div>
+              <div class="modal-btn delete-action">
+                  <div class="row">
+                      <div class="col-6">
+                          <a  class="btn btn-success continue-btn" (click)="finalsubmit()">Confirm <i class="fa fa-check"></i></a>
+                      </div>
+                      <div class="col-6">
+                          <a  data-dismiss="modal"
+                              class="btn btn-primary cancel-btn">Cancel</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- /Delete Modal -->
+
+</div>
+<!-- /Page Content -->
+
+
+
+

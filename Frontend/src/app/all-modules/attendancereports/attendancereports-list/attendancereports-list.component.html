@@ -1,0 +1,121 @@
+<!-- Page Wrapper -->
+            <div class="page-wrapper">
+
+				<!-- Page Content -->
+                <div class="content container-fluid">
+
+					<!-- Page Header -->
+					<div class="page-header">
+						<div class="row align-items-center">
+							<div class="col">
+								<h3 class="page-title">Attendance Reports</h3>
+								<ul class="breadcrumb">
+									<li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+									<li class="breadcrumb-item active">Attendance Reports</li>
+								</ul>
+
+
+							</div>
+							<div class="col-auto float-right ml-auto">
+								<div _ngcontent-pcf-c133="" class="btn-group btn-group-sm">
+									<button _ngcontent-pcf-c133="" class="btn btn-white">CSV</button>
+									<button _ngcontent-pcf-c133="" class="btn btn-white" (click)="renderJasperReport()">PDF</button>
+									<button _ngcontent-pcf-c133="" class="btn btn-white">
+									<i _ngcontent-pcf-c133="" class="fa fa-print fa-lg">
+									</i> Print</button>
+								</div>
+							</div>
+						</div>
+					</div>
+					<!-- /Page Header -->
+
+						<!-- Content Starts -->
+						<!-- Search Filter -->
+					<form (ngSubmit)="formSubmit()" [formGroup]="reportBetweenDateForm" >
+						<div class="row filter-row mb-4">
+						<div class="col-sm-6 col-md-3">
+							<div class="form-group form-focus">
+								<div class="cal-icon">
+									<input class="form-control floating datetimepicker fromDate dateEntryField"   formControlName="fromDate" type="text" bsDatepicker>
+								</div>
+								<label class="focus-label">Form Date</label>
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-3">
+							<div class="form-group form-focus">
+								<div class="cal-icon">
+									<input class="form-control floating datetimepicker toDate dateEntryField" formControlName="toDate" type="text" bsDatepicker>
+								</div>
+								<label class="focus-label">To Date</label>
+							</div>
+						</div>
+						<div class="col-sm-6 col-md-3">
+							<button  class="btn btn-primary submit-btn" type="submit">
+                                Search
+                                <!-- [disabled]="!addEmployeeForm.valid" -->
+                            </button>
+						</div>
+						</div>
+				    </form>
+					<!-- /Search Filter -->
+
+
+
+
+
+					<div class="row">
+						<div class="col-md-12">
+							<div class="table-responsive">
+								<table class="table table-striped custom-table">
+									<thead>
+										<tr>
+											<th class="tdthwidth">#</th>
+											<th class="tdthwidth">Date</th>
+                      <th class="tdthwidth">Day</th>
+											<th class="tdthwidth">In Time</th>
+											<th class="tdthwidth">Out Time</th>
+											<th class="tdthwidth">Status</th>
+
+
+										</tr>
+									</thead>
+									<tbody>
+										<tr *ngFor="let val of AttnReport;let i = index">
+											<td class="tdthwidth">{{i+1}}</td>
+											<td class="tdthwidth">{{val.thisCreateDate| date}}</td>
+                      <td class="tdthwidth">{{val.thisCreateDate| date:'EEEE'}}</td>
+											<td class="tdthwidth">{{val.inTime}}</td>
+											<td class="tdthwidth">{{val.outTime}}</td>
+											<td *ngIf="val.isColor==1" style="color: green;">
+												{{val.attnDayStsFinalType}}
+											</td>
+											<td *ngIf="val.isColor==2" style="color: rgb(231, 163, 15);">
+												{{val.attnDayStsFinalType}}
+											</td>
+
+											<td *ngIf="val.isColor==null" style="color: rgb(228, 19, 36);">
+												{{val.attnDayStsFinalType}}
+											</td>
+											<td *ngIf="val.isColor==4" style="color: rgb(231, 163, 15);">
+												{{val.attnDayStsFinalType}}
+											</td>
+											<td *ngIf="val.isColor==3" style="color: rgb(231, 163, 15);">
+												{{val.attnDayStsFinalType}}
+											</td>
+
+										</tr>
+
+									</tbody>
+								</table>
+							</div>
+						</div>
+					</div>
+
+					<!-- /Content End -->
+
+                </div>
+				<!-- /Page Content -->
+				<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>
+
+            </div>
+			<!-- /Page Wrapper -->

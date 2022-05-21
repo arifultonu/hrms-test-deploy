@@ -1,0 +1,177 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Custom Job Service</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item active">System Job</li>
+                    <li class="breadcrumb-item active">Custom Job Service</li>
+                    <li class="breadcrumb-item active">List</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <div class="btn-group btn-group">
+                    <button class="btn btn-white">Excel</button>
+                    <button class="btn btn-white">PDF</button>
+                    <button class="btn btn-white"><i class="fa fa-print fa-lg"></i> Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+    
+    <!-- Search Filter -->
+    <div class="card mb-2" style="background-color:transparent;">
+        <div class="card-body p-3">
+
+            <div class="row filter-row">
+
+                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2 col-12">
+                    <div class="form-group form-focus">
+                        <input type="text" class="form-control floating" (input)="searchByJobTitle($event.target.value)">
+                        <label class="focus-label">Job Title </label>
+                    </div>
+                </div>
+
+                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+                    <div class="form-group form-focus">
+                        <div class="cal-icon">
+                            <input class="form-control floating datetimepicker" bsDatepicker type="text" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" (bsValueChange)="searchByFromDate($event)">
+                        </div>
+                        <label class="focus-label">From</label>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+                    <div class="form-group form-focus">
+                        <div class="cal-icon">
+                            <input class="form-control floating datetimepicker" bsDatepicker type="text" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" (bsValueChange)="searchByToDate($event)">
+                        </div>
+                        <label class="focus-label">To</label>
+                    </div>
+                </div>
+                <div class="col-sm-6 col-md-3 col-lg-3 col-xl-2 col-12">
+                    <a  class="btn btn-success btn-block" (click)="searchBySearchButton()" > Search </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- /Search Filter -->
+
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="card">
+
+                <div class="card-header">
+                    <div class="card-tools">
+                         <a routerLink = "/broadcastx/custom-job/create" class="btn btn-outline-primary"><i class="fa fa-plus"></i> New &nbsp;&nbsp;&nbsp;</a>
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        <div class="d-flex justify-content-start pb-1">
+                            <div class="pgn-displayDataInfo">
+                                <span class="page-item disabled">Displaying ( {{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (1) ) }}  to {{configPgn.pngDiplayLastSeq}} of {{configPgn.totalItem}} ) entries</span>
+                            </div>
+                        </div>
+
+                        <table id="genListTable" class="table table-striped custom-table" >
+                            <thead>
+                                <tr>
+                                    <th>SL</th>
+                                    <th class="d-none">TB_ROW_ID</th>
+                                    <th>Job Title</th>
+                                    <th>Proc From Date</th>
+                                    <th>Proc To Date</th>
+                                    <th>Start Job</th>
+                                    <th>Status</th>
+                                    <th>Job Start Time</th>
+                                    <th>Job End Time</th>
+                                    <th>Job Creadtd By</th>
+                                    <th>Job Processed By</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let thisObj of listData | paginate : configPgn; let i = index" [class.active]="i == currentIndex">
+
+                                    <td>{{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (i+1) ) }}</td>
+                                    <td class="d-none">{{thisObj.id}}</td>
+                                    <td>{{thisObj.jobTitle}}</td>
+                                    <td>{{thisObj.procFromDate | date}}</td>
+                                    <td>{{thisObj.procToDate | date}}</td>
+                                    <td>
+                                        <a *ngIf="thisObj.jobStatus != 'Completed'"   class="btn btn-outline-primary btn-sm" (click)="startJob($event,thisObj.id,thisObj.jobTitle)">
+                                          <i class="fa fa-play" aria-hidden="true"></i> Start Job</a>
+
+                                          <a *ngIf="thisObj.jobStatus == 'Completed'"   class="btn btn-outline-success btn-sm disabled" (click)="startJob(thisObj.id)">
+                                            <i class="fa fa-check" aria-hidden="true"></i> Completed</a>
+                                    </td>
+                                    <td fieldname="jobStatus">
+
+                                        <span *ngIf="thisObj.jobStatus == null" class=" btn btn-outline-dark btn-sm disabled">
+                                          <i class="fa fa-clock-o" aria-hidden="true"></i><span> Pending</span></span>
+
+                                        <span *ngIf="thisObj.jobStatus == 'Completed'" class="btn btn-outline-success btn-sm disabled">
+                                            <i class="fa fa-check" aria-hidden="true"></i> Success</span>
+                                    </td>
+
+                                    <td>{{thisObj.jobStartTime }}</td>
+                                    <td>{{thisObj.jobEndTime }}</td>
+                                    <td>{{thisObj?.createdBy?.displayName}}</td>
+                                    <td>{{thisObj?.processBy?.displayName}}</td>
+                                  
+                                </tr>
+
+                                <tr *ngIf="listData.length === 0">
+                                    <td colspan="10">
+                                        <h5 style="text-align: center;">No data found</h5>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <div class="d-flex justify-content-end ">
+
+                            <div class="" [formGroup]="myFromGroup">
+                                Items per Page
+                                <select (change)="handlePageSizeChange($event)" class="pgn-pageSizeOption" formControlName="pageSize">
+                                    <option *ngFor="let size of configPgn.pageSizes" [value]="size">
+                                        {{ size }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="pgn-pageSliceCt">
+                                <pagination-controls
+                                    responsive="true"
+                                    previousLabel="Prev"
+                                    nextLabel="Next"
+                                    (pageChange)="handlePageChange($event)">
+                                </pagination-controls>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>

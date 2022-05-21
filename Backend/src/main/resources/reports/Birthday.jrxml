@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Birthday" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="c58ca4d9-2b39-4fc0-89d8-c54e17888da9">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HRMS_POSTGRESQL"/>
+	<property name="ireport.jasperserver.url" value="http://192.168.150.185:8080/jasperserver/"/>
+	<property name="ireport.jasperserver.user" value="jasperadmin"/>
+	<property name="ireport.jasperserver.report.resource" value="/reports/Birthday_files/main_jrxml"/>
+	<property name="ireport.jasperserver.reportUnit" value="/reports/Birthday"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="184"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="809"/>
+	<parameter name="start_date" class="java.lang.String"/>
+	<parameter name="end_date" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT
+	t3.emp_id,
+    t3.emp_code,
+	t3.designation AS designation_id,
+	hr_emp_designations.title AS designations,
+	t3.employee_name,
+	t3.mobile,
+	t3.email,
+    t3.today_date,
+    t3.birth_date,
+    t3.this_year_birth_date,
+    t3.left_day
+FROM (
+        SELECT
+            emp_id,
+            emp_code,
+			designation,
+			employee_name,
+			mobile,
+			email,
+            today_date,
+            birth_date,
+            this_year_birth_date,
+            CASE
+                WHEN (this_year_birth_date::DATE - today_date) < 0 
+                THEN (this_year_birth_date::DATE - today_date) + 365 
+                WHEN (this_year_birth_date::DATE - today_date) >= 0 
+                THEN (this_year_birth_date::DATE - today_date) 
+            END
+            AS left_day 
+        FROM (
+                SELECT
+                    emp_id,
+                    emp_code,
+					designation,
+					employee_name,
+					mobile,
+					email,
+                    today_date,
+                    birth_date,
+                    birth_mm_dd,
+                    today_yyyy,
+                    (today_yyyy || '-' || birth_mm_dd)
+                    AS this_year_birth_date 
+                FROM (
+                        SELECT
+                            id AS emp_id,
+                            login_code AS emp_code,
+							dg_order AS designation,
+							display_name AS employee_name,
+							mob_code AS mobile,
+							email AS email,
+                            CURRENT_DATE AS today_date,
+                            dob AS birth_date,
+                            to_char(dob, 'MM-dd') AS birth_mm_dd,
+                            to_char(CURRENT_DATE, 'yyyy') AS today_yyyy,
+                            (CURRENT_DATE - dob) AS left_day 
+                        FROM
+                            hr_cr_emp 
+                    ) t1 
+            ) t2 
+    ) t3 
+	LEFT JOIN
+		hr_emp_designations 
+		ON t3.designation = hr_emp_designations.dg_order
+WHERE
+    (1 = 1)
+    AND 
+    to_char(birth_date, 'MM-dd') >= $P{start_date}
+    AND
+    to_char(birth_date, 'MM-dd') <= $P{end_date}   
+ORDER BY
+    left_day ASC]]>
+	</queryString>
+	<field name="emp_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="emp_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="emp_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="emp_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="designation_id" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="designation_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="designations" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="designations"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_emp_designations"/>
+	</field>
+	<field name="employee_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="employee_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="mobile" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="mobile"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="today_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="today_date"/>
+	</field>
+	<field name="birth_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.label" value="birth_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="this_year_birth_date" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="this_year_birth_date"/>
+	</field>
+	<field name="left_day" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.label" value="left_day"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="554" height="24" uuid="46445b1d-803a-401c-bad9-d519f88cdc2b">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[One Direction Companies Limited]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="24" width="100" height="20" uuid="96a7a931-88d6-4fc3-8cb6-f768dda925aa">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Birthday Report]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="0" width="50" height="20" uuid="f26d357a-49a9-4e0b-9a1d-dcc84a2195de">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f1bc33ba-9fde-4375-8f79-fec1148e2591"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="234" y="0" width="100" height="20" uuid="6fcbec1c-5b00-41f2-bc45-3508e8e3c499">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8b987c9c-033d-453b-96ad-5fd23b386d2d"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[DESIGNATION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="50" y="0" width="120" height="20" uuid="69a6008c-969a-4a2a-9937-13e7e30bf636">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="88dcbb5b-190e-49e7-8db9-70d8af6203ca"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[NAME]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="334" y="0" width="76" height="20" uuid="ce3c864e-56b7-4f50-8a4f-60b419cc9444">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a9b40cb-1d12-4c8c-b8f3-31daafb4d73d"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[MOBILE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="410" y="0" width="144" height="20" uuid="ff47cdc0-5458-45b6-91a0-c329be15cac8">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8c2f3558-d57d-49ae-b17d-75c0d39a6aa0"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[EMAIL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="170" y="0" width="64" height="20" uuid="143d38c9-0987-4a95-a0f7-fff09615b27c">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cf55dfba-7e58-4e2a-8555-76d21cfcd91f"/>
+				</reportElement>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[BIRTHDAY]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="50" height="20" uuid="3e840b34-6dd3-489c-8c61-af78d18b0dc1">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="f1bc33ba-9fde-4375-8f79-fec1148e2591"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{emp_code}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="234" y="0" width="100" height="20" uuid="d73ef329-8319-4574-bfa6-b9bef3dcad68">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8b987c9c-033d-453b-96ad-5fd23b386d2d"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{designations}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="50" y="0" width="120" height="20" uuid="2ecd1795-df6b-4c2d-aba1-5e940c6e0b56">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="88dcbb5b-190e-49e7-8db9-70d8af6203ca"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{employee_name}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="334" y="0" width="76" height="20" uuid="b4f0f0d7-be0c-45d8-b9ce-6fad31d76be4">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="5a9b40cb-1d12-4c8c-b8f3-31daafb4d73d"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{mobile}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="410" y="0" width="144" height="20" uuid="1bf66f6e-cfb0-47ae-83d7-e29b9b6f991d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="8c2f3558-d57d-49ae-b17d-75c0d39a6aa0"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="170" y="0" width="64" height="20" uuid="4c42f392-90c8-4d82-9ae3-3f2b19cdd3e3">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="cf55dfba-7e58-4e2a-8555-76d21cfcd91f"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box padding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{left_day} == 0) ? "Today" : (($F{left_day} == 1) ? "Tomorrow": $F{left_day} + " days left")]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</summary>
+</jasperReport>

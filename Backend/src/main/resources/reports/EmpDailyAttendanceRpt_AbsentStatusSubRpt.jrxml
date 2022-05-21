@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="LeaveStatus" pageWidth="266" pageHeight="200" columnWidth="266" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="cb02acb8-eb53-4ebf-8396-28ca0d0d580a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HRMS_POSTGRESQL"/>
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<parameter name="employeeId" class="java.lang.String"/>
+	<parameter name="fromDate" class="java.lang.String"/>
+	<parameter name="toDate" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+    emp.login_code,
+    atn.hr_cr_emp_id                         AS emp_id,
+    emp.first_name                           AS emp_name,
+    atn.attn_day_sts_final_type              AS attendance_type,
+    COUNT(atn.attn_day_sts_final_type)       AS total_status
+FROM
+    proc_out_dt_attn  atn
+    LEFT JOIN hr_cr_emp         emp ON atn.hr_cr_emp_id = emp.ID
+WHERE
+    ( 1 = 1 )
+    AND ( atn.created_at >= TO_DATE($P{fromDate}, 'yyyy-MM-dd')
+    AND atn.created_at <= TO_DATE($P{toDate}, 'yyyy-MM-dd') )
+    AND (emp.login_code =  $P{employeeId} )
+    AND (atn.attn_day_sts_final_type IN ('Absent'))
+GROUP BY
+    atn.attn_day_sts_final_type,
+    atn.hr_cr_emp_id,
+    emp.first_name,
+    emp.login_code]]>
+	</queryString>
+	<field name="login_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="login_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="emp_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="emp_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proc_out_dt_attn"/>
+	</field>
+	<field name="emp_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="emp_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="attendance_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="attendance_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proc_out_dt_attn"/>
+	</field>
+	<field name="total_status" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="total_status"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</title>
+	<pageHeader>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="40" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="20" width="166" height="20" backcolor="#BDBDBD" uuid="0499e31f-c0e1-4769-845d-f144bc72c491">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="363eeddc-8f39-4368-b90e-7828ecaff1b3"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="166" y="20" width="100" height="20" backcolor="#BDBDBD" uuid="a760236a-d69c-4ea1-860f-8dcc91e005d7">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="108e0d49-98ff-4881-a2b4-6e165cc80177"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="266" height="20" backcolor="#BDBDBD" uuid="554163ec-5c24-4635-a264-3e9d92f1353d">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="363eeddc-8f39-4368-b90e-7828ecaff1b3"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Absent Status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField>
+				<reportElement x="0" y="0" width="166" height="20" uuid="25f177bc-6942-4c08-a82e-3c6389a21e06">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="363eeddc-8f39-4368-b90e-7828ecaff1b3"/>
+					<property name="com.jaspersoft.studio.unit.height" value="pixel"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+					<property name="com.jaspersoft.studio.unit.y" value="px"/>
+				</reportElement>
+				<box leftPadding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{attendance_type}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="0" width="100" height="20" uuid="15914f26-dc55-46e4-8b2f-2a9a900830c0">
+					<property name="com.jaspersoft.studio.spreadsheet.connectionID" value="108e0d49-98ff-4881-a2b4-6e165cc80177"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.x" value="px"/>
+				</reportElement>
+				<box leftPadding="3">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</columnFooter>
+	<pageFooter>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</pageFooter>
+	<summary>
+		<band splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</summary>
+</jasperReport>

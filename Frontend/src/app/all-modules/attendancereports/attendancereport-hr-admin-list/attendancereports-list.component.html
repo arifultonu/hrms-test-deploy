@@ -1,0 +1,151 @@
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+
+	<!-- Page Content -->
+	<div class="content container-fluid">
+
+		<!-- Page Header -->
+		<div class="page-header">
+			<div class="row align-items-center">
+				<div class="col">
+					<h3 class="page-title">Attendance Reports (Hr Admin)</h3>
+					<ul class="breadcrumb">
+						<li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+						<li class="breadcrumb-item active">Attendance Reports (Hr Admin)</li>
+					</ul>
+
+
+				</div>
+				<div class="col-auto float-right ml-auto">
+					<div _ngcontent-pcf-c133="" class="btn-group btn-group-sm">
+						<button _ngcontent-pcf-c133="" class="btn btn-white">CSV</button>
+						<button _ngcontent-pcf-c133="" class="btn btn-white" (click)="renderJasperReport()">PDF</button>
+
+						<button _ngcontent-pcf-c133="" class="btn btn-white">
+						<i _ngcontent-pcf-c133="" class="fa fa-print fa-lg">
+						</i> Print</button>
+					</div>
+				</div>
+			</div>
+
+		</div>
+		<!-- /Page Header -->
+
+			<!-- Content Starts -->
+			<!-- Search Filter -->
+		<form (ngSubmit)="formSubmit()" [formGroup]="reportBetweenDateForm" >
+			<div class="row filter-row mb-4">
+			<div class="col-sm-6 col-md-3">
+				<div class="form-group form-focus">
+					<div >
+						<input class="form-control floating"   formControlName="empCode" type="text" >
+					</div>
+					<label class="focus-label">Emp Code</label>
+				</div>
+			</div>
+
+
+
+
+
+			<div class="col-sm-6 col-md-3">
+				<div class="form-group form-focus">
+					<div class="cal-icon">
+						<input class="form-control floating datetimepicker fromDate "   formControlName="fromDate" type="text" bsDatepicker>
+					</div>
+					<label class="focus-label">Form Date</label>
+				</div>
+			</div>
+			<div class="col-sm-6 col-md-3">
+				<div class="form-group form-focus">
+					<div class="cal-icon">
+						<input class="form-control floating datetimepicker toDate " formControlName="toDate" type="text" bsDatepicker>
+					</div>
+					<label class="focus-label">To Date</label>
+				</div>
+			</div>
+
+
+
+
+
+			<div class="col-sm-6 col-md-3">
+				<button  class="btn btn-primary submit-btn" type="submit">
+					Search
+					<!-- [disabled]="!addEmployeeForm.valid" -->
+				</button>
+			</div>
+			</div>
+		</form>
+		<!-- /Search Filter -->
+
+
+
+
+
+		<div class="row">
+			<div class="col-md-12">
+				<div class="table-responsive">
+					<table class="table table-striped custom-table">
+						<thead>
+							<tr>
+								<th >#</th>
+								<th >Emp</th>
+								<th >Emp Code</th>
+								<th >Create Date</th>
+                <th >Day</th>
+								<th >In Time</th>
+								<th >Out Time</th>
+								<th >Status</th>
+
+
+							</tr>
+						</thead>
+						<tbody>
+							<tr *ngFor="let val of AttnReport;let i = index">
+								<td >{{i+1}}</td>
+
+								<td >{{val.hrCrEmpId?val.hrCrEmpId.displayName:'null'}}</td>
+								<td >{{val.hrCrEmpId?val.hrCrEmpId.loginCode:'null'}}</td>
+								<td >{{val.thisCreateDate| date}}</td>
+                <td >{{val.thisCreateDate| date:'EEEE'}}</td>
+								<td >{{val.inTime}}</td>
+								<td >{{val.outTime}}</td>
+								<td *ngIf="val.isColor==1" style="color: green;">
+									{{val.attnDayStsFinalType}}
+								</td>
+								<td *ngIf="val.isColor==2" style="color: rgb(231, 163, 15);">
+									{{val.attnDayStsFinalType}}
+								</td>
+
+								<td *ngIf="val.isColor==null" style="color: rgb(228, 19, 36);">
+									{{val.attnDayStsFinalType}}
+								</td>
+								<td *ngIf="val.isColor==4" style="color: rgb(231, 163, 15);">
+									{{val.attnDayStsFinalType}}
+								</td>
+								<td *ngIf="val.isColor==3" style="color: rgb(231, 163, 15);">
+									{{val.attnDayStsFinalType}}
+								</td>
+
+							</tr>
+							<tr *ngIf="AttnReport.length === 0">
+								<td colspan="10">
+									<h5 style="text-align: center;">No data found</h5>
+								</td>
+							</tr>
+
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+
+		<!-- /Content End -->
+
+	</div>
+	<!-- /Page Content -->
+	<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>
+
+</div>
+<!-- /Page Wrapper -->

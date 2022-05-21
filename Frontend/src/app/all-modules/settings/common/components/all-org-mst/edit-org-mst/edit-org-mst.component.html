@@ -1,0 +1,108 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+  <!-- Page Header -->
+  <div class="page-header">
+      <div class="row align-items-center">
+          <div class="col">
+              <h3 class="page-title">All Organization</h3>
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+
+                  <li class="breadcrumb-item active">Update</li>
+              </ul>
+          </div>
+          <div class="col-auto float-right ml-auto">
+              <a class="btn add-btn" routerLink="/irecruitment/vacancy/list"><i class="fa fa-share"></i> Back To List</a>
+          </div>
+      </div>
+  </div>
+  <!-- /Page Header -->
+
+
+
+  <div class="row">
+      <div class="col-lg-12">
+          <div class="card">
+              <!-- <div class="card-header"> -->
+                  <!-- <h4 class="card-title mb-0">Payroll Item Value</h4> -->
+              <!-- </div>  -->
+              <div class="card-body">
+
+
+
+                  <form novalidate (ngSubmit)="saveUpdatedFormData()" [formGroup]="myForm">
+
+                      <h5 class="card-title"> Update Organization</h5>
+                      <input type="hidden" class="form-control"  formControlName="id" readonly disabled>
+                      <div class="row">
+
+                        <div class="col-sm-3 form-group">
+                            <label for="name-f">Org Title</label>
+                            <input type="text" class="form-control"  id="name-f" formControlName="title" >
+
+
+                        </div>
+
+
+                        <div class="col-sm-3 form-group">
+                          <label for="name-f">Org Type</label>
+                          <select class="select form-control" formControlName="orgType">
+                            <option value="">Select Org Type</option>
+                            <option value="GROUP">Group</option>
+                            <option value="ORGANIZATION">Organization</option>
+                            <option value="OPERATING_UNIT">Operating unit</option>
+                            <option value="PRODUCT">Product</option>
+                            <option value="DEPARTMENT">Department</option>
+                            <option value="SECTION">Section</option>
+                            <option value="SUB_SECTION">Sub Section</option>
+                            <option value="TEAM">Team</option>
+                            <option value="SUB_TEAM">Sub Team</option>
+                        </select>
+                        </div>
+
+                        <div class="col-sm-3 form-group">
+                        <label>Approval Status</label>
+                        <select  class="select form-control" formControlName="approvalStatus">
+                            <option value="">Select Approval Status</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Declined">Denied</option>
+                        </select>
+                        </div>
+                        <div class="col-sm-3 form-group">
+                          <label for="name-f">Sequence</label>
+                          <input type="text" class="form-control"  id="name-f" formControlName="sequence" >
+                        </div>
+
+
+
+                        <div class="col-sm-12">
+                            <div class="text-right">
+                                <a class="btn btn-warning btn-ripple" routerLink="/irecruitment/vacancy/list"><i class="fa fa-share"></i> Cancel</a>
+                                &nbsp; &nbsp;
+                                <button type="button" class="btn btn-secondary btn-ripple" (click)="resetFormValues()">
+                                    <i class="fa fa-undo" aria-hidden="true"></i> Reset
+                                </button>
+                                &nbsp; &nbsp;
+                                <button type="submit" class="btn btn-primary btn-ripple" [disabled]="myForm.invalid">
+                                    <i class="fa fa-check" aria-hidden="true"></i> Save &nbsp;&nbsp;&nbsp;
+                                </button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+</div>
+<!-- /Page Content -->
+
+
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>
+

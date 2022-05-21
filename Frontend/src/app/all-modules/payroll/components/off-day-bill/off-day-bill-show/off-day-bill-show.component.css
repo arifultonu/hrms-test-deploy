@@ -1,0 +1,52 @@
+.content {
+	padding: 30px;
+}
+
+ fieldset.fieldsetBorder {
+	border: 1px solid;
+	border-color: rgba(31, 31, 31, 0.25); /*1f1f1f*/
+	border-radius: 5px;
+	margin: 1px;
+	margin-bottom: 7px;
+	padding-left: 5px;
+}
+ fieldset.fieldsetWithoutBorder {
+	margin-bottom: 7px;
+}
+
+ fieldset legend {
+	/* border: 1px solid; */
+	/* border-color: rgba(31, 31, 31, 0.25); */
+	width: auto;
+	border-radius: 5px;
+    font-size: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
+	margin-left: 7px;
+}
+.logBox .form-group {
+	float: left;
+}
+
+.logBox .form-group label {
+	min-width: 170px;
+	margin-right: 5px;
+	margin-left: 5px;
+}
+
+.logBox .form-group div {
+	border: 1px solid;
+	border-radius: 3px;
+	border-color: rgba(31, 31, 31, 0.25);
+	padding-left: 3px;
+	padding-right: 3px;
+	padding-top: 1px;
+	padding-bottom: 1px;
+	margin-right: 5px;
+	margin-left: 5px;
+	min-height: 25px;
+}
+
+.logBox {
+	font-size: 13px;
+}

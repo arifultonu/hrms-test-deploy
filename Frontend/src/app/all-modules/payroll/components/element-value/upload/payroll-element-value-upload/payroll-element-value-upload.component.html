@@ -1,0 +1,55 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+  <!-- Page Header -->
+  <div class="page-header">
+      <div class="row align-items-center">
+          <div class="col">
+              <h3 class="page-title">Payroll Element  Upload</h3>
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                  <li class="breadcrumb-item active">Payroll Element  Upload</li>
+              </ul>
+          </div>
+          <div class="col-auto float-right ml-auto">
+              <a class="btn add-btn" routerLink="/sim/billUpload/list"><i class="fa fa-share"></i> Back To
+                  List</a>
+          </div>
+      </div>
+  </div>
+  <!-- /Page Header -->
+
+  <div class="row">
+      <div class="col-lg-12">
+          <div class="card">
+              <div class="card-body">
+                  <div class="col-sm">
+                      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                          <div class="row">
+                              <div class="col-sm-12">
+                                  <div>
+                                      <h6 class="head-title margin-top-8"><span>UPLOAD</span></h6>
+                                  </div>
+                              </div>
+
+                              <div class="col-sm-6 text-center">
+
+                                  <div class="custom-file">
+                                      <input type="file" class="custom-file-input" id="customFile" name="myfile"
+                                          (change)="onFileSelect($event)" #UploadPrlElmFileInput>
+                                      <label class="custom-file-label" for="customFile">{{fileInputLabel || 'Choose File'}}</label>
+                                  </div>
+
+                              </div>
+                              <div class="col-sm-6 text-center">
+                                  <button class="btn btn-primary" type="submit"><i class="fa fa-upload" aria-hidden="true"></i> Upload</button>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+  <ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "true"><p style="color: black" > Processing... </p></ngx-spinner>

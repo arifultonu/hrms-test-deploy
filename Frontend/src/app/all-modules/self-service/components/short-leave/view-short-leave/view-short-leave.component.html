@@ -1,0 +1,245 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Short Leave</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item active">Self-service</li>
+                    <li class="breadcrumb-item active">Short Leave</li>
+                    <li class="breadcrumb-item active">Show</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a class="btn add-btn" routerLink="/sefl-service/emp-short-leave"><i class="fa fa-share"></i> Back To List</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+              
+                <div class="card-body">
+
+                   
+                        
+                        <fieldset class="row fieldsetWithoutBorder">
+                            <legend></legend>
+                            <div class="col-12">
+    
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Employee</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.hrCrEmp.displayName}} (Code:{{myData.hrCrEmp.loginCode}}) </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Mobile No</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.hrCrEmp.mobCode}} / {{myData.contactNo }} (Code:{{myData.hrCrEmp.loginCode}}) </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Responsible Employee</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.hrCrEmpResponsible.displayName}} (Code:{{myData.hrCrEmpResponsible.loginCode}}) </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Mobile No</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.hrCrEmpResponsible.mobCode}} (Code:{{myData.hrCrEmp.loginCode}}) </span>
+                                    </div>
+                                </div>
+                                
+                                
+                                
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">On Date</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.onDate}}</span>
+                                    </div>
+                                </div>
+        
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Start Time</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.onDateStartTime|date:'shortTime'}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Duration</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.duration}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Address During Leave</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.addressDuringLeave}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Couse Of Leave</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.reason}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Remarks</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.remarks}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Approval Status</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.shortLeaveApprovalStatus}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </fieldset>
+
+
+                        <div class="row">
+                            <div class="col-8">
+                                <fieldset class="row fieldsetBorder logBox ">
+                                    <legend>Approval Status</legend>
+                                    <table  class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>S/L</th>
+                                                <th>Approval Step</th>
+                                                <th>Sign By</th>
+                                                <th>Action</th>
+                                                <th>Date</th>
+                                                <th>Remarks</th> 
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr  *ngFor="let thisObj of listData;let i = index">
+                                            <td>
+                                                {{ 1 + i}}
+                                            </td>
+                                            <td>{{thisObj.approvalStep.approvalGroupName?thisObj.approvalStep.approvalGroupName:'null'}}</td>
+                                            <td>{{thisObj.approvalStepApproverEmp?thisObj.approvalStepApproverEmp.displayName:'null'}}</td>
+                                            <td>{{thisObj.actionStatus?thisObj.actionStatus:'null'}}</td>
+                                            <td>{{thisObj.updateDateTime?thisObj.updateDateTime:'null'}}</td>
+                                            <td>{{thisObj.remarks?thisObj.remarks:'null'}}</td>
+                                            
+                                          </tr>
+                                        </tbody>
+                                      </table>
+                                      
+                                </fieldset>
+                            </div>
+
+
+                            <div class="col-4">
+                                <form novalidate (ngSubmit)="tackAction()" [formGroup]="myForm">
+                                <fieldset class="row fieldsetBorder logBox ">
+                                    <legend>Take Action</legend>
+                                 
+
+                                        <label class="col-form-label col-md-4">Status</label>
+                                        <div class="col-md-8">
+                                            <ng-select formControlName="approvalStepAction" [items]="listData2" bindLabel="activityStatusTitle" bindValue="id"
+                                                placeholder="Select" appendTo="body" >
+                                            </ng-select>
+                        
+                                        </div>
+                                        <br><br>
+
+                                        <label class="col-form-label col-md-4">Remarks</label>
+                                        <div class="col-md-8">
+                                            <textarea formControlName="remarks" class="form-control mb-3" ></textarea>
+                        
+                                        </div>
+
+
+                                        <div class="col-md-9"></div>
+                                        <div class="col-md-3">
+                                            <button type="submit" class="btn btn-secondary btn-sm mb-2 ">
+                                                Save
+                                                </button>
+                                        </div>
+                                     
+
+                                </fieldset>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+           
+
+
+                        <fieldset class="row fieldsetBorder logBox">
+                            <legend>System Log Information</legend>
+
+                            <div class="form-group">
+                                <label class="col-form-label">ID</label>
+                                <div class="">
+                                    <span>{{myData.id}}</span>
+                                </div>
+                            </div>
+                           
+                            <div class="form-group">
+                                <label class="col-form-label">Creation Time</label>
+                                <div class="">
+                                    <span>{{myData.createDate}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Creation User</label>
+                                <div class="">
+                                    <span>{{myData.createdByHrCrEmp?.user.username}}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Last Update Time</label>
+                                <div class="">
+                                    <span>{{myData.updateDateTime}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Last Update User</label>
+                                <div class="">
+                                    <span>{{myData.updatedByHrCrEmp?.user.username}}</span>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        <div class="text-right">
+                            <a class="btn btn-primary btn-ripple" routerLink="/sefl-service/emp-short-leave"><i class="fa fa-share"></i> Close</a>
+                            &nbsp;
+                        </div>
+
+                       
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- /Page Content -->
+
+
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>
+

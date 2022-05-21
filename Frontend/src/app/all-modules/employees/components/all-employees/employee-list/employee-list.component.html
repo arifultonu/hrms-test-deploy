@@ -1,0 +1,380 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+  <!-- Page Header -->
+  <div class="page-header">
+      <div class="row align-items-center">
+          <div class="col">
+              <h3 class="page-title">Employee</h3>
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                  <li class="breadcrumb-item active">Employee</li>
+              </ul>
+          </div>
+          <div class="col-auto float-right ml-auto" id=""id="EDIT_ACTION_ID">
+
+
+              <a id="EMP_REF_ACTION_ADD" class="btn add-btn d-none" routerLink="/employees/add-employee"><i class="fa fa-plus"></i> Add Employee</a>
+              <div class="view-icons">
+                  <a routerLink="/employees/employeepage" class="grid-view btn btn-link"><i class="fa fa-th"></i></a>
+                  <a routerLink="/employees/employeelist" class="list-view btn btn-link active"><i
+                          class="fa fa-bars"></i></a>
+              </div>
+          </div>
+      </div>
+  </div>
+  <!-- /Page Header -->
+
+  <!-- Search Filter -->
+  <div class="row filter-row m-1">
+      <div class="col-sm-6 col-md-2">
+          <div class="form-group form-focus">
+              <input id="empCodeSearch" type="text" class="form-control floating" (input)="searchId($event.target.value)" />
+              <label class="focus-label">Emp Code</label>
+          </div>
+      </div>
+
+      <div class="col-sm-6 col-md-2">
+        <div class="form-group form-focus">
+            <input id="displayNameSearch" type="text" class="form-control floating" (input)="searchName($event.target.value)" />
+            <label class="focus-label">Employee Name</label>
+        </div>
+    </div>
+
+      <div class="col-sm-6 col-md-2" >
+        <div class="form-group form-focus select-focus">
+          <select id="srcCat" class="select form-control" (input)="clearSearchDiv($event.target.value)">
+              <option value="" >Select By...</option>
+              <option value="Designation">Designation</option>
+              <option value="Department">Department</option>
+              <option value="Organization">Organization</option>
+              <option value="District">District</option>
+              <option value="Status">Status</option>
+              <option value="Category">Category</option>
+              <option value="Blood">Blood Group</option>
+              <option value="jDate">Joining Date</option>
+              <option value="rlgn">Religion</option>
+          </select>
+          <label class="focus-label">Search By</label>
+        </div>
+    </div>
+
+
+    <div class="col-sm-6 col-md-2" *ngIf="showDivv.Area"></div>
+
+    <div class="col-sm-6 col-md-2" *ngIf="showDivv.Designation">
+      <div class="form-group form-focus select-focus">
+          <select class="select form-control" (input)="searchByDesignation($event.target.value)">
+              <option value="">Select Designation</option>
+              <option *ngFor="let data of designations" [value]='data.id'>{{data.title}}
+              </option>
+          </select>
+          <label class="focus-label">Designation</label>
+      </div>
+  </div>
+
+      <div class="col-sm-6 col-md-2" *ngIf="showDivv.Department">
+        <div class="form-group form-focus select-focus">
+            <select class="select form-control" (input)="searchByDepartment($event.target.value)">
+                <option value="">Select Department</option>
+                <option *ngFor="let data of departments" [value]='data.id'>{{data.title}}
+                </option>
+            </select>
+            <label class="focus-label">Department</label>
+        </div>
+      </div>
+
+      <div class="col-sm-6 col-md-2" *ngIf="showDivv.Organization">
+          <div class="form-group form-focus select-focus">
+              <select class="select form-control" (input)="searchByOrganization($event.target.value)">
+                  <option value="">Select Organization</option>
+                  <option *ngFor="let data of organizations" [value]='data.id'>{{data.title}}
+                  </option>
+              </select>
+              <label class="focus-label">Organization</label>
+          </div>
+      </div>
+
+
+
+
+
+                          <!-- District Search -->
+
+  <div class="col-sm-6 col-md-2" *ngIf="showDivv.District">
+          <div class="form-group form-focus select-focus">
+              <select id="dis" class="select form-control" (input)="searchByDistrict($event.target.value)">
+                  <option value="">Select District</option>
+                  <option *ngFor="let data of districtss" [value]='data.id'>{{data.name}}
+                  </option>
+              </select>
+
+              <label class="focus-label">District</label>
+          </div>
+  </div>
+
+  <div class="col-sm-6 col-md-2" *ngIf="showDivv.Status">
+      <div class="form-group form-focus select-focus">
+          <select id="empStatus" class="select form-control" (input)="searchByStatus($event.target.value)">
+              <option value="">Status</option>
+              <option value=41>Active</option>
+              <option value=43>In Active</option>
+          </select>
+          <label class="focus-label">Status</label>
+      </div>
+  </div>
+
+  <div class="col-sm-6 col-md-2" *ngIf="showDivv.Blood">
+    <div class="form-group form-focus select-focus">
+      <select id="dis" class="select form-control" (input)="searchByBGrp($event.target.value)">
+          <option value="">Select Blood Group</option>
+          <option *ngFor="let data of bgrp" [value]='data.id'>{{data.title}}
+          </option>
+      </select>
+      <label class="focus-label">Blood Group</label>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-2" *ngIf="showDivv.Category">
+    <div class="form-group form-focus select-focus">
+      <select id="empCat" class="select form-control" (input)="searchByCatgory($event.target.value)">
+        <option value="">Select Category</option>
+        <option *ngFor="let data of empCat" [value]='data.id'>{{data.title}}
+        </option>
+      </select>
+      <label class="focus-label">Category</label>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-2" *ngIf="showDivv.rlgn">
+    <div class="form-group form-focus select-focus">
+      <select id="empRlgn" class="select form-control" (input)="searchByRlgn($event.target.value)">
+        <option value="">Select Religion</option>
+          <option value="Islam">Islam</option>
+          <option value="Hinduism">Hinduism</option>
+          <option value="Christianity">Christianity</option>
+          <option value="Buddhism">Buddhism</option>
+      </select>
+      <label class="focus-label">Religion</label>
+    </div>
+  </div>
+
+
+  <div class="col-sm-3 col-md-1" *ngIf="showDivv.jDate">
+    <div class="form-group form-focus">
+      <div class="cal-icon">
+          <input id="srcFromDate" class="form-control floating datetimepicker" bsDatepicker type="text" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" (bsValueChange)="searchByFromDate($event)">
+      </div>
+      <label class="focus-label">From</label>
+  </div>
+  </div>
+  <div class="col-sm-3 col-md-1" *ngIf="showDivv.jDate">
+    <div class="form-group form-focus">
+      <div class="cal-icon">
+          <input id="srcToDate" class="form-control floating datetimepicker" bsDatepicker type="text" [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" (bsValueChange)="searchByToDate($event)">
+      </div>
+      <label class="focus-label">To</label>
+  </div>
+  </div>
+
+
+  <div class="col-sm-3 col-md-2">
+    <button type="button" class="btn btn-success btn-block" (click)="searchBySearchButton()"> Search <i
+        class="fa fa-search"></i>
+    </button>
+</div>
+
+  <!-- Clear Button with icon -->
+  <div class="col-sm-3 col-md-2">
+      <button type="button" class="btn btn-danger btn-block" (click)="clearFilter()"> Clear <i
+        class="fa fa-eraser"></i> </button>
+
+  </div>
+
+
+
+
+
+
+
+
+
+  </div>
+  <!-- /Search Filter -->
+
+  <div class="row">
+      <div class="col-md-12">
+          <div class="table-responsive">
+              <table class="table table-bordered mb-0 table-hover" >
+                  <thead style="background-color: azure;">
+                      <tr>
+                          <th>SL</th>
+                          <th>
+                              Photo <br>
+                              Emp Id <br>
+                              Name
+                          </th>
+
+                          <th>Designation</th>
+                          <th>District</th>
+                          <th>Education</th>
+                          <th>Responsibility</th>
+                          <th>
+                              Operating Unit <br>
+                              Product <br>
+                              Department<br>
+
+                          </th>
+                          <th>
+                              Section<br>
+                              Sub Section <br>
+                              Team
+
+                          </th>
+
+                          <th>
+                              Mobile <br>
+                              Email
+                          </th>
+
+                          <th>Blood Group</th>
+                          <th>
+                              Category<br>
+                              Status <br>
+                          </th>
+                          <th>Date Of Joining</th>
+                          <th>Date Of Birth</th>
+                          <!-- <th class="text-right no-sort">Action</th> -->
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <tr *ngFor="let row of empList | paginate : {
+                          itemsPerPage: pageSize,
+                          currentPage: pageNum,
+                          totalItems: totalItem
+                      } ; let i = index" [class.active]="i == currentIndex">
+
+                          <td>{{i+1}}
+                            <span *ngIf="(row.dob.substr(0,5)) === (currentDate | date:'dd-MM')"><img src="assets/img/cake2.jpg" style="width: 40px;height: 40px;"></span>
+                          </td>
+
+                          <td>
+                              <h4 class="table-avatar">
+                                  <a *ngIf="row.pic_" routerLink="/employees/employeeprofile/{{row.id}}" class="avatar"><img class="img-avatar text-center" alt=""
+                                      src="{{ baseUrl + row.pic_ }}"></a>
+
+                                      <a *ngIf="!row.pic_ && row.gender=='Male' " routerLink="/employees/employeeprofile/{{row.id}}" class="avatar" ><img id="companyLogo"
+                                        data-flag="1" src="assets/img/user-icon/u-sq-pic.jpg" alt="" /></a>
+
+                                        <a *ngIf="!row.pic_ && row.gender=='Female' " routerLink="/employees/employeeprofile/{{row.id}}" class="avatar" ><img id="companyLogo"
+                                          data-flag="1" src="assets/img/user-icon/user_icon_female.png" alt="" /></a>
+
+                              </h4>
+                              <!-- <p>{{row?.loginCode}}</p> -->
+                              <a style="font-weight: bold; color: #000;" routerLink="/employees/employeeprofile/{{row.id}}">{{row?.loginCode}}</a> <br>
+                              <a style="color: #000;" routerLink="/employees/employeeprofile/{{row.id}}">{{row.displayName}}
+                              </a>
+
+                          </td>
+
+                          <td>{{row.designation}} </td>
+                          <td>{{row.district}} </td>
+                          <td>{{row.lastEducation}}</td>
+                          <td>{{row.responsibility}}</td>
+                          <td>
+                              {{row.operatingUnit}} <br>
+                              {{row.product}} <br>
+                              {{row.department}}
+
+                          </td>
+                          <td>
+                              {{row.section}} <br>
+                              {{row.subSection}} <br>
+                              {{row.team}} <br>
+
+                          </td>
+
+
+                          <td>
+                              {{row?.phone}}
+                              <br/>
+                              {{row?.email}}
+                          </td>
+
+                          <td>{{row.bloodGroup}}</td>
+                          <td>
+                              {{row.category}} <br>
+                              <span *ngIf="row.status=='Active' "  class='badge badge-success'>Active</span>
+                              <span *ngIf="row.status=='InActive' "  class='badge badge-danger'>InActive</span>
+                          </td>
+                          <td>{{row?.joiningDate}}</td>
+
+                          <td>{{row.dob}}</td>
+
+                      </tr>
+                      <tr *ngIf="empList.length===0">
+                          <td colspan="13">
+                              <h5 style="text-align: center;">No data found</h5>
+                          </td>
+                      </tr>
+                  </tbody>
+              </table>
+              <br>
+              <div class="d-flex justify-content-end ">
+
+                  <div class="" [formGroup]="myGroup">
+                      Items per Page
+                      <select (change)="handlePageSizeChange($event)" class="pgn-pageSizeOption" formControlName="pageSize">
+                          <option *ngFor="let size of pageSizes" [value]="size">
+                              {{ size }}
+                          </option>
+                      </select>
+                  </div>
+
+                  <div class="pgn-pageSliceCt">
+                      <pagination-controls
+                          responsive="true"
+                          previousLabel="Prev"
+                          nextLabel="Next"
+                          (pageChange)="handlePageChange($event)">
+                      </pagination-controls>
+                  </div>
+
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- /Page Content -->
+
+
+
+
+<!-- Delete Employee Modal -->
+<div class="modal custom-modal fade" id="delete_employee" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-body">
+              <div class="form-header">
+                  <h3>Delete Employee</h3>
+                  <p>Are you sure want to delete?</p>
+              </div>
+              <div class="modal-btn delete-action">
+                  <div class="row">
+                      <div class="col-6">
+                          <a class="btn btn-primary continue-btn"
+                              (click)="deleteEmployee()">Delete</a>
+                      </div>
+                      <div class="col-6">
+                          <a data-dismiss="modal"
+                              class="btn btn-primary cancel-btn">Cancel</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- /Delete Employee Modal -->
+
+<ngx-spinner bdColor = "rgba(0,0,0,0.3)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: white" > Processing... </p></ngx-spinner>

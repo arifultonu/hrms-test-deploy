@@ -1,0 +1,137 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Viva Board Member</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/irecruitment/vivaboardmember/list">Viva Board Member</a></li>
+                    <li class="breadcrumb-item active">Create</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a class="btn add-btn" routerLink="/irecruitment/vivaboardmember/list"><i class="fa fa-share"></i> Back To List</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+
+    <div class="row">
+
+
+        <div class="col-lg-12">
+            <div class="card">
+                <!-- <div class="card-header"> -->
+                    <!-- <h4 class="card-title mb-0">Payroll Item Value</h4> -->
+                <!-- </div>  -->
+                <div class="card-body">
+
+
+
+                    <h3 class="card-title"> Viva Board Member Create form</h3>
+                    <form (ngSubmit)="myFormSubmit()" [formGroup]="myForm">
+
+                    <div class="row">
+
+
+                        <div class="col-sm-12 form-group">
+                            <label for="Date" class="val-required">Viva Board Code</label>
+                            <select class="select form-control" formControlName="interviewBoard">
+                            <option value="">Select Board</option>
+                            <option *ngFor="let data of vacc" value="{{ data.id }}">
+                                {{data.code}} - {{ data.title }}
+                            </option>
+                        </select>
+                        </div>
+
+
+                         <div class="col-sm-12 form-group">
+                            <label class="val-required">Employee name</label>
+
+                            <!--- <select class="select form-control" formControlName="empIds">
+                                <option value="">Select Board</option>
+                                <option *ngFor="let data of aplc" value="{{ data.ddlCode }}">
+                                    {{data.ddlDescription}}
+                                </option>
+                            </select> -->
+
+
+
+                        <ng-select
+                            [items]="configDDL.listData" formControlName="empIds" placeholder="Select employee"
+                            bindLabel="ddlDescription" bindValue="ddlCode"
+                            [searchable]="true" [clearable]="true" [virtualScroll]="true" [clearOnBackspace]="true"
+                            (search)="searchDDL($event)" (scrollToEnd)="scrollToEndDDL()" (clear)="clearDDL()"
+                            (click)="initSysParamsDDL($event, 'ddlDescription', '/api/common/getEmp', 'hrCrEmp')"
+                            ddlActiveFieldName="ddlDescription" class="custom-ng-select" (click)="showDivv.current;showDivv.previous = false">
+                         </ng-select>
+
+                        </div>
+
+
+
+                        <label class="col-sm-12 form-group" (click)="showDivv.previous = !showDivv.previous">Is External Board Member?</label>
+                        <input type="hidden" formControlName="empIds" [value]="0" *ngIf="showDivv.previous">
+
+                        <div class="col-sm-4 form-group" *ngIf="showDivv.previous">
+                          <label>External name</label>
+                          <input type="text" class="form-control" id="Date" placeholder="" formControlName="externalMember">
+                        </div>
+
+                        <div class="col-sm-4 form-group" *ngIf="showDivv.previous">
+                          <label>External Phone no.</label>
+                          <input type="text"  class="form-control" id="Date" placeholder="" formControlName="externalMemberPhn" >
+                        </div>
+                        <div class="col-sm-4 form-group" *ngIf="showDivv.previous">
+                          <label>External Email</label>
+                          <input type="text"  class="form-control" id="Date" placeholder="" formControlName="externalMemberEmail" >
+                        </div>
+                        <div class="col-sm-4 form-group" *ngIf="showDivv.previous">
+                          <label>External Details</label>
+                          <textarea class="form-control" formControlName="externalMemberAddr"></textarea>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="text-right">
+                                <a class="btn btn-warning btn-ripple" routerLink="/irecruitment/vivaboardmember/list"><i class="fa fa-share"></i> Cancel</a>
+                                &nbsp; &nbsp;
+                                <button type="button" class="btn btn-secondary btn-ripple" (click)="resetFormValues()">
+                                    <i class="fa fa-undo" aria-hidden="true"></i> Reset
+                                </button>
+                                &nbsp; &nbsp;
+                                <button type="submit" class="btn btn-primary btn-ripple">
+                                    <i class="fa fa-check" aria-hidden="true"></i> Save &nbsp;&nbsp;&nbsp;
+                                </button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<!-- /Page Content -->
+
+
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>

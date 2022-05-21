@@ -1,0 +1,119 @@
+<div class="account-content">
+    <!-- <a routerLink = "/login/joblist" class="btn btn-primary apply-btn">Apply Job</a> -->
+    <div class="center-screen">
+        <div class="container">
+
+
+            <div class="row">
+
+                <div class="col-12">
+                    <div style="height:0px;">
+                        <!-- for background image display helper -->
+                    </div>
+                </div>
+
+                <div class="col-12">
+
+                    <div class="row login-box-ct">
+
+
+                        <div class="col-sm-12 col-md-6 col-xl-6 login-box-title">
+
+                            <div class="account-box">
+                                <div class="account-wrapper">
+                                    <!-- Account Logo -->
+                                    <div class="account-logo">
+                                        <a *ngIf="currOrg === 'ODCL' " href="javascript:"><img src="assets/img/one_direction_logo.png" alt="Dreamguy's Technologies"></a>
+
+                                        <a *ngIf="currOrg === 'Majesto' " href="javascript:"><img src="assets/img/majesto_logo_login.jpg" alt="Dreamguy's Technologies"></a>
+
+                                        <a *ngIf="currOrg === 'StockMate' " href="javascript:"><img src="assets/img/stockmate.png" alt="Dreamguy's Technologies"></a>
+
+                                        <a *ngIf="currOrg === 'MM_ELECTRONICS' " href="javascript:"><img src="assets/img/company.jpg" alt="Dreamguy's Technologies"></a>
+
+                                        <a *ngIf="currOrg === 'DIGI-TECH' " href="javascript:"><img src="assets/img/w_logo.png" alt="Dreamguy's Technologies"></a>
+
+
+                                    </div>
+
+
+                                    <h4 *ngIf="currOrg === 'ODCL' " class="company-title companyName" style="color: aliceblue;">One Direction Companies Limited</h4>
+
+                                    <h4 *ngIf="currOrg === 'Majesto' " class="company-title-majesto" style="color: aliceblue; text-align: center;">Majesto Limited</h4>
+
+                                    <h4 *ngIf="currOrg === 'MM_ELECTRONICS' " class="company-title-majesto" style="color:  skyblue; text-align: center;">MM_ELECTRONICS</h4>
+
+
+                                    <h4 *ngIf="currOrg === 'StockMate' " class="company-title-majesto" style="color:  skyblue; text-align: center;">StockMate</h4>
+
+                                    <h4 *ngIf="currOrg === 'Digi-Tech' " class="company-title-majesto" style="color:  skyblue; text-align: center;">DIGI-TECH LIMITED </h4>
+
+                                    <h4 class="account-title" style="color: aliceblue;">( Smart HRMS )</h4>
+                                    <p class="account-subtitle" style="color: aliceblue;">Manage People Smartly</p>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="col-6 login-box-form">
+
+                            <div class="account-box">
+                                <div class="account-wrapper">
+
+                                    <h3 class="account-title">Login</h3>
+                                    <p class="account-subtitle">Access your account</p>
+
+                                    <!-- Account Form -->
+                                    <form (ngSubmit)="onSubmit()" [formGroup]="loginForm">
+                                        <div class="form-group">
+                                            <label>Username</label>
+                                            <input class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" formControlName="username"  type="text">
+                                            <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                                                <div *ngIf="f.username.errors.required">Username is required</div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col">
+                                                    <label>Password</label>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <!-- <a class="text-muted" routerLink = "/login/forgot"> -->
+                                                        <!-- Forgot password? -->
+                                                    <!-- </a> -->
+                                                </div>
+                                            </div>
+                                            <input class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" formControlName="password" formControlName="password" type="password">
+                                            <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
+                                                <div *ngIf="f.password.errors.required">Password is required</div>
+                                                <div *ngIf="f.password.errors.minlength">Password must be at least 4 characters</div>
+                                            </div>
+
+                                        </div>
+                                        <div class="form-group text-center">
+                                            <button [disabled]="loading" class="btn btn-primary account-btn btn-ripple" type="submit">
+                                                <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                                                    Login
+                                            </button>
+                                        </div>
+                                        <div class="account-footer">
+                                            <!-- <p>Don't have an account yet? <a routerLink = "/login/register">Register</a></p> -->
+                                        </div>
+                                    </form>
+                                    <!-- /Account Form -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+            </div>
+
+
+
+        </div>
+    </div>
+</div>

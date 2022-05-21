@@ -1,0 +1,144 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Applicant Marks & Status</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/irecruitment/appliedjob/list">Applicant Marks</a></li>
+                    <li class="breadcrumb-item active">{{myFormData. vacancy.title}}</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+              <button class="btn btn-white mr-1" (click)="onPrint('sectionToPrint')"><i class="fa fa-print fa-lg"></i> Print</button>
+
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+
+
+    <div class="row" id="sectionPrint">
+        <div class="col-lg-12">
+
+
+            <div class="card">
+                <div class="text-center">
+                  <div class="guide text-center ">
+                    <div class="rba">
+
+                        <h2 class="m-2">
+
+                          {{myFormData. vacancy.allOrgMstOrgId.title}}
+                        </h2>
+                        {{myFormData. vacancy.jobLocation}}
+
+              </div>
+
+            </div>
+</div>
+</div>
+
+<div class="card">
+    <h4 class="m-3 text-center"><i class="fa fa-briefcase mr-1"></i> {{myFormData. vacancy.title}} <span id="out_of" style="font-size: small;">({{myFormData. vacancy.code}})</span><span class="float-right" *ngIf="myFormData.statusdrop == '2' "><img id="imgg" class="img-responsive" style="display: inline-block;" src="assets/img/Passed_Stamp.png"></span><hr></h4>
+
+    <div class="row">
+
+        <div class="col-sm-4">
+            <h4 class="m-3">Applicant Name: <span class="m-2" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"> {{myFormData. applicant.firstName}} {{myFormData. applicant.lastname}} </span> <span id="out_of" style="font-size: small;">({{myFormData. applicant.applicantCode}})</span></h4>
+        </div>
+
+        <div class="col-sm-4">
+          <h4 class="m-3">Father Name: <span class="m-2" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"> {{myFormData. applicant.fatherName}} </span></h4>
+        </div>
+
+      <div class="col-sm-4">
+        <h4 class="m-3">Mother Name: <span class="m-2" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"> {{myFormData. applicant.motherName}}</span></h4>
+      </div>
+
+        <div class="col-sm-4">
+          <h4 class="m-3">NID / Birth Reg no: <span class="m-2" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"> {{myFormData. applicant.nationalIdentityNumber}} / {{myFormData. applicant.bregNum}}</span></h4>
+      </div>
+
+      <div class="col-sm-4">
+        <h4 class="m-3">DOB: <span class="m-2" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"> {{myFormData. applicant.dob |date:'dd-MM-YYYY'}}</span></h4>
+    </div>
+
+
+
+    <div class="col-sm-4">
+      <h4 class="m-3">Present Address: <span class="m-2" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"> {{myFormData. applicant.presentAddress}} </span></h4>
+  </div>
+
+  <div class="col-sm-4">
+    <h4 class="m-3">Permanent Address: <span class="m-2" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"> {{myFormData. applicant.permanentAddress}}</span></h4>
+</div>
+
+<div class="col-sm-4">
+  <h4 class="m-3">Phone: <span class="m-2" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"> {{myFormData. applicant.phoneNumber}}</span></h4>
+</div>
+
+<div class="col-sm-4">
+  <h4 class="m-3">Experience year: <span class="m-2" style="font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;"> {{myFormData. applicant.experienceYear}} year(s)</span></h4>
+</div>
+
+
+     </div>
+
+</div>
+
+<div class="container table-responsive py-5">
+<table class="table table-bordered table-hover" >
+  <thead class="thead-light" >
+    <tr style="border: 1px solid black;">
+      <th id="th"  scope="col">Pre-Viva Marks</th>
+      <th id="th"  scope="col">MCQ Marks</th>
+      <th id="th"  scope="col">Written Marks</th>
+      <th id="th" scope="col">Viva Marks</th>
+      <th id="th"  scope="col">Aptitude Test Marks</th>
+      <th id="th" scope="col">Final Viva Marks</th>
+      <th style="background-color: #b8c2b9" id="th" scope="col">Total Marks</th>
+
+    </tr>
+  </thead>
+
+  <tbody>
+    <tr style="border: 1px solid black;">
+      <td id="th" >{{myFormData.preVivaMarks}} <span id="out_of">{{myFormData.outOfPreVivaMarks ? '('+ myFormData.outOfPreVivaMarks+ ')':''}}</span></td>
+      <td id="th">{{myFormData.mcqMarks}} <span id="out_of">{{myFormData.outOfMcqMarks ? '('+ myFormData.outOfMcqMarks+ ')':''}}</span></td>
+      <td id="th">{{myFormData.writtenMarks}} <span id="out_of">{{myFormData.outOfWrittenMarks ? '('+ myFormData.outOfWrittenMarks+ ')':''}}</span></td>
+      <td id="th">{{myFormData.vivaMarks}} <span id="out_of">{{myFormData.outOfVivaMarks ? '('+ myFormData.outOfVivaMarks+ ')':''}}</span></td>
+      <td id="th">{{myFormData.apTestMarks}} <span id="out_of">{{myFormData.outOfApTestMarks ? '('+ myFormData.outOfApTestMarks+ ')':''}}</span></td>
+      <td id="th">{{myFormData.finalVivaMarks}} <span id="out_of">{{myFormData.outOfFinalVivaMarks ? '('+ myFormData.outOfFinalVivaMarks+ ')':''}}</span></td>
+<td id="th"><b style="font-size: 25px;">{{myFormData.marks}}</b></td>
+
+    </tr>
+  </tbody>
+
+</table>
+</div>
+
+<div class="card">
+  <p class="m-2 text-center">The Interview was conducted by <b><a routerLink="/irecruitment/vivaboard/show/{{myFormData.iboard.id}}">{{myFormData.iboard.title}}</a></b> authority, under the circular of <b><a routerLink="/irecruitment/vacancy/show/{{myFormData.vacancy.id}}">{{myFormData.vacancy.title}}</a></b>, for <b>{{myFormData. vacancy.allOrgMstDeptId.title}}</b> department. </p>
+  <p class="m-2 text-center">The Circular was published on {{myFormData.vacancy.creationDateTime | date:'mediumDate'}}.</p>
+  <p class="m-2 text-center">This Recruitment process (examination) for {{myFormData.applicant.firstName}} {{myFormData.applicant.lastname}} is started from <b>{{myFormData.creationDateTime | date:'mediumDate'}}</b>, and ended at <b>{{myFormData.lastUpdateDateTime | date:'mediumDate'}}</b>.</p>
+  <p class="m-2 text-center">Remarks: {{myFormData.remarks}}</p>
+  <p class="m-2 text-center">Comments: {{myFormData.comments}}</p>
+  <p class="m-2 text-center" style="font-family: cursive;">Reference: {{myFormData.applicant.reference}}</p>
+</div>
+
+</div>
+</div>
+
+
+</div>
+<!-- /Page Content -->
+
+
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>
+

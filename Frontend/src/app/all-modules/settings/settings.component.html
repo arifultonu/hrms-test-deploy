@@ -1,0 +1,53 @@
+<!-- Sidebar -->
+<div class="sidebar" id="sidebar">
+    <div class="sidebar-inner slimscroll">
+        <div class="sidebar-menu">
+            <ul>
+                <li> 
+                    <a routerLink="/dashboard"><i class="la la-home"></i> <span>Back to Home</span></a>
+                </li>
+                <li class="menu-title">Settings</li>
+                <li [ngClass]="{'active' : urlComplete.subUrl === 'system-user/lists'}"> 
+                    <a routerLink = "/settings/system-user/lists"><i class="la la-users"></i> <span>System Users</span></a>
+                </li>
+                <!-- <li [ngClass]="{'active' : urlComplete.subUrl === 'system-menu'}"> 
+                    <a routerLink = "/settings/system-menu"><i class="la la-bars"></i> <span>System Menu</span></a>
+                </li> -->
+                <li  [ngClass]="{'active' : urlComplete.subUrl === 'list-sys-resDef'}"> 
+                    <a routerLink = "/settings/list-sys-resDef"><i class="la la-key"></i> <span>System Resource Def</span></a>
+                </li>
+                <li [ngClass]="{'active' : urlComplete.subUrl === 'alkp'}"> 
+                    <a routerLink = "/settings/alkp"><i class="la la-search"></i> <span>All Lookup</span></a>
+                </li>
+                <li [ngClass]="{'active' : urlComplete.subUrl === 'all-org-mst'}"> 
+                    <a routerLink = "/settings/all-org-mst"><i class="la la-search"></i> <span>All Org Mst</span></a>
+                </li>
+                <li  [ngClass]="{'active' : urlComplete.subUrl === 'leave-assign'}"> 
+                    <a routerLink = "/settings/leave-assign"><i class="la la-cogs"></i> <span>Leave Assign</span></a>
+                </li>
+                <li  [ngClass]="{'active' : urlComplete.subUrl === 'leave-config'}"> 
+                    <a routerLink = "/settings/leave-config"><i class="la la-cogs"></i> <span>Leave Config</span></a>
+                </li>
+                <li  [ngClass]="{'active' : urlComplete.subUrl === 'holiday-config'}"> 
+                    <a routerLink = "/settings/holiday-config"><i class="la la-cogs"></i> <span>Holiday Config</span></a>
+                </li>
+                <li  [ngClass]="{'active' : urlComplete.subUrl === 'api-config'}"> 
+                    <a routerLink = "/settings/api-config"><i class="la la-link"></i> <span>Api Config</span></a>
+                </li>
+                <!-- <li  [ngClass]="{'active' : urlComplete.subUrl === 'change-password'}"> 
+                    <a routerLink = "/settings/change-password"><i class="la la-lock"></i> <span>Change Password</span></a>
+                </li> -->
+                <!-- <li  [ngClass]="{'active' : urlComplete.subUrl === 'dev-tools'}"> 
+                    <a routerLink = "/settings/dev-tools"><i class="la la-yelp"></i> <span>Dev Tools</span></a>
+                </li> -->
+
+            </ul>
+        </div>
+    </div>
+</div>
+<!-- Sidebar -->
+<!-- Page Wrapper -->
+<div class="page-wrapper" (resized)="onResize($event)" [ngStyle]="{ 'height' : innerHeight }">
+    <router-outlet></router-outlet>
+    </div>
+    <!-- /Page Wrapper -->

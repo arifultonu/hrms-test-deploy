@@ -1,0 +1,167 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Address</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item active">address</li>
+                </ul>
+            </div>
+            
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+
+    <div class="row">
+        <div class="col-md-12" *ngIf="!isAddMode">
+            <div class="card">
+                <div class="card-header">
+                    <div class="card-tools">
+                        <a (click)="isAddMode = true" class="btn btn-outline-primary"><i class="fa fa-plus"></i> Add
+                            &nbsp;&nbsp;&nbsp; </a> <br> <br>
+                            <p><span>Adding Address to <b>{{listData? listData[0].allOrgMst.title : null}}</b> </span></p>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table id="genListTable" class="table table-striped custom-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Name</th>
+                                    <th>Title</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let thisObj of listData">
+                                    <td>{{thisObj.id }}</td>
+                                    <td>{{thisObj.name}}</td>
+                                    <td>{{thisObj.title}}</td>
+                                    <td>{{thisObj.active==true? "Active" : "Inactive"}}</td>
+
+                                </tr>
+
+                                <tr *ngIf="listData.length === 0">
+                                    <td colspan="10">
+                                        <h5 style="text-align: center;">No data found</h5>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-12" *ngIf="isAddMode">
+            <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title d-inline">Add Org Address</h3>
+                    <button type="button" (click)="isAddMode = false" class="close" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="card-body">
+                
+                   
+                    <form (ngSubmit)="formSubmit()" [formGroup]="form">
+                        
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Title<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="title" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>name<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="name" class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>address<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="address" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>postalCode<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="postalCode" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>addressPhoneNumber<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="addressPhoneNumber"
+                                        class="form-control" type="text">
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>emailAddress<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="emailAddress" class="form-control"
+                                        type="text">
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>Is Active</label>
+                                    <select class="form-control"
+                                        [ngClass]="{ 'is-invalid': submitted && f.isActive.errors }"
+                                        formControlName="isActive">
+                                        <option value="">-- Select --</option>
+                                        <option value="true">Yes</option>
+                                        <option value="false">No</option>
+                                    </select>
+                                    <div *ngIf="submitted && f.isActive.errors" class="invalid-feedback">
+                                        <div *ngIf="f.isActive.errors.required">Is active is required</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4">
+                                <div class="form-group">
+                                    <label>ID<span class="text-danger"></span></label>
+                                    <input class="form-control" formControlName="id" class="form-control" type="text"
+                                        readonly>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="submit-section">
+                            <button class="btn btn-primary submit-btn" type="submit">
+                                Save
+                            </button>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+</div>
+<!-- /Page Content -->
+<!-- /Page Content -->
+<ngx-spinner bdColor="rgba(255,255,255,0.5)" size="medium" color="#667eea" type="ball-clip-rotate" [fullScreen]="true">
+    <p style="color: black"> Processing... </p>
+</ngx-spinner>

@@ -1,0 +1,20 @@
+.content {
+	padding: 15px;
+	font-size: 11px;
+}
+.img-avatar{
+	height: 38px;
+	width: 38px;
+}
+
+.form-control{
+  border-radius: 15px;
+}
+
+
+.table-hover > tbody > tr:hover {
+	cursor: pointer;
+	background-color: #ADD8E6;
+  }
+
+

@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="employe_salary_info" pageWidth="1000" pageHeight="602" orientation="Landscape" columnWidth="960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="725316ce-c1c7-4ac8-a898-bbe2de800177">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="192.168.61.66"/>
+	<parameter name="EMPLOYEE_ID" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select
+em.code as emp_code,
+em.display_name,
+em.joining_date,
+em.email,
+em.dob,
+em.voter_identity_number,
+em.pic_,
+prl.gross_salary,
+prl.basic_salary,
+pa.all_org_mst_department_id,
+dept.title as department_name,
+org.title as organization_name
+from hr_cr_emp em
+left join prl_elmnt_asgmnt prl on em.id = prl.emp_id
+left join hr_cr_emp_primary_assgnmnt pa on em.id = pa.hr_cr_emp_id
+left join all_org_mst org ON org.id = pa.all_org_mst_organization_id
+left join all_org_mst  dept ON dept.id = pa.all_org_mst_department_id
+WHERE em.login_code= $P{EMPLOYEE_ID}]]>
+	</queryString>
+	<field name="emp_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="emp_code"/>
+		<property name="com.jaspersoft.studio.field.label" value="emp_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="display_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="display_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="display_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="joining_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="joining_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="joining_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="email" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="email"/>
+		<property name="com.jaspersoft.studio.field.label" value="email"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="dob" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="dob"/>
+		<property name="com.jaspersoft.studio.field.label" value="dob"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="voter_identity_number" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="voter_identity_number"/>
+		<property name="com.jaspersoft.studio.field.label" value="voter_identity_number"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="pic_" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="pic_"/>
+		<property name="com.jaspersoft.studio.field.label" value="pic_"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="gross_salary" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="gross_salary"/>
+		<property name="com.jaspersoft.studio.field.label" value="gross_salary"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_elmnt_asgmnt"/>
+	</field>
+	<field name="basic_salary" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.name" value="basic_salary"/>
+		<property name="com.jaspersoft.studio.field.label" value="basic_salary"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_elmnt_asgmnt"/>
+	</field>
+	<field name="all_org_mst_department_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="all_org_mst_department_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="all_org_mst_department_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp_primary_assgnmnt"/>
+	</field>
+	<field name="department_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="department_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="department_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="all_org_mst"/>
+	</field>
+	<field name="organization_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="organization_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="organization_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="all_org_mst"/>
+	</field>
+	<sortField name="department_name"/>
+	<variable name="Variable_1" class="java.lang.String">
+		<variableExpression><![CDATA[$V{REPORT_COUNT}]]></variableExpression>
+	</variable>
+	<group name="department_name">
+		<groupExpression><![CDATA[$F{department_name}]]></groupExpression>
+	</group>
+	<title>
+		<band height="70" splitType="Stretch">
+			<textField>
+				<reportElement mode="Transparent" x="0" y="10" width="970" height="60" backcolor="#DEDEDE" uuid="fa481e3a-25b8-4cd1-9bb5-dd7d56a4789f"/>
+				<box>
+					<pen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="25" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{organization_name}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="970" height="30" forecolor="#0A0606" uuid="8187b020-6075-46c1-982f-2779fc551c63"/>
+				<box>
+					<pen lineWidth="0.0" lineColor="rgba(4, 13, 20, 0.94509804)"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Employee Information:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="60" y="0" width="70" height="30" backcolor="#DEDEDE" uuid="7e2a2892-fde5-4c93-aa7b-9e01f858111c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="130" y="0" width="110" height="30" backcolor="#DEDEDE" uuid="f64d3d6b-9ecc-4a71-961f-0692e78f2227"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Employee Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="240" y="0" width="80" height="30" backcolor="#DEDEDE" uuid="59e2af47-719a-4a93-8f35-d67405ebab7a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Department]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="320" y="0" width="170" height="30" backcolor="#DEDEDE" uuid="e48ea40d-78db-4b70-9834-fd274eb6a7d3"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Email]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="490" y="0" width="90" height="30" backcolor="#DEDEDE" uuid="a879c593-2c11-4fda-b3a1-d93f6ecb0b96"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Joining Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="0" width="60" height="30" backcolor="#DEDEDE" uuid="4027c3fd-62f1-43b7-92e9-63e32ed97ac1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SL.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="878" y="0" width="92" height="30" backcolor="#DEDEDE" uuid="fed3fa50-b8c2-4700-aa5f-c31ec180a4cb"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date of Birth]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="798" y="0" width="80" height="30" backcolor="#DEDEDE" uuid="2e20524b-53ce-48bc-a33a-5112e51d3974"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Basic Salary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="698" y="0" width="100" height="30" backcolor="#DEDEDE" uuid="2e9da2f1-cfdd-4b88-9041-11ae2ebac7c1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Gross Salary]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="580" y="0" width="118" height="30" backcolor="#DEDEDE" uuid="979ee3e1-fdc4-4543-b799-65f58e9c0487"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[NID]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="110" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="130" y="0" width="110" height="30" uuid="e0afe642-f3ce-49c5-87b6-254996dc1e86"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{display_name}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" evaluationTime="Page" pattern="#,##0.###;#,##0.###-" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="798" y="0" width="80" height="30" isRemoveLineWhenBlank="true" printWhenGroupChanges="department_name" uuid="e9f096cd-0f1d-4146-a18a-e5eb47ad46c0"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{basic_salary}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="240" y="0" width="80" height="30" uuid="1a3b8ecf-3a74-4a42-8c18-a51ec3c93a6a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{department_name}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="320" y="0" width="170" height="30" uuid="9fdfd5b3-32f1-48e3-b1fe-dbcf39256fce"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMM d, yyyy">
+				<reportElement stretchType="RelativeToTallestObject" x="490" y="0" width="90" height="30" uuid="2fb841a3-f5d0-4914-8d31-4ec1a3117a26"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{joining_date}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="580" y="0" width="118" height="30" uuid="456c99f7-6762-48ce-bbd9-e8f04cb7721d"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{voter_identity_number}]]></textFieldExpression>
+			</textField>
+			<textField pattern="#,##0.###;#,##0.###-" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="698" y="0" width="100" height="30" uuid="35b375e8-ee48-4058-a542-e098f272ada9"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{gross_salary}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="0" width="60" height="30" uuid="c04a3779-06e1-46a4-85a3-3b9246e19f38"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="60" y="0" width="70" height="30" uuid="98b34260-a125-477b-ac96-935ed9f1d322"/>
+				<box leftPadding="3" rightPadding="3">
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{emp_code}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMM d, yyyy" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="878" y="0" width="92" height="30" uuid="2c932c85-e3a3-4191-b2a1-c25b2407e16f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{dob}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

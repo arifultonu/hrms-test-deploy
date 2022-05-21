@@ -1,0 +1,196 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Applied Job</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/irecruitment/appliedjob/list">Applied Job</a></li>
+                    <li class="breadcrumb-item active">Edit</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a class="btn add-btn" routerLink="/irecruitment/appliedjob/list"><i class="fa fa-share"></i> Back To List</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <!-- <div class="card-header"> -->
+                    <!-- <h4 class="card-title mb-0">Payroll Item Value</h4> -->
+                <!-- </div>  -->
+                <div class="card-body">
+
+
+
+                    <h3 class="card-title"> Applied Job Edit form</h3>
+                    <form (ngSubmit)="saveUpdatedFormData()" [formGroup]="myForm" enctype='multipart/form-data'>
+
+                    <div class="row">
+
+                       <input type="hidden" formControlName="id">
+                        <div class="col-sm-6 form-group">
+                            <label for="name-f">Vacancy Title</label>
+                            <input type="text" class="form-control" value="{{ myFormData.vacancy.title }}" readonly>
+                        </div>
+
+
+
+                    <div class="col-sm-6 form-group">
+                            <label for="name-f">Applicant Name</label>
+                            <input type="text" class="form-control" value="{{ myFormData.applicant.firstName }} {{ myFormData.applicant.lastname }}" readonly>
+                   </div>
+
+
+                   <div class="col-sm-2 form-group">
+                    <label for="Date">PreViva Marks</label>
+                    <input type="number" class="form-control"  formControlName="preVivaMarks"  >
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label for="Date" id="out_of">(out of)</label>
+                  <input type="text" class="form-control"  placeholder="pre viva"  formControlName="outOfPreVivaMarks"  >
+                </div>
+
+
+                <div class="col-sm-2 form-group">
+                    <label for="Date">Mcq Marks</label>
+                    <input type="number"  class="form-control"  formControlName="mcqMarks" >
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label for="Date" id="out_of">(out of)</label>
+                  <input type="text"  class="form-control"  placeholder="mcq" formControlName="outOfMcqMarks" >
+              </div>
+
+
+                <div class="col-sm-2 form-group">
+                    <label for="Date">Written Marks</label>
+                    <input type="number"  class="form-control" id="Date" placeholder="" formControlName="writtenMarks" >
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label for="Date" id="out_of">(out of)</label>
+                  <input type="text"  class="form-control" id="Date" placeholder="written" formControlName="outOfWrittenMarks" >
+              </div>
+
+
+
+                <div class="col-sm-2 form-group">
+                    <label for="Date">Viva Marks</label>
+                    <input type="number"  class="form-control"  placeholder="" formControlName="vivaMarks" >
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label for="Date" id="out_of">(out of)</label>
+                  <input type="text"  class="form-control"  placeholder="viva" formControlName="outOfVivaMarks" >
+              </div>
+
+
+                <div class="col-sm-2 form-group">
+                    <label for="Date">Aptitude Test Marks</label>
+                    <input type="number"  class="form-control"  placeholder="" formControlName="apTestMarks" >
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label for="Date" id="out_of">(out of)</label>
+                  <input type="text"  class="form-control"  placeholder="Apt test" formControlName="outOfApTestMarks" >
+              </div>
+
+
+                <div class="col-sm-2 form-group">
+                    <label for="Date">Final Viva Marks</label>
+                    <input type="number"  class="form-control" id="Date" placeholder="" formControlName="finalVivaMarks" >
+                </div>
+                <div class="col-sm-2 form-group">
+                  <label for="Date" id="out_of">(out of)</label>
+                  <input type="text"  class="form-control" id="Date" placeholder="Final" formControlName="outOfFinalVivaMarks" >
+              </div>
+
+
+
+
+
+
+
+
+                        <div class="col-sm-6 form-group">
+                            <label for="">remarks</label>
+                            <textarea class="form-control" formControlName="remarks"> </textarea>
+                        </div>
+
+                        <div class="col-sm-6 form-group">
+                            <label for="">comments</label>
+                            <textarea class="form-control" formControlName="comments"> </textarea>
+                        </div>
+
+
+
+                       <div class="col-sm-6">
+                       <!-- <div class="checkbox mt-5" >
+                            <label for="">
+                              <input type="checkbox" class="form-control"  formControlName="shortlist" />
+                              This Applicant is Shortlisted!
+                            </label>
+                          </div>
+                            -->
+                            <label for="name-f">Status</label>
+                            <select class="select form-control" formControlName="statusdrop"  id="name-f" >
+                                <option value="">Select Status</option>
+                                <option value="1" class="text-info">Pending</option>
+                                <option value="2" class="text-success">Shortlisted</option>
+                                <option value="3" class="text-danger">Failed</option>
+                            </select>
+                       </div>
+
+
+                        <div class="col-sm-6">
+
+                        </div>
+
+
+
+<!---
+                   <input type="file" class="form-control" formControlName="pic" name="pic" >
+                        <div class="col-sm-6 form-group">
+                            <label for="email">CV of applicant</label>
+
+                            <input type="file" class="form-control" formControlName="cv">
+                        </div>-->
+
+
+
+
+
+                        <div class="col-sm-12">
+                            <div class="text-right">
+                                <a class="btn btn-warning btn-ripple" routerLink="/irecruitment/appliedjob/list"><i class="fa fa-share"></i> Cancel</a>
+                                &nbsp; &nbsp;
+                                <button type="button" class="btn btn-secondary btn-ripple" (click)="resetFormValues()">
+                                    <i class="fa fa-undo" aria-hidden="true"></i> Reset
+                                </button>
+                                &nbsp; &nbsp;
+                                <button type="submit" class="btn btn-primary btn-ripple">
+                                    <i class="fa fa-check" aria-hidden="true"></i> Save &nbsp;&nbsp;&nbsp;
+                                </button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- /Page Content -->
+
+
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>

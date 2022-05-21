@@ -1,0 +1,174 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Applicant</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/irecruitment/applicant/list">Applicant</a></li>
+                    <li class="breadcrumb-item active">Show</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a class="btn add-btn" routerLink="/irecruitment/applicant/list"><i class="fa fa-share"></i> Back To List</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-offset-2 col-lg-8" style="box-shadow: 2px 5px 8px 5px #888888;">
+          <section class="panel panel-default ">
+            <div class="panel-body">
+              <article class="panel-body">
+                <figure class="text-center">
+                  <img src="{{baseUrl + myFormData.pic}}" class="img-thumbnail img-circle img-responsive" data-target="#aplc_Image" data-toggle="modal" (click)="tempEduId = myFormData.id">
+
+                  <figcaption>
+                    <h3>{{myFormData.displayName}}</h3>
+                    {{myFormData.presentAddress}}
+                    <br>
+                    <i class="fa fa-phone"></i> {{myFormData.phoneNumber}}<br>
+                    <i class="fa fa-envelope"></i>  {{myFormData.email}}
+                  </figcaption>
+                </figure>
+              </article>
+              <br>
+              <article>
+                <h4>
+                  <strong>Personal Details</strong>
+                </h4>
+                <hr>
+                <dl class="dl-horizontal">
+                  <dt style="color: rgb(58, 133, 151);">Date of Birth </dt>
+                  <dd>{{myFormData.dob | date:'mediumDate'}}</dd>
+
+                  <dt style="color: rgb(58, 133, 151);">Blood Group</dt>
+                  <dd>{{myFormData.alkpBloodGrpIdAlkp.title }}</dd>
+
+                  <dt style="color: rgb(58, 133, 151);">NID</dt>
+                  <dd>{{myFormData.nationalIdentityNumber }}</dd>
+
+                  <dt style="color: rgb(58, 133, 151);">Birth registration no.</dt>
+                  <dd>{{myFormData.bregNum}}</dd>
+
+                  <dt style="color: rgb(58, 133, 151);">Father name</dt>
+                  <dd>{{myFormData.fatherName}}</dd>
+                  <dt style="color: rgb(58, 133, 151);">Mother name</dt>
+                  <dd>{{myFormData.motherName}}</dd>
+
+                  <dt style="color: rgb(58, 133, 151);">Permanent Address</dt>
+                  <dd>{{myFormData.permanentAddress}}</dd>
+
+                </dl>
+              </article>
+              <article>
+                <h4>
+                  <strong>Education</strong>
+                </h4>
+                <hr>
+                <dl class="dl-horizontal">
+                  <dd>{{myFormData.education}}</dd>
+                </dl>
+              </article>
+              <article>
+                <h4>
+                  <strong>Skills</strong>
+                </h4>
+                <hr>
+                <dl class="dl-horizontal">
+                  <dd>{{myFormData.skills}}</dd>
+                </dl>
+              </article>
+              <article>
+                <h4>
+                  <strong> Career Summary</strong>
+                </h4>
+                <hr>
+                <dl class="dl-horizontal">
+                  <dd [innerHTML]="content">{{myFormData.careerSummary}}</dd>
+                </dl>
+                <hr>
+              </article>
+              <article>
+                <h4>
+                  <strong>Work Experiences</strong>
+                </h4>
+                <dl class="dl-horizontal">
+                  <dt style="color: rgb(58, 133, 151);">Experience Year</dt>
+                  <dd>{{myFormData.experienceYear}}</dd>
+                  <dt style="color: rgb(58, 133, 151);">Expected Salary</dt>
+                  <dd>{{myFormData.salExpected}}</dd>
+                </dl>
+
+                <dl class="dl-horizontal">
+                  <dt style="color: rgb(130, 173, 184); font-family: cursive;">Reference</dt>
+                  <dd style="color: rgb(96, 126, 134); font-family: cursive;">{{myFormData.reference}}</dd>
+                </dl>
+              </article>
+
+              <article>
+                <div class="pull-right">
+                  <a href="{{myFormData.linkedinLink}}" title="LinkedIn" class="text-info" target="_blank">
+                    <i class="fa fa-linkedin-square" style="font-size:30px"></i>
+                  </a>
+                  <a href="{{myFormData.portfolioLink}}" title="Portfolio" class="ml-2 text-primary" target="_blank">
+                    <i class="fa fa-briefcase" style="font-size:30px"></i>
+                  </a>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+
+  <!-- Image upload modal -->
+  <div id="aplc_Image" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Upload Applicant Image</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="myForm" (ngSubmit)="SubmitAplcImg()">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="profile-img-wrap edit-img" >
+
+                  <img [src]="imgSrc" height="100" *ngIf="imgSrc">
+                  <div class="fileupload btn">
+                    <span class="btn-text">Select</span>
+                    <input class="upload" type="file" name="pic" accept="image/x-png,image/jpeg,image/jpg"
+                      (change)="onFileSelect($event)">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="submit-section">
+              <button class="btn btn-primary submit-btn">Upload</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- /Image upload modal -->
+</div>
+
+
+<!-- /Page Content -->
+
+
+
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>

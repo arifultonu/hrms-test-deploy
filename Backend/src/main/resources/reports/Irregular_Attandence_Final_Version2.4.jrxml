@@ -1,0 +1,465 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Mnnnnntest" pageWidth="900" pageHeight="842" columnWidth="860" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f3919500-8bc6-4fd6-aae3-41ac55c31167">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="136"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="857"/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="192.168.61.66"/>
+	<style name="Style1">
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{attn_day_sts_final_type}.contains ("Present")]]></conditionExpression>
+			<style mode="Opaque" forecolor="#0F0F0E">
+				<pen lineColor="#111211"/>
+				<box>
+					<pen lineColor="#1A1C19"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{attn_day_sts_final_type}.contains("Late")]]></conditionExpression>
+			<style mode="Opaque" forecolor="#4DA630">
+				<box>
+					<pen lineColor="#171515"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{attn_day_sts_final_type}.contains("Early Gone")]]></conditionExpression>
+			<style mode="Opaque" forecolor="#FC0F3F">
+				<box>
+					<pen lineColor="#1C1A18"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{attn_day_sts_final_type}.contains("Absent")]]></conditionExpression>
+			<style mode="Opaque" forecolor="#FC2323">
+				<box>
+					<pen lineColor="#121012"/>
+				</box>
+			</style>
+		</conditionalStyle>
+		<conditionalStyle>
+			<conditionExpression><![CDATA[$F{attn_day_sts_final_type}.contains("Late and Early Gone")]]></conditionExpression>
+			<style/>
+		</conditionalStyle>
+	</style>
+	<parameter name="From_Date" class="java.lang.String"/>
+	<parameter name="To_Date" class="java.lang.String"/>
+	<parameter name="Emp_Code" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select
+e.login_code,
+e.display_name,
+e.joining_date,
+AGE(e.joining_date)as Job_duration,
+dept.title as Deartment,
+org.title as org_name,
+s.title as designations,
+p.attn_date,
+p.in_time,
+p.out_time,
+p.attn_day_sts_final_type,
+p.out_time-p.in_time As Working_Hour,
+extract(dow from attn_date ) AS "Day of Year",
+to_char(attn_date  , 'Day') as working_day,
+d.title as shift_type,
+CONCAT  ((EXTRACT(HOUR FROM d.start_time)),'AM', ' - ', (to_char(to_timestamp(extract(hour from d.end_time)),'HH12')),'PM') AS "Assign_Shift"
+from proc_out_dt_attn p, hr_tl_shft_dtl d,hr_cr_emp e,hr_emp_designations s,all_org_mst org,hr_cr_emp_primary_assgnmnt pa,all_org_mst dept
+where p.hr_tl_shft_dtl_id=d.id and e.id=p.hr_cr_emp_id and s.dg_order=e.dg_order and  e.id=pa.hr_cr_emp_id and dept.id = pa.all_org_mst_department_id 
+and org.id = pa.all_org_mst_organization_id
+and p.attn_day_sts_final_type in('Late','Early Gone','Late And Early Gone','Absent')
+AND e.login_code= $P{Emp_Code} 
+AND (p.attn_date 
+BETWEEN to_date( $P{From_Date} , 'yyyy-MM-dd') AND to_date( $P{To_Date} , 'yyyy-MM-dd')) 
+order by p.attn_date]]>
+	</queryString>
+	<field name="login_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="login_code"/>
+		<property name="com.jaspersoft.studio.field.label" value="login_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="display_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="display_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="display_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="joining_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="joining_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="joining_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="job_duration" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="job_duration"/>
+		<property name="com.jaspersoft.studio.field.label" value="job_duration"/>
+	</field>
+	<field name="deartment" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="deartment"/>
+		<property name="com.jaspersoft.studio.field.label" value="deartment"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="all_org_mst"/>
+	</field>
+	<field name="org_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="org_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="org_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="all_org_mst"/>
+	</field>
+	<field name="designations" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="designations"/>
+		<property name="com.jaspersoft.studio.field.label" value="designations"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_emp_designations"/>
+	</field>
+	<field name="attn_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="attn_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="attn_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proc_out_dt_attn"/>
+	</field>
+	<field name="in_time" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="in_time"/>
+		<property name="com.jaspersoft.studio.field.label" value="in_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proc_out_dt_attn"/>
+	</field>
+	<field name="out_time" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="out_time"/>
+		<property name="com.jaspersoft.studio.field.label" value="out_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proc_out_dt_attn"/>
+	</field>
+	<field name="attn_day_sts_final_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="attn_day_sts_final_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="attn_day_sts_final_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proc_out_dt_attn"/>
+	</field>
+	<field name="working_hour" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="working_hour"/>
+		<property name="com.jaspersoft.studio.field.label" value="working_hour"/>
+	</field>
+	<field name="Day of Year" class="java.math.BigDecimal">
+		<property name="com.jaspersoft.studio.field.name" value="Day of Year"/>
+		<property name="com.jaspersoft.studio.field.label" value="Day of Year"/>
+	</field>
+	<field name="working_day" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="working_day"/>
+		<property name="com.jaspersoft.studio.field.label" value="working_day"/>
+	</field>
+	<field name="shift_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="shift_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="shift_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_tl_shft_dtl"/>
+	</field>
+	<field name="Assign_Shift" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Assign_Shift"/>
+		<property name="com.jaspersoft.studio.field.label" value="Assign_Shift"/>
+	</field>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="182" splitType="Stretch">
+			<textField>
+				<reportElement mode="Transparent" x="0" y="0" width="860" height="50" backcolor="#DBDBDB" uuid="662a6d6a-76c9-4276-baad-87af09ea2614"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{org_name}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="420" y="152" width="60" height="28" uuid="ddb1a855-4053-40ef-a6e5-9d8327d70c6f"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{From_Date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="280" y="152" width="109" height="28" uuid="6ee28160-4789-499d-a282-7d017c452c44"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Reporting Period : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="389" y="152" width="31" height="28" uuid="b67b7c7a-2741-47e8-a32a-79bec1ac5373"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<text><![CDATA[From]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="480" y="152" width="26" height="28" uuid="fdfd8360-4465-4f79-8fd8-964c8e53d964"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="11" isBold="true"/>
+				</textElement>
+				<text><![CDATA[To]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="506" y="152" width="80" height="28" uuid="8ec7fee0-74ac-4195-a32d-d4817457e2a5"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$P{To_Date}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="50" width="860" height="30" uuid="8ba9ace6-c9c0-41fb-b480-c9848329220b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Irregular Attendance Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="82" width="26" height="30" uuid="f669ac93-aa9c-4c5c-a358-1fe75059cd73"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="80" y="112" width="50" height="30" uuid="be7e7b56-07e3-43ef-8b05-b0c3a292e32b"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="106" y="82" width="75" height="30" uuid="8da31f07-9d59-403e-9288-1207387d297a"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{login_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="130" y="112" width="121" height="30" uuid="cc435561-655e-44ff-bed9-2ff08f140ccd"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{display_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="300" y="82" width="80" height="30" uuid="354b2d28-a56c-495e-975c-b899689c21ab"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Designation : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="112" width="80" height="30" uuid="4f8ecb00-5ef9-4983-829a-a9f5f3cbb3ee"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Department : ]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="380" y="82" width="120" height="30" uuid="7bdea8bf-00e0-44a4-82bd-511e9c77e698"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{designations}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="380" y="112" width="120" height="30" uuid="16ed8ec7-d9eb-4020-8cb1-3d218574b744"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deartment}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="592" y="82" width="87" height="30" uuid="d11c1152-fcbe-42a8-bc3c-2b89453bef84"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Joining Date : ]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="592" y="112" width="98" height="30" uuid="469c51d5-3855-453e-976c-4e748c3695b5"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Service length : ]]></text>
+			</staticText>
+			<textField pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="679" y="82" width="100" height="30" uuid="db8bb7de-4da4-419d-948f-99c2b3d72e01"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{joining_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="690" y="112" width="89" height="30" uuid="1095f239-64be-4599-879f-1297315141ca"/>
+				<box leftPadding="3"/>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{job_duration}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="31" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="9" y="1" width="97" height="30" backcolor="#DBDBDB" uuid="e4839359-1715-4c67-883e-fdffdc4cc763"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="106" y="1" width="83" height="30" backcolor="#DBDBDB" uuid="ff0f66db-e973-498d-832f-9a63d8502a4e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Day]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="189" y="1" width="99" height="30" backcolor="#DBDBDB" uuid="51b93007-db1e-44c7-8860-823b53cf7800"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[In]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="288" y="1" width="101" height="30" backcolor="#DBDBDB" uuid="4866fd67-3e35-442e-b766-9150b5a4f01c"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Out]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="389" y="1" width="103" height="30" backcolor="#DBDBDB" uuid="041bc354-a5c9-463c-9901-2609015c2e65"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Shift]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="492" y="1" width="120" height="30" backcolor="#DBDBDB" uuid="f12d7b85-46ed-4531-a2c2-b5d933da8e65"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Total Working Hour]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="611" y="1" width="116" height="30" backcolor="#DBDBDB" uuid="3245eea2-00f2-4b03-8c42-f82bc57e2211"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="727" y="1" width="100" height="30" backcolor="#DEDEDE" uuid="6b45f278-500b-472c-9413-546dc714677f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Revised Status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField textAdjust="StretchHeight" pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="9" y="0" width="97" height="30" uuid="42972264-2c91-482e-9da6-d87a1a6f7f69"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{attn_date}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="106" y="0" width="83" height="30" uuid="2a3f7dfe-14f8-4e07-b3cb-6c1b5f192db0"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{working_day}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="h:mm a" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="189" y="0" width="99" height="30" uuid="84a17a10-662e-451e-84d6-adaaf7f60f88"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{in_time}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="h:mm a" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="288" y="0" width="101" height="30" uuid="a93bedaa-7023-4f3d-b3f3-a940e1ce2740"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{out_time}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="389" y="0" width="103" height="30" uuid="91008c56-5a27-49fb-b61b-869208e1beed"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Assign_Shift}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="492" y="0" width="120" height="30" uuid="85e37cd5-58b8-4c4c-bfd9-b10f22b62792"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{working_hour}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement style="Style1" stretchType="RelativeToTallestObject" mode="Opaque" x="611" y="0" width="116" height="30" uuid="c9b0fd5b-6dd1-4933-b6f2-64ca9d797432"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{attn_day_sts_final_type}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="727" y="0" width="100" height="30" uuid="37b6ffe9-d5f3-4687-b77f-4114dcf016d4"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,118 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+  <!-- Page Header -->
+  <div class="page-header">
+      <div class="row align-items-center">
+          <div class="col">
+              <h3 class="page-title">Holiday Config</h3>
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                  <li class="breadcrumb-item active">Base Setup</li>
+                  <li class="breadcrumb-item active">Holiday Config
+                  </li>
+                  <li class="breadcrumb-item active">Edit</li>
+              </ul>
+          </div>
+          <div class="col-auto float-right ml-auto">
+              <a class="btn add-btn" routerLink="/settings/holiday-config"><i class="fa fa-share"></i> Back To List</a>
+          </div>
+      </div>
+  </div>
+  <!-- /Page Header -->
+
+
+
+  <div class="row">
+      <div class="col-lg-12">
+          <div class="card">
+              <!-- <div class="card-header"> -->
+                  <!-- <h4 class="card-title mb-0">Payroll Item Value</h4> -->
+              <!-- </div>  -->
+              <div class="card-body">
+                  <form novalidate (ngSubmit)="saveUpdatedFormData()" [formGroup]="myForm">
+
+
+                      <div class="form-group row">
+                          <label class="col-form-label col-md-2">Name</label>
+                          <div class="col-md-10">
+                              <input type="text" class="form-control"  formControlName="holidayName">
+                          </div>
+                      </div>
+
+
+
+
+                      <div class="form-group row">
+                          <label class="col-form-label col-md-2">From Date</label>
+                          <div class="col-md-10">
+                              <div class="cal-icon">
+                                  <input type="text" class="form-control datetimepicker" formControlName="fromDate"  bsDatepicker>
+                              </div>
+                          </div>
+                      </div>
+                      <div class="form-group row">
+                          <label class="col-form-label col-md-2">To Date</label>
+                          <div class="col-md-10">
+                              <div class="cal-icon">
+                                  <input type="text" class="form-control datetimepicker" formControlName="toDate"  bsDatepicker>
+                              </div>
+                          </div>
+                      </div>
+
+
+                      <div class="form-group row">
+                          <label class="col-form-label col-md-2">Year</label>
+                          <div class="col-md-10">
+                              <select class="form-control" formControlName="holidayYear">
+                                  <option value=2022>2022</option>
+                                  <option value=2023>2023</option>
+                                  <option value=2024>2024</option>
+                                  <option value=2025>2025</option>
+                                  <option value=2026>2026</option>
+                                  <option value=2027>2027</option>
+                                  <option value=2028>2028</option>
+                                  <option value=2029>2029</option>
+                                </select>
+                          </div>
+                      </div>
+                      <!-- <div class="form-group row">
+                          <label class="col-form-label col-md-2">Leave Days</label>
+                          <div class="col-md-10">
+                              <input type="number" class="form-control"  formControlName="leaveDays">
+                          </div>
+                      </div> -->
+
+                      <div class="form-group row">
+                          <label class="col-form-label col-md-2">Remarks</label>
+                          <div class="col-md-10">
+                              <textarea type="text" class="form-control"  formControlName="remarks"></textarea>
+                          </div>
+                      </div>
+
+                      <div class="text-right">
+                          <a class="btn btn-warning btn-ripple" routerLink="/settings/holiday-config"><i class="fa fa-share"></i> Cancel</a>
+                          &nbsp; &nbsp;
+                          <button type="button" class="btn btn-secondary btn-ripple"(click)="resetFormValues()">
+                              <i class="fa fa-undo" aria-hidden="true"></i> Reset
+                          </button>
+                          &nbsp; &nbsp;
+                          <button type="submit" class="btn btn-primary btn-ripple">
+                              <i class="fa fa-check" aria-hidden="true"></i> Save &nbsp;&nbsp;&nbsp;
+                          </button>
+                      </div>
+
+
+                  </form>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+</div>
+<!-- /Page Content -->
+
+
+
+

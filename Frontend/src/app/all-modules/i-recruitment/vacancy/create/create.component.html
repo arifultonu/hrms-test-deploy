@@ -1,0 +1,231 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Vacancy</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/irecruitment/vacancy/list">Vacancy</a></li>
+                    <li class="breadcrumb-item active">Create Vacancy</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a class="btn add-btn" routerLink="/irecruitment/vacancy/list"><i class="fa fa-share"></i> Back To List</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <!-- <div class="card-header"> -->
+                    <!-- <h4 class="card-title mb-0">Payroll Item Value</h4> -->
+                <!-- </div>  -->
+                <div class="card-body">
+
+
+                    <h3 class="card-title"> Vacancy Requisition Create </h3>
+                    <form novalidate (ngSubmit)="myFormSubmit()" [formGroup]="myForm">
+
+
+                    <div class="row">
+
+
+
+                        <div class="col-sm-6 form-group">
+                            <label for="name-f" class="val-required">Job Title</label>
+                            <input type="text" class="form-control"  id="name-f"  formControlName="title" >
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="title && title.invalid && title.touched">Field is required</span>
+
+
+                        </div>
+                        <div class="col-sm-3 form-group">
+                          <label for="name-f" class="val-required">Organization</label>
+                            <select class="select form-control" formControlName="allOrgMstOrgId">
+                              <option value="">Select Organization</option>
+                              <option *ngFor="let data of org" value="{{ data.id }}">{{data.title}}
+                              </option>
+                          </select>
+                          <span style="font-size: 12px;" class="text-danger" *ngIf="allOrgMstOrgId && allOrgMstOrgId.invalid && allOrgMstOrgId.touched">Field is required</span>
+                        </div>
+
+                        <div class="col-sm-3 form-group">
+                          <label for="name-f" class="val-required">Department</label>
+                            <select class="select form-control" formControlName="allOrgMstDeptId">
+                              <option value="">Select Department</option>
+                              <option *ngFor="let data of departments" value="{{ data.id }}">{{data.title}}
+                              </option>
+                          </select>
+                          <span style="font-size: 12px;" class="text-danger" *ngIf="allOrgMstDeptId && allOrgMstDeptId.invalid && allOrgMstDeptId.touched">Field is required</span>
+
+                        </div>
+
+
+
+                        <div class="col-sm-6 form-group">
+                          <label for="name-l">Relevant Education</label>
+                          <input type="text" class="form-control" id="name-l"  formControlName="relevantEducation" >
+                        </div>
+
+
+                        <div class="col-sm-6 form-group">
+                            <label for="address-1" class="val-required">Job Location</label>
+                            <input type="text" class="form-control"  id="address-1"  formControlName="jobLocation">
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="jobLocation && jobLocation.invalid && jobLocation.touched">Field is required</span>
+
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="Date" class="val-required">Application Deadline</label>
+
+                            <div class="cal-icon">
+
+                                    <input class="form-control datetimepicker" formControlName="requiredWithin"
+                                    class="form-control" bsDatepicker type="text"
+                                     type="text"
+                                    [bsConfig]="{ dateInputFormat: 'DD-MM-YYYY',  returnFocusToInput: true }" placeholder="dd-mm-yyyy">
+
+                            </div>
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="requiredWithin && requiredWithin.invalid && requiredWithin.touched">Field is required</span>
+
+
+                        </div>
+
+
+                        <div class="col-sm-3 form-group">
+                            <label for="State">Salary Minimum</label>
+                            <input type="number" class="form-control"  id="State"   min="1" formControlName="salMin">
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label for="zip">Salary Maximum</label> <label class="float-right" for="">
+                                <input type="checkbox" value="1" formControlName="negotiable" />
+                                 (Negotiable)
+                              </label>
+                            <input type="number" class="form-control" id="zip"  min="1" formControlName="salMax">
+                        </div>
+
+
+
+                        <div class="col-sm-6 form-group">
+                            <label for="email" class="val-required">Job Conditions</label>
+                            <input type="text" class="form-control" id="email"  formControlName="jobType"  placeholder="eg. Saturday-Thursday | 9 AM to 6 PM">
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="jobType && jobType.invalid && jobType.touched">Field is required</span>
+
+                        </div>
+
+
+                        <div class="col-sm-3 form-group">
+                            <label for="State">Total Vacancy</label>
+                            <input type="number" class="form-control"  id="State"  min="1" formControlName="vcncyTot">
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label for="zip">Year(s) of Experience</label>
+                            <input type="number" class="form-control" id="zip"  min="0" formControlName="noExperience">
+                        </div>
+
+
+                        <div class="col-sm-6 form-group">
+                            <label for="email" class="val-required">Job Nature</label>
+                            <select class="form-control browser-default custom-select" formControlName="jobNature">
+                                <option selected value="">Select Job Nature</option>
+                                <option value="Full Time">Full Time</option>
+                                <option value="Part Time">Part Time</option>
+                                <option value="Contractual">Contractual</option>
+                            </select>
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="jobNature && jobNature.invalid && jobNature.touched">Field is required</span>
+                        </div>
+
+                        <div class="col-sm-6 form-group">
+                            <label for="email">Additional Requirements</label>
+                            <ckeditor [editor]="Editor" formControlName="addtnlReqrmnt"></ckeditor>
+
+                        </div>
+
+                        <div class="col-sm-12 form-group">
+                            <label for="email" class="val-required">Job Responsibility</label>
+
+                            <ckeditor [editor]="Editor" formControlName="jobResponsibility"></ckeditor>
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="jobResponsibility && jobResponsibility.invalid && jobResponsibility.touched">Field is required</span>
+                        </div>
+
+                        <div class="col-sm-12 form-group">
+                            <label for="email">Employee Benefits</label>
+                            <ckeditor [editor]="Editor" formControlName="othersBenefit"></ckeditor>
+                        </div>
+
+
+
+                        <div class="col-sm-4 form-group mt-3" style="box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+                            <div class="checkbox mt-3" >
+                                <label for="">
+                                  <input type="checkbox" value="1" class="form-group"  formControlName="vcncMale"/>
+                                  This Position is Eligible for Male
+                                </label>
+                              </div>
+
+                              <div class="checkbox">
+                                  <label >
+                                      <input type="checkbox" value="1" class="form-group" formControlName="vcncFemale"/>
+                                      This Position is Eligible for Female
+                                  </label>
+                              </div>
+                        </div>
+
+
+                        <div class="col-sm-4 form-group mt-3" style="box-shadow: 0 3px 6px rgba(0,0,16,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+                            <div class="checkbox mt-3" >
+                                <label for="">
+                                  <input type="checkbox" value="1" class="form-group" formControlName="ot"  />
+                                  This Position has Over Time opportunity
+                                </label>
+                              </div>
+
+
+                        </div>
+                        <div class="col-sm-4 form-group mt-3" style="box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);">
+
+                            <div class="checkbox mt-3" >
+                                <label for="">
+                                  <input type="checkbox" value="1" class="form-group" formControlName="active"  />
+                                  Publish this Job vacancy Post
+                                </label>
+                              </div>
+
+                        </div>
+
+
+
+                        <div class="col-sm-12">
+                            <div class="text-right">
+                                <a class="btn btn-warning btn-ripple" routerLink="/irecruitment/vacancy/list"><i class="fa fa-share"></i> Cancel</a>
+                                &nbsp; &nbsp;
+                                <button type="button" class="btn btn-secondary btn-ripple" (click)="resetFormValues()">
+                                    <i class="fa fa-undo" aria-hidden="true"></i> Reset
+                                </button>
+                                &nbsp; &nbsp;
+                                <button type="submit" class="btn btn-primary btn-ripple" [disabled]="myForm.invalid">
+                                    <i class="fa fa-check" aria-hidden="true"></i> Save &nbsp;&nbsp;&nbsp;
+                                </button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- /Page Content -->
+
+
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>

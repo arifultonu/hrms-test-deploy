@@ -1,0 +1,287 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Leave Config</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Leave Config</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a  class="btn add-btn" data-toggle="modal" data-target="#add_leaveconfig"><i
+                        class="fa fa-plus"></i> Add Leave Config</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+
+                <div class="d-flex justify-content-start pb-1">
+                    <div class="pgn-displayDataInfo">
+                        <span class="page-item disabled">Displaying ( {{ ( ((pageNum-1) * pageSize) + (1) ) }}  to {{pngDiplayLastSeq}} of {{totalItem}} ) entries</span>
+                    </div>
+                </div>
+
+                <table id="genListTable" class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Leave Type</th>
+                            <th>Leave Days</th>
+                            <th>Status</th>
+                            <th>Emp Cat</th>
+                            <th>Gender</th>
+                            <th>Marital Sts</th>
+                            <th>Carry Max Days</th>
+                            <th>Carry Enable</th>
+                            <th>Leave Prd</th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+
+                        <tr *ngFor="let option of hrCrLeaveConfList | paginate : {
+                                itemsPerPage: pageSize,
+                                currentPage: pageNum,
+                                totalItems: totalItem
+                            };let i = index" [class.active]="i == currentIndex">
+                            <td>
+                                {{ 1 + i}}
+                            </td>
+                            <td>{{option.alkpLeaveType.title}}</td>
+                            <td>{{option.leaveDays}}</td>
+                            <td>
+                                <div class="dropdown action-label">
+                                    <a class="btn btn-white btn-sm btn-rounded dropdown-toggle"
+                                        data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-dot-circle-o text-success"></i>     {{option.isActive }}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a  class="dropdown-item"><i
+                                                class="fa fa-dot-circle-o text-success"></i> true</a>
+                                        <a  class="dropdown-item"><i class="fa fa-dot-circle-o text-danger"></i>
+                                            false</a>
+                                    </div>
+                                </div>
+
+                            </td>
+                            <td>{{option.alkpEmpCat.title}}</td>
+                            <td>{{option.alkpGender.title}}</td>
+                            <td>{{option.alkpMaritalSts.title}}</td>
+                            <td>{{option.carryMaxDays}}</td>
+                            <td>
+                            <div class="dropdown action-label">
+                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle"
+                                    data-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-dot-circle-o text-success"></i>  {{option.isCarryEnable }}
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a  class="dropdown-item"><i
+                                            class="fa fa-dot-circle-o text-success"></i> true</a>
+                                    <a  class="dropdown-item"><i class="fa fa-dot-circle-o text-danger"></i>
+                                        false</a>
+                                </div>
+                            </div>
+                            </td>
+                            <td>{{option.hrLeavePrd.title}}</td>
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action">
+                                    <a  class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item"  data-toggle="modal"
+                                            data-target="#edit_leavetype" (click)="edit(leaveType.id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                        <a class="dropdown-item"  data-toggle="modal"
+                                            data-target="#delete_leavetype" (click)="tempId = leaveType.id"><i class="fa fa-trash-o m-r-5"></i>
+                                            Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="hrCrLeaveConfList.length === 0">
+                            <td colspan="10">
+                                <h5 style="text-align: center;">No data found</h5>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-end ">
+
+                    <div >
+                        Items per Page
+                        <select (change)="handlePageSizeChange($event)" class="pgn-pageSizeOption" >
+                            <option *ngFor="let size of pageSizes" [value]="size">
+                                {{ size }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="pgn-pageSliceCt">
+                        <pagination-controls
+                            responsive="true"
+                            previousLabel="Prev"
+                            nextLabel="Next"
+                            (pageChange)="handlePageChange($event)">
+                        </pagination-controls>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+
+<!-- Add Leavetype Modal -->
+<div id="add_leaveconfig" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Leave Config</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="addLeaveConf()" [formGroup]="addLeaveConfig">
+
+                    <div class="row filter-row mb-12">
+
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Leave Type<span class="text-danger">*</span></label>
+                                <!-- <input class="form-control" formControlName="shift" class="form-control" type="text"> -->
+                                <select class="form-control" formControlName="alkpLeaveType" class="form-control" type="number">
+                                    <option *ngFor="let option of alkpLeave.subALKP" [value]="option.id" >{{option.title}}</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Leave Days<span class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="leaveDays" class="form-control" type="number">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Max Carry Days<span class="text-danger">*</span></label>
+                                <input class="form-control" formControlName="carryMaxDays" class="form-control" type="number">
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Carry Enable<span class="text-danger">*</span></label>
+                                <br>
+                                <input  formControlName="isCarryEnable"  type="checkbox" value="1">
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Emp Cat Type<span class="text-danger">*</span></label>
+                                <!-- <input class="form-control" formControlName="shift" class="form-control" type="text"> -->
+                                <select class="form-control" formControlName="alkpEmpCat" class="form-control" type="number">
+                                    <option *ngFor="let option of alkpEmpCat.subALKP" [value]="option.id" >{{option.title}}</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Emp Gender<span class="text-danger">*</span></label>
+                                <!-- <input class="form-control" formControlName="shift" class="form-control" type="text"> -->
+                                <select class="form-control" formControlName="alkpGender" class="form-control" type="number">
+                                    <option *ngFor="let option of alkpGender.subALKP" [value]="option.id" >{{option.title}}</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Emp Marital Ststus<span class="text-danger">*</span></label>
+                                <!-- <input class="form-control" formControlName="shift" class="form-control" type="text"> -->
+                                <select class="form-control" formControlName="alkpMaritalSts" class="form-control" type="number">
+                                    <option *ngFor="let option of alkpMaritalSts.subALKP" [value]="option.id" >{{option.title}}</option>
+                                </select>
+
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Leave Prd<span class="text-danger">*</span></label>
+                                <!-- <input class="form-control" formControlName="shift" class="form-control" type="text"> -->
+                                <select class="form-control" formControlName="hrLeavePrd" class="form-control" type="number">
+                                    <option *ngFor="let option of leavePrd" [value]="option.id" >{{option.title}}</option>
+                                </select>
+
+                            </div>
+                        </div>
+                        <div class="col-sm-12 col-md-12">
+                            <div class="form-group">
+                                <label>Is Active<span class="text-danger">*</span></label>
+                                <br>
+                                <input  formControlName="isActive"  type="checkbox" value="1">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12">
+                            <div class="text-center">
+                            <button  class="btn btn-primary submit-btn" type="submit">
+                                Submit
+                                <!-- [disabled]="!addEmployeeForm.valid" -->
+                            </button>
+                          </div>
+                        </div>
+                     </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Add Leavetype Modal -->
+
+<!-- Edit Leavetype Modal -->
+<div id="edit_leavetype" class="modal custom-modal fade" role="dialog">
+
+</div>
+<!-- /Edit Leavetype Modal -->
+
+<!-- Delete Leavetype Modal -->
+<div class="modal custom-modal fade" id="delete_leavetype" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-body">
+                <div class="form-header">
+                    <h3>Delete Leave Type</h3>
+                    <p>Are you sure want to delete?</p>
+                </div>
+                <div class="modal-btn delete-action">
+                    <div class="row">
+                        <div class="col-6">
+                            <a  class="btn btn-primary continue-btn" >Delete</a>
+                        </div>
+                        <div class="col-6">
+                            <a  data-dismiss="modal"
+                                class="btn btn-primary cancel-btn">Cancel</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Delete Leavetype Modal -->

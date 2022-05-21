@@ -1,0 +1,174 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Organization</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Organization</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a  class="btn add-btn" data-toggle="modal" data-target="#add_organization"><i
+                        class="fa fa-plus"></i> Add Organization</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table  datatable [dtOptions]="dtOptions" [dtTrigger]="dtTrigger" class="table table-striped custom-table datatable mb-0">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Org Type</th>
+                            <th>Title</th>
+                            <th>Address</th>
+                            <th>Status</th>
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let data of allOrgMst;let i = index">
+                            <td>
+                                {{ 1 + i}}
+                            </td>
+                            <td>{{data.orgType}}</td>
+                            <td>{{data.title}}</td>
+                            <td> <a class="btn btn-primary" href="" routerLink="/settings/bas-address/{{data.id}}" > <i
+                                class="fa fa-plus-square"></i>  Address</a> </td>
+                            <td>
+                                <div class="dropdown action-label">
+                                    <a class="btn btn-white btn-sm btn-rounded dropdown-toggle"
+                                        data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-dot-circle-o text-success"></i> Show
+                                    </a>
+                                    <!-- <div class="dropdown-menu dropdown-menu-right">
+                                        <a *ngIf="data.isActive==true" class="dropdown-item"><i
+                                                class="fa fa-dot-circle-o text-success"></i> Active</a>
+                                        <a *ngIf="data.isActive==false" class="dropdown-item"><i
+                                                class="fa fa-dot-circle-o text-danger"></i>
+                                            Inactive</a>
+                                    </div> -->
+                                </div>
+                            </td>
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action">
+                                    <a  class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item" routerLink = "/settings/edit-org-mst/{{data.id}}"
+                                            ><i class="fa fa-pencil m-r-5"></i> Edit</a>
+
+                                        <a class="dropdown-item"  data-toggle="modal"
+                                            data-target="#delete_entity" (click)="tempId = data.id"><i class="fa fa-trash-o m-r-5"></i>
+                                            Delete</a>
+
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="allLeaveType.length === 0">
+                            <td colspan="10">
+                                <h5 style="text-align: center;">No data found</h5>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+
+<!-- Add Leavetype Modal -->
+<div id="add_organization" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Organization</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="addAllOrgMst()" [formGroup]="addOrgFormGroup">
+
+                    <div class="form-group">
+                        <label>Org Type <span class="text-danger">*</span></label>
+                        <select   class="select form-control" formControlName="orgType">
+                            <option value="">Select Org Type</option>
+                            <option value="GROUP">Group</option>
+                            <option value="ORGANIZATION">Organization</option>
+                            <option value="OPERATING_UNIT">Operating unit</option>
+                            <option value="PRODUCT">Product</option>
+                            <option value="DEPARTMENT">Department</option>
+                            <option value="SECTION">Section</option>
+                            <option value="SUB_SECTION">Sub Section</option>
+                            <option value="TEAM">Team</option>
+                            <option value="SUB_TEAM">Sub Team</option>
+
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Title <span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" [class.invalid]="addOrgFormGroup.get('title').invalid && addOrgFormGroup.get('title').touched"
+                        formControlName="title">
+                        <div
+                        *ngIf="addOrgFormGroup.get('title').invalid && addOrgFormGroup.get('title').touched">
+                        <small
+                            *ngIf="addOrgFormGroup.get('title').invalid && addOrgFormGroup.get('title').touched"
+                            class="text-danger"> *Title is required</small>
+                    </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label>Approval Status <span class="text-danger">*</span></label>
+                        <select  class="select form-control" formControlName="approvalStatus">
+                            <option value="">Select Approval Status</option>
+                            <option value="Approved">Approved</option>
+                            <option value="Declined">Denied</option>
+                        </select>
+                    </div>
+                    <div class="submit-section">
+                        <button class="btn btn-primary submit-btn">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Add Leavetype Modal -->
+<!-- Delete Modal -->
+<div class="modal custom-modal fade" id="delete_entity" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+          <div class="modal-body">
+              <div class="form-header">
+                  <h3>Delete Item</h3>
+                  <p>Are you sure want to delete?</p>
+              </div>
+              <div class="modal-btn delete-action">
+                  <div class="row">
+                      <div class="col-6">
+                          <a  class="btn btn-primary continue-btn" (click)="deleteEnityData(tempId)">Delete</a>
+                      </div>
+                      <div class="col-6">
+                          <a  data-dismiss="modal"
+                              class="btn btn-primary cancel-btn">Cancel</a>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+</div>
+<!-- /Delete Modal -->

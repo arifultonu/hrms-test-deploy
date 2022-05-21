@@ -1,0 +1,327 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="page-title">Welcome Admin!</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item active">Dashboard</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+   
+   
+
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa fa-users" aria-hidden="true"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>{{empTotal?.totalEmployees}}</h3>
+                        <span>Total Employees</span>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa fa-user-plus"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>{{empThisMonth?.lastMonthJoinedEmployees}}</h3>
+                        <span>New Employees</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa fa-plus"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>{{empPresent?.presentEmployees}}</h3>
+                        <span>Total Present Today</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa fa-minus"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>{{empAbsent?.absentEmployees}}</h3>
+                        <span>Total Absent Today</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa fa-clock-o"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>{{lateEmployee?.lateEmployees}}</h3>
+                        <span>Late In</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa fa-clock-o"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>{{earlyGoneEmployee?.earlyGoneEmployees}}</h3>
+                        <span>Early Gone</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa fa-plane"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>{{onTourEmployee?.onTourEmployees}}</h3>
+                        <span>On Tour</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa fa-sign-out"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>{{onLeaveEmployee?.onLeaveEmployees}}</h3>
+                        <span>On Leave</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="row">
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>0</h3>
+                        <span>Pending Recommendations</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>0</h3>
+                        <span>Pending Approvals</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>0</h3>
+                        <span>Total Salary</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 col-sm-6 col-lg-6 col-xl-3">
+            <div class="card dash-widget">
+                <div class="card-body">
+                    <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
+                    <div class="dash-widget-info">
+                        <h3>0</h3>
+                        <span>Total Bonus</span>
+                    </div>
+                </div>
+            </div>
+        </div> 
+    </div>-->
+
+
+
+    <!-- --------------------------------- Chart Retports  -->
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Department Wise Headcount</h3>
+                            <div>
+                                <google-chart 
+                                [type]="depWiseHeadCountChartData.type" 
+                                [data]="depWiseHeadCountChartData.data" 
+                                [options]="depWiseHeadCountChartData.options" 
+                                [columns]="depWiseHeadCountChartData.chartColumns" 
+                                [width]="depWiseHeadCountChartData.width"
+                                [height]="depWiseHeadCountChartData.height">
+                                 
+                               </google-chart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Last Seven Days Attendance Wise Headcount</h3>
+                            <div>
+                                <google-chart 
+                                [type]="thisMonthAttnWiseHeadCountChartData.type" 
+                                [data]="thisMonthAttnWiseHeadCountChartData.data" 
+                                [options]="thisMonthAttnWiseHeadCountChartData.options"
+                                [columns]="thisMonthAttnWiseHeadCountChartData.chartColumns" 
+                                [width]="thisMonthAttnWiseHeadCountChartData.width"
+                                [height]="thisMonthAttnWiseHeadCountChartData.height">
+                                 
+                               </google-chart>
+                            </div>
+                            <!-- <div mk-morris-js [options]="lineOption" [data]="lineData" type="Line"></div> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> 
+
+
+    
+    
+
+
+    <!-- <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Last Seven Days Attendance Wise Headcount</h3>
+                            <div>
+                                <google-chart 
+                                [type]="thisMonthAttnWiseHeadCountChartData.type" 
+                                [data]="thisMonthAttnWiseHeadCountChartData.data" 
+                                [options]="thisMonthAttnWiseHeadCountChartData.options"
+                                [columns]="thisMonthAttnWiseHeadCountChartData.chartColumns" 
+                                [width]="thisMonthAttnWiseHeadCountChartData.width"
+                                [height]="thisMonthAttnWiseHeadCountChartData.height">
+                                 
+                               </google-chart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div> -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-6 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">District  Wise Employee</h3>
+                            <div>
+                                <google-chart 
+                                [type]="destrictWiseHeadCountChartData.type" 
+                                [data]="destrictWiseHeadCountChartData.data" 
+                                [columns]="destrictWiseHeadCountChartData.chartColumns" 
+                                [width]="destrictWiseHeadCountChartData.width"
+                                [height]="destrictWiseHeadCountChartData.height">
+                                 
+                               </google-chart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Age Group Wise Employee</h3>
+                            <div>
+                                <google-chart 
+                                [type]="ageGroupWiseHeadCountChartData.type" 
+                                [data]="ageGroupWiseHeadCountChartData.data" 
+                                [options]="ageGroupWiseHeadCountChartData.options" 
+                                [columns]="ageGroupWiseHeadCountChartData.chartColumns" 
+                                [width]="ageGroupWiseHeadCountChartData.width"
+                                [height]="ageGroupWiseHeadCountChartData.height">
+                                 
+                               </google-chart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+             
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+               
+                <div class="col-md-6 text-center">
+                    <div class="card">
+                        <div class="card-body">
+                            <h3 class="card-title">Experience Wise Employee</h3>
+                            <div>
+                                <google-chart 
+                                [type]="experienceWiseHeadCountChartData.type" 
+                                [data]="experienceWiseHeadCountChartData.data" 
+                                [options]="experienceWiseHeadCountChartData.options" 
+                                [columns]="experienceWiseHeadCountChartData.chartColumns" 
+                                [width]="experienceWiseHeadCountChartData.width"
+                                [height]="experienceWiseHeadCountChartData.height">
+                                 
+                               </google-chart>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 text-center">
+                    <div class="card">
+                            <div class="card-body">
+                                <h3 class="card-title">Gender Wise Employee</h3>
+                                <div>
+                                    <google-chart 
+                                    [type]="genderWiseHeadCountChartData.type" 
+                                    [data]="genderWiseHeadCountChartData.data" 
+                                    [options]="genderWiseHeadCountChartData.options" 
+                                    [columns]="genderWiseHeadCountChartData.chartColumns" 
+                                    [width]="genderWiseHeadCountChartData.width"
+                                    [height]="genderWiseHeadCountChartData.height">
+                                     
+                                   </google-chart>
+                                </div>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

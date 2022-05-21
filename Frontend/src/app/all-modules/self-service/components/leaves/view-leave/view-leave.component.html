@@ -1,0 +1,286 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Leave</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item active">Self-service</li>
+                    <li class="breadcrumb-item active">Leave</li>
+                    <li class="breadcrumb-item active">Show</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+              <button class="btn btn-white mr-1" (click)="onPrint('sectionToPrint')"><i class="fa fa-print fa-lg"></i> Print</button>
+
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a class="btn add-btn" routerLink="/sefl-service/employeeleaves"><i class="fa fa-share"></i> Back To List</a>
+            </div>
+
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+
+                <div class="card-body" id="sectionPrint">
+
+
+
+                        <fieldset class="row fieldsetWithoutBorder">
+                            <legend></legend>
+                            <div class="col-12">
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Employee</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.hrCrEmp.displayName}} (Code:{{myData.hrCrEmp.loginCode}}) </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Mobile No</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.hrCrEmp.mobCode}} (Code:{{myData.hrCrEmp.loginCode}}) </span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Responsible Employee</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.hrCrEmpResponsible.displayName}} (Code:{{myData.hrCrEmpResponsible.loginCode}}) </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Mobile no of responsible employee</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.hrCrEmpResponsible.mobCode}} (Code:{{myData.hrCrEmpResponsible.loginCode}}) </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Leave Type</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.leaveType}} (Remaining : {{selfLeaveList[0].leaveDays-selfLeaveList[0].takenDays}})</span>
+                                    </div>
+                                </div>
+
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Start Date</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.startDate|date:'dd-MM-yyyy (EEEE)'}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">End Date</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.endDate|date:'dd-MM-yyyy (EEEE)'}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Leave Days</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.leaveDays}}</span>
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Leave Location</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.addressDuringLeave}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Couse Of Leave</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.reasonForLeave}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Remarks</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.remarks}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Approval Status</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.leaveApprovalStatus}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </fieldset>
+
+
+                        <div class="row">
+                            <div class="col-8">
+                                <fieldset class="row fieldsetBorder logBox ">
+                                    <legend>Approval Status</legend>
+                                    <table  class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>S/L</th>
+                                                <th>Approval Step</th>
+                                                <th>Sign By</th>
+                                                <th>Action</th>
+                                                <th>Date</th>
+                                                <th>Time</th>
+                                                <th>Remarks</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                          <tr  *ngFor="let thisObj of listData;let i = index">
+                                            <td>
+                                                {{ 1 + i}}
+                                            </td>
+                                            <td>{{thisObj.approvalStep.approvalGroupName?thisObj.approvalStep.approvalGroupName:'---'}}</td>
+                                            <td>{{thisObj.approvalStepApproverEmp?thisObj.approvalStepApproverEmp.displayName:'---'}}</td>
+                                            <td>{{thisObj.actionStatus?thisObj.actionStatus:'---'}}</td>
+                                            <td>{{thisObj.updateDateTime?thisObj.updateDateTime.substr(0,11) :'---'}}</td>
+                                            <td>{{thisObj.updateDateTime?thisObj.updateDateTime.substr(11) :'---'}}</td>
+                                            <td>{{thisObj.remarks?thisObj.remarks:'---'}}</td>
+
+                                          </tr>
+                                        </tbody>
+                                      </table>
+
+                                </fieldset>
+                            </div>
+
+
+                            <div class="col-4">
+                                <form novalidate (ngSubmit)="tackAction()" [formGroup]="myForm">
+                                <fieldset class="row fieldsetBorder logBox ">
+                                    <legend>Take Action</legend>
+
+
+                                        <label class="col-form-label col-md-4">Status</label>
+                                        <div class="col-md-8">
+                                            <ng-select formControlName="approvalStepAction" [items]="listData2" bindLabel="activityStatusTitle" bindValue="id"
+                                                placeholder="Select" appendTo="body" >
+                                            </ng-select>
+
+                                        </div>
+                                        <br><br>
+
+                                        <label class="col-form-label col-md-4">Remarks</label>
+                                        <div class="col-md-8">
+                                            <textarea formControlName="remarks" class="form-control mb-3" ></textarea>
+
+                                        </div>
+
+
+                                        <div class="col-md-9"></div>
+                                        <div class="col-md-3">
+                                            <button type="submit" class="btn btn-secondary btn-sm mb-2 ">
+                                                Save
+                                                </button>
+                                        </div>
+
+
+                                </fieldset>
+                                </form>
+                            </div>
+                        </div>
+
+
+
+
+
+
+
+                        <fieldset class="row fieldsetBorder logBox">
+                            <legend>System Log Information</legend>
+
+                            <div class="form-group">
+                                <label class="col-form-label">ID</label>
+                                <div class="">
+                                    <span>{{myData.id}}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Creation Time</label>
+                                <div class="">
+                                    <span>{{myData.createDate}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Creation User</label>
+                                <div class="">
+                                    <span>{{myData.createdByHrCrEmp?.user.username}}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Last Update Time</label>
+                                <div class="">
+                                    <span>{{myData.updateDateTime}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Last Update User</label>
+                                <div class="">
+                                    <span>{{myData.updatedByHrCrEmp?.user.username}}</span>
+                                </div>
+                            </div>
+
+                        </fieldset>
+<br><br>
+                        <fieldset class="row fieldsetBorder logBox" style="box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;">
+                          <legend class="bg-warning">Leave Status</legend>
+                          <table  class="table">
+                              <thead style="background-color: rgb(223, 215, 215);">
+                                  <tr>
+                                      <th>S/L</th>
+                                      <th>Leave Type</th>
+                                      <th>Leave Days</th>
+                                      <th>Taken Days</th>
+                                      <th>Remaining Days</th>
+
+                                  </tr>
+                              </thead>
+                              <tbody>
+                                <tr  *ngFor="let thisObj of selfLeaveList2;let i = index">
+                                  <td>
+                                      {{ 1 + i}}
+                                  </td>
+                                  <td>{{thisObj.leaveType}}</td>
+                                  <td>{{thisObj.leaveDays}}</td>
+                                  <td>{{thisObj.takenDays}}</td>
+                                  <td>{{thisObj.carryDays}}</td>
+
+                                </tr>
+                              </tbody>
+                            </table>
+
+                      </fieldset>
+
+                        <div class="text-right">
+                            <a class="btn btn-primary btn-ripple" routerLink="/sefl-service/employeeleaves"><i class="fa fa-share"></i> Close</a>
+                            &nbsp;
+                        </div>
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- /Page Content -->
+
+
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>
+

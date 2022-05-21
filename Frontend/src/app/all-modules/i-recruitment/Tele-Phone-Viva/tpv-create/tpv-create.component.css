@@ -1,0 +1,35 @@
+.content {
+	padding: 30px;
+}
+
+body{
+    background: #333;
+    
+}
+#title{
+    padding-bottom: 5px;
+    padding-top: 5px;
+    color: rebeccapurple;
+    letter-spacing: 7px;
+    text-transform: uppercase;
+}
+
+#description{
+    padding-top: 3px;
+    letter-spacing: 3px;
+}
+hr{
+    width: 50%;
+}
+.btn-teal{
+    background: #3292a6;
+    color: white;
+    border: none;
+    border-radius: none;
+    padding: 6px;
+    text-align: center;
+    height: 38px;
+}
+.container{
+  width: 50%;
+}

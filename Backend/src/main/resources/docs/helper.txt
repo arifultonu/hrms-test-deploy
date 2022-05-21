@@ -1,0 +1,170 @@
+// Joining Query in  JDBC Template
+String sqlString = "" +
+                "SELECT\n" +
+                "    SM.*,\n" +
+                "    EMP                AS EMP_CODE,\n" +
+                "    EMP.DISPLAY_NAME   AS EMP_TITLE\n" +
+                "FROM\n" +
+                "    SIM_MANAGEMENT   SM\n" +
+                "    LEFT JOIN HR_CR_EMP  EMP   ON SM.HR_CR_EMP_ID = EMP.ID\n" +
+                "WHERE\n" +
+                "    ( 1 = 1 )\n" +
+                "    AND ( ( "+qq+" IS NULL ) OR ((CODE = '"+q+"') OR (DISPLAY_NAME LIKE '%"+q+"%')) )\n" +
+                "ORDER BY\n" +
+                "    ID\n" +
+                "OFFSET "+ offset +" ROWS FETCH NEXT "+ pageSize +" ROWS ONLY";
+
+
+// Login Service Code
+
+
+// important links
+// https://www.baeldung.com/spring-jdbc-template
+// https://www.baeldung.com/jdbc-pagination
+// https://www.baeldung.com/jdbc-query-methods
+// https://www.baeldung.com/jdbc-query-methods-with-parameters
+
+// heroku
+Host
+ec2-34-236-34-103.compute-1.amazonaws.com
+Database
+de0iouhkk1engn
+User
+zhcvobikmwpntx
+Port
+5432
+Password
+8c5c6dcc5da7b11b720bb5559e753986bf85e8a672cea6725383726b7edfd790
+URI
+postgres://zhcvobikmwpntx:8c5c6dcc5da7b11b720bb5559e753986bf85e8a672cea6725383726b7edfd790@ec2-34-236-34-103.compute-1.amazonaws.com:5432/de0iouhkk1engn
+Heroku CLI
+heroku pg:psql postgresql-symmetrical-63682 --app dhrms
+
+$ heroku login
+Create a new Git repository
+Initialize a git repository in a new or existing directory
+
+$ cd my-project/
+$ git init
+$ heroku git:remote -a dhrms
+Deploy your application
+Commit your code to the repository and deploy it to Heroku using Git.
+
+$ git add .
+$ git commit -am "make it better"
+$ git push heroku master
+
+
+---- ODC DB ---------
+host: local machine IP / localhost
+database: hrms_prod
+username: hrms_db_user
+username: hrms_db_user#
+
+-------- QUERY For Update Sequence -----------
+#For Merging Sequence
+SELECT setval('the_primary_key_sequence', (SELECT MAX(the_primary_key) FROM the_table)+1);
+SELECT setval('alkp_id_seq', (SELECT MAX(id) FROM alkp)+1);
+SELECT setval('acl_system_resource_def_id_seq', (SELECT MAX(id) FROM acl_system_resource_def)+1);
+
+
+-------PLSQL For Updating  All db Sequence ----------------
+DO $$
+DECLARE
+i TEXT;
+BEGIN
+
+	FOR i IN (select table_name from information_schema.tables where table_catalog='hrms_majesto' and table_schema='public') LOOP
+		  IF (i='acl_user_role' ) THEN
+		  ELSIF(i='geo_divisions') THEN
+		  ELSIF(i='geo_districts') THEN
+		  ELSIF(i='geo_upazilas') THEN
+		  ELSIF(i='geo_unions') THEN
+		  ELSEIF(i='sys_visitors_log') THEN
+		  ELSEIF(i='tm_project_members') THEN
+	   ELSE
+		  EXECUTE 'Select setval('''||i||'_id_seq'', (SELECT max(id) as a FROM ' || i ||')+1);';
+	   END IF;
+
+    END LOOP;
+END$$;
+
+
+---------------DB DISCONNECT FROM USER--------------------
+
+REVOKE CONNECT ON DATABASE hrms_prod FROM public;
+
+SELECT pg_terminate_backend(pg_stat_activity.pid)
+FROM pg_stat_activity
+WHERE pg_stat_activity.datname = 'hrms_prod';
+
+drop database hrms_prod;
+create database hrms_prod;
+
+
+--------------------- OAUTH2.0 -------------------------
+
+okta.oauth2.issuer= https://dev-82708732.okta.com/oauth2/default
+okta.oauth2.clientId=0oa31uh4w5zZCOvFu5d7
+okta.oauth2.clientSecret=uvxqABszsc9Gpm7glu8gLNpzYpzdvf-HDEzlxna7
+
+
+-------------------$$$44490---->  OAUTH2.0 --->>> @Rn420-------------------------
+
+// changes on docs file test purpose
+
+-------Majesto Windows Machine ------------------------
+IP: 192.168.1.186
+Pass: majesto#135
+User Name: Administrator
+
+Postgres : Pass --> Maj3sto#105
+
+
+Github credentials main account
+
+username : digitech-IT
+password :  M@)nqm8-
+
+--------------
+
+192.168.150.242
+user -root , pass -root$@123
+
+---------------------
+New Public Ip Server
+
+--===============================
+OS CentOS 8
+--================================
+IP: 192.168.120.121
+REal IP: 103.243.143.21
+hostname: dc-posdealers.waltonbd.com
+User : root
+Pass: WalTon!@#
+<user username="admin" password="pipiapp#123" roles="manager-status,manager-gui"/>
+
+----------Test Server-------------
+OS UBUNTU - 18
+
+192.168.119.128
+
+hostname: dc-testapp.waltonbd.com
+
+user:test and pwd:Walton!@#
+
+user:root and pwd:Walton!@#
+
+---------Extract Zip File from Server-----------
+tar xvf apache-tomcat-8.5.51.tar
+
+start tomcat server -- sh startup.sh
+shutdown tomcat server -- sh shutdown.sh
+
+-------Change server user and password---------
+  <role rolename="manager-gui"/>
+  <role rolename="manager-script"/>
+  <role rolename="manager-jmx"/>
+  <role rolename="manager-status"/>
+  <user username="admin" password="hrms##123" roles="manager-status,manager-gui"/>
+

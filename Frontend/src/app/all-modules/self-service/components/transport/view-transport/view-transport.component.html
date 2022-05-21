@@ -1,0 +1,266 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+  <!-- Page Header -->
+  <div class="page-header">
+      <div class="row align-items-center">
+          <div class="col">
+              <h3 class="page-title">Transport Requisition</h3>
+              <ul class="breadcrumb">
+                  <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                  <li class="breadcrumb-item active">Self-service</li>
+                  <li class="breadcrumb-item active">Transport Requisition</li>
+                  <li class="breadcrumb-item active">Show</li>
+              </ul>
+          </div>
+          <div class="col-auto float-right ml-auto">
+              <a class="btn add-btn" routerLink="/sefl-service/transportRequisition"><i class="fa fa-share"></i> Back To List</a>
+          </div>
+      </div>
+  </div>
+  <!-- /Page Header -->
+
+
+
+  <div class="row">
+      <div class="col-lg-12">
+          <div class="card">
+              <div class="card-body">
+                      <fieldset class="row fieldsetWithoutBorder">
+
+                          <div class="col-6">
+
+                            <div class="form-group">
+                               <label class="col-form-label">Employee : {{myData.hrCrEmp.displayName}} (Code:{{myData.hrCrEmp.loginCode}})</label>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Mobile No : {{myData.hrCrEmp.mobCode}}</label>
+                            </div>
+
+                              <div class="form-group">
+                                  <label class="col-form-label ">Number Of Passenger : {{myData.numberOfPassenger}} </label>
+                                  
+                              </div>
+                              <div class="form-group ">
+                                  <label class="col-form-label">Number Of Vehicle : {{myData.numberOfVehicle}}</label>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-form-label ">Visit Time : {{myData.visitDateTime|date:'shortTime'}}</label>
+                              </div>
+
+
+                              <div class="form-group">
+                                  <label class="col-form-label ">Visit Start Date : {{myData.visitStartDate|date:'yyyy-MM-dd'}}</label>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="col-form-label">Visit End Date : {{myData.visitEndDate|date:'yyyy-MM-dd'}}</label>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="col-form-label">Vehicle Type : {{myData.vehicleType}}</label>
+                              </div>
+
+                              <div class="form-group">
+                                  <label class="col-form-label">Visit Reason : {{myData.visitReason}}</label>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-form-label">Visit From : {{myData.visitReason}}</label>
+                              </div>
+                              <div class="form-group">
+                                  <label class="col-form-label">Visit To : {{myData.visitTo}}</label>
+                              </div>
+                              <div class="form-group">
+                                <label class="col-form-label">Description Of Visit : {{myData.descriptionOfVisit}}</label>
+                             </div>
+                             <div class="form-group">
+                              <label class="col-form-label">Remarks : {{myData.remarks}}</label>
+                            </div>
+                              <div class="form-group ">
+                                  <label class="col-form-label">Approval Status : {{myData.transportRequisitionApprovalStatus}}</label>
+                              </div>
+
+                          </div>
+                          <div class="col-6">
+
+                          <div class="form-group">
+                              <label class="col-form-label">Sanction Vehicle Type : {{myData.sanctionVehicleType}}</label>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="col-form-label">Vehicle Reg Number : {{myData.vehicleRegNumber}}</label>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="col-form-label">Driver1 : {{myData.hrCrEmpD1?.displayName}}</label>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="col-form-label">Phone Number : {{myData.hrCrEmpD1?.mobCode}}</label>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="col-form-label">Driver2 : {{myData.hrCrEmpD2?.displayName}}</label>
+                          </div>
+                          <div class="form-group">
+                            <label class="col-form-label">Phone Number : {{myData.hrCrEmpD2?.mobCode}}</label>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="col-form-label">Vehicle Use Date : {{myData.vehicleUseDate|date:'yyyy-MM-dd'}}</label>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="col-form-label">Meter Riding Before Journey : {{myData.meterRidingBeforeJourney}}</label>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="col-form-label">Meter Riding After Journey : {{myData.meterRidingAfterJourney}}</label>
+                          </div>
+
+                          <div class="form-group">
+                            <label class="col-form-label">Meter Riding Duration : {{myData.meterRidingDuration}}</label>
+                          </div>
+
+                          </div>
+                      </fieldset>
+
+
+
+
+
+
+
+
+                      <div class="row">
+                          <div class="col-8">
+                              <fieldset class="row fieldsetBorder logBox ">
+                                  <legend>Approval Status</legend>
+                                  <table  class="table">
+                                      <thead>
+                                          <tr>
+                                              <th>S/L</th>
+                                              <th>Approval Step</th>
+                                              <th>Sign By</th>
+                                              <th>Action</th>
+                                              <th>Date</th>
+                                              <th>Remarks</th>
+                                          </tr>
+                                      </thead>
+                                      <tbody>
+                                        <tr  *ngFor="let thisObj of listData;let i = index">
+                                          <td>
+                                              {{ 1 + i}}
+                                          </td>
+                                          <td>{{thisObj.approvalStep.approvalGroupName?thisObj.approvalStep.approvalGroupName:'null'}}</td>
+                                          <td>{{thisObj.approvalStepApproverEmp?thisObj.approvalStepApproverEmp.displayName:'null'}}</td>
+                                          <td>{{thisObj.actionStatus?thisObj.actionStatus:'null'}}</td>
+                                          <td>{{thisObj.updateDateTime?thisObj.updateDateTime:'null'}}</td>
+                                          <td>{{thisObj.remarks?thisObj.remarks:'null'}}</td>
+
+                                        </tr>
+                                      </tbody>
+                                    </table>
+
+                              </fieldset>
+                          </div>
+
+
+                          <div class="col-4">
+                              <form novalidate (ngSubmit)="tackAction()" [formGroup]="myForm">
+                              <fieldset class="row fieldsetBorder logBox ">
+                                  <legend>Take Action</legend>
+
+
+                                      <label class="col-form-label col-md-4">Status</label>
+                                      <div class="col-md-8">
+                                          <ng-select formControlName="approvalStepAction" [items]="listData2" bindLabel="activityStatusTitle" bindValue="id"
+                                              placeholder="Select" appendTo="body" >
+                                          </ng-select>
+
+                                      </div>
+                                      <br><br>
+
+                                      <label class="col-form-label col-md-4">Remarks</label>
+                                      <div class="col-md-8">
+                                          <textarea formControlName="remarks" class="form-control mb-3" ></textarea>
+
+                                      </div>
+
+
+                                      <div class="col-md-9"></div>
+                                      <div class="col-md-3">
+                                          <button type="submit" class="btn btn-secondary btn-sm mb-2 ">
+                                              Save
+                                              </button>
+                                      </div>
+
+
+                              </fieldset>
+                              </form>
+                          </div>
+                      </div>
+
+
+
+
+                      <fieldset class="row fieldsetBorder logBox">
+                          <legend>System Log Information</legend>
+
+                          <div class="form-group">
+                              <label class="col-form-label">ID</label>
+                              <div class="">
+                                  <span>{{myData.id}}</span>
+                              </div>
+                          </div>
+
+                          <div class="form-group">
+                              <label class="col-form-label">Creation Time</label>
+                              <div class="">
+                                  <span>{{myData.createDate}}</span>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-form-label">Creation User</label>
+                              <div class="">
+                                  <span>{{myData.createdByHrCrEmp.user.username}}</span>
+                              </div>
+                          </div>
+
+                          <div class="form-group">
+                              <label class="col-form-label">Last Update Time</label>
+                              <div class="">
+                                  <span>{{myData.updateDateTime}}</span>
+                              </div>
+                          </div>
+                          <div class="form-group">
+                              <label class="col-form-label">Last Update User</label>
+                              <div class="">
+                                  <span>{{myData.lastUpdateUser}}</span>
+                              </div>
+                          </div>
+
+                      </fieldset>
+
+                      <div class="text-right">
+                          <a class="btn btn-primary btn-ripple" routerLink="/sefl-service/transportRequisition"><i class="fa fa-share"></i> Close</a>
+                          &nbsp;
+                      </div>
+
+
+
+              </div>
+
+
+          </div>
+      </div>
+  </div>
+
+
+</div>
+<!-- /Page Content -->
+
+
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>
+

@@ -1,0 +1,71 @@
+plugins {
+	id 'org.springframework.boot' version '2.5.4'
+	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+	id 'java'
+	id 'war'
+}
+
+group = 'com.hrms'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '1.8'
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url "https://jaspersoft.jfrog.io/jaspersoft/third-party-ce-artifacts/" }
+}
+
+dependencies {
+
+	implementation 'org.springframework.boot:spring-boot-starter-websocket'
+
+	// https://mvnrepository.com/artifact/org.apache.poi/poi-ooxml
+	implementation group: 'org.apache.poi', name: 'poi-ooxml', version: '3.9'
+
+
+	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger2
+	implementation group: 'io.springfox', name: 'springfox-swagger2', version: '2.8.0'
+
+	// https://mvnrepository.com/artifact/io.springfox/springfox-swagger-ui
+	implementation group: 'io.springfox', name: 'springfox-swagger-ui', version: '2.8.0'
+
+	// https://mvnrepository.com/artifact/com.google.code.findbugs/jsr305
+	implementation 'com.google.code.findbugs:jsr305:3.0.2'
+
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc8'
+	implementation group: 'org.modelmapper', name: 'modelmapper', version: '2.4.4'
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.8.0'
+	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	compileOnly 'org.projectlombok:lombok'
+	runtimeOnly 'org.postgresql:postgresql'
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	runtimeOnly 'mysql:mysql-connector-java'
+	annotationProcessor 'org.projectlombok:lombok'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+	// https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports
+	implementation group: 'net.sf.jasperreports', name: 'jasperreports', version: '6.17.0'
+	// https://mvnrepository.com/artifact/org.apache.commons/commons-math3
+	implementation group: 'org.apache.commons', name: 'commons-math3', version: '3.6.1'
+
+	// https://mvnrepository.com/artifact/com.fasterxml.jackson.datatype/jackson-datatype-jsr310
+	implementation group: 'com.fasterxml.jackson.datatype', name: 'jackson-datatype-jsr310', version: '2.13.0'
+
+	// https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-mail
+	implementation 'org.springframework.boot:spring-boot-starter-mail:2.6.1'
+
+
+
+}
+
+test {
+	useJUnitPlatform()
+}

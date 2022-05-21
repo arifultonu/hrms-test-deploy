@@ -1,0 +1,182 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">System Users</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item active">System User</li>
+                    <li class="breadcrumb-item active">Create</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a class="btn add-btn" routerLink="/settings/system-user/lists"><i class="fa fa-share"></i> Back To
+                    List</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <!-- <div class="card-header"> -->
+                <!-- <h4 class="card-title mb-0">Payroll Item Value</h4> -->
+                <!-- </div>  -->
+                <div class="card-body">
+                    <form id="formERP" novalidate (ngSubmit)="onSubmit()" [formGroup]="form" id="formERP">
+
+                        <div hidden class="form-group row" *ngIf="formMode !='create' " >
+                            <label class="col-form-label col-md-2">ID</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control"  formControlName="id" readonly disabled>
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Username</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" formControlName="username">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">User title</label>
+                            <div class="col-md-10">
+                                <input type="text" class="form-control" formControlName="userTitle">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Email</label>
+                            <div class="col-md-10">
+                                <input type="email" class="form-control" formControlName="email">
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Password</label>
+                            <div class="col-md-10">
+                                <input type="password" class="form-control" formControlName="password">
+                            </div>
+                        </div>
+
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Confirm Password</label>
+                            <div class="col-md-10">
+                                <input [ngClass]="{ 'is-invalid': isSubmitted && formControls.confirmPassword.errors }"  type="password" class="form-control" formControlName="confirmPassword">
+                            </div>
+                            <div *ngIf="isSubmitted && formControls.confirmPassword.errors" class="invalid-feedback">
+                                <div *ngIf="formControls.confirmPassword.errors.required">Confirm Password is required</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-md-2">Is Group ? </label>
+                            <div class="col-md-10">
+
+                                <input class="big-checkbox" id="groupUserId" (change)="check($event.target.value,'groupUser')" formControlName="groupUser" type="checkbox">
+                            </div>
+                        </div>
+
+                        <div class="form-group row" *ngIf="groupUserListData && isGroupUser">
+                            <label class="col-form-label col-md-2">Group User</label>
+                            <div class="col-md-10">
+                                <select class="select form-control" formControlName="groupUsername">
+                                    <option value="">Select Group User</option>
+                                    <option *ngFor="let data of groupUserListData" [ngValue]='data.username'>{{data.userTitle}}
+                                    </option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group row" *ngIf="formMode=='edit' || formMode=='read' ">
+                            <label class="col-form-label col-md-2">Enabled? </label>
+                            <div class="col-md-10">
+
+                                <input class="big-checkbox" id="enabledId" (change)="check($event.target.value,'enabled')" formControlName="enabled" type="checkbox">
+                            </div>
+                        </div>
+
+                        <div class="form-group row" *ngIf="formMode=='edit' || formMode=='read' " >
+                            <label class="col-form-label col-md-2">Roles </label>
+                            <div class="col-md-10"   >
+                                <label  *ngFor = "let role of myFormData.roles; let i = index ">
+
+                                    <input  class="medium-checkbox" id="roleId" formControlName="roles" type="checkbox"> &nbsp; &nbsp; {{role.authority?role.authority:null}} &nbsp; &nbsp;
+
+                                </label>
+
+
+                            </div>
+                        </div>
+
+
+
+                        <!-- System Log -->
+                        <fieldset *ngIf="formMode=='read' " class="row fieldsetBorder logBox">
+                            <legend>System Log Information</legend>
+
+                            <div class="form-group">
+                                <label class="col-form-label">ID</label>
+                                <div class="">
+                                    <span>{{myFormData.id}}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Creation Time</label>
+                                <div class="">
+                                    <span>{{myFormData.creationDateTime | date: 'yyyy-MM-dd h:mm:ss a'}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Creation User</label>
+                                <div class="">
+                                    <span>{{myFormData.creationUser}}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Last Update Time</label>
+                                <div class="">
+                                    <span>{{myFormData.lastUpdateDateTime | date: 'yyyy-MM-dd h:mm:ss a'}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Last Update User</label>
+                                <div class="">
+                                    <span>{{myFormData.lastUpdateUser}}</span>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+
+                        <div class="text-right">
+                            <a class="btn btn-warning btn-ripple" routerLink="/settings/system-user/lists"><i class="fa fa-share"></i> Cancel</a>
+                            &nbsp; &nbsp;
+                            <button type="button" id="reset" class="btn btn-secondary btn-ripple" (click)="resetFormValues()">
+                                <i class="fa fa-undo" aria-hidden="true"></i> Reset
+                            </button>
+                            &nbsp; &nbsp; &nbsp;
+                            <button type="submit" id="submit" class="btn btn-primary btn-ripple">
+                                <i class="fa fa-check" aria-hidden="true"></i> Save &nbsp;&nbsp;&nbsp;
+                            </button>
+                        </div>
+
+
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

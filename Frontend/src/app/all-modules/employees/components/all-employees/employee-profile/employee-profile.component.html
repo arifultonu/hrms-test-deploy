@@ -1,0 +1,1529 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="row">
+      <div class="col">
+        <h3 class="page-title">Profile</h3>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/dashboard">Dashboard</a>
+          </li>
+          <li class="breadcrumb-item active">Profile</li>
+        </ul>
+      </div>
+      <div class="col-auto float-right ml-auto" id="EDIT_ACTION_ID">
+        <a id="EMP_REF_ACTION_EDIT" class="btn add-btn d-none"
+          routerLink="/employees/edit-employee/{{ empProfileData.id }}"><i class="fa fa-edit"></i> Edit
+        </a>
+      </div>
+    </div>
+  </div>
+  <!-- /Page Header -->
+
+  <div class="card mb-0">
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="profile-view">
+            <div class="profile-img-wrap">
+              <div class="profile-img">
+                <a *ngIf="empProfileData.profilePic" [routerLink]="" class="avatar" data-target="#profile_Image"
+                  data-toggle="modal"><img src="{{ baseUrl + empProfileData.profilePic }}" alt="" />
+                </a>
+
+                <a [routerLink]="" class="avatar" data-target="#profile_Image" data-toggle="modal"><img id="companyLogo"
+                    data-flag="1" src="assets/img/user-icon/u-sq-pic.jpg" alt="" /></a>
+              </div>
+            </div>
+            <div class="profile-basic">
+              <div class="row">
+                <div class="col-md-5">
+                  <div class="profile-info-left">
+                    <h3 class="user-name m-t-0 mb-0">
+                      {{ empProfileData.displayName }}
+                    </h3>
+                    <div class="staff-id">
+                      Employee ID : {{ empProfileData.loginCode }}
+                    </div>
+                    <h6 class="text-muted">
+                      Designation :
+                      {{ empProfileData.designation }}
+                    </h6>
+                    <h6 class="text-success" *ngIf="empProfileData.status == 'Active' ">
+                      Status : Active
+
+                    </h6>
+                    <h6 class="text-danger" *ngIf="empProfileData.status == 'InActive' ">
+                      Status : InActive
+
+                    </h6>
+
+                    <div class="small doj text-muted">
+                      Date of Joining : {{ (empProfileData.joiningDate | date:'mediumDate') + " ("+ empProfileData.jobDuration+")" }}
+                    </div>
+                    <div class="staff-msg">
+                      <a (click)="sendMessage()" class="btn btn-custom">Send Message</a>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-7">
+                  <ul class="personal-info">
+                    <li class="d-flex">
+                      <div class="title">Phone:</div>
+                      <div class="text">
+                        <span> {{ empProfileData?.mobCode }}</span>
+                      </div>
+                    </li>
+                    <li class="d-flex">
+                      <div class="title">Email:</div>
+                      <div class="text">
+                        <a href="">{{ empProfileData.email }}</a>
+                      </div>
+                    </li>
+                    <li class="d-flex">
+                      <div class="title">Dob:</div>
+                      <div class="text">
+                        {{
+                        empProfileData.dob == null ? "-" : (empProfileData.dob |date:'mediumDate')+ " (" + empProfileData.age +")"
+                        }}
+
+                      </div>
+                    </li>
+                    <!-- <li class="d-flex">
+                      <div class="title">Address:</div>
+                      <div class="text">
+                        {{
+                        empProfileData.address == null
+                        ? "-"
+                        : empProfileData.address
+                        }}
+                      </div>
+                    </li> -->
+                    <li class="d-flex">
+                      <div class="title">Gender:</div>
+                      <div class="text">
+                        {{
+                        empProfileData.gender == null
+                        ? "-"
+                        : empProfileData.gender
+                        }}
+                      </div>
+                    </li>
+                    <li class="d-flex">
+                      <div class="title">Reports to :</div>
+                      <div class="text">
+                        <div class="avatar-box">
+                          <div class="avatar avatar-xs">
+                            <img *ngIf="empProfileData.reportingPersonProfilePic" src="{{
+                                baseUrl +
+                                empProfileData.reportingPersonProfilePic
+                                  ? baseUrl +
+                                    empProfileData.reportingPersonProfilePic
+                                  : 'src/assets/img/user-icon/u-sq-pic.jpg'
+                              }}" alt="ok" />
+
+                            <img id="companyLogo" data-flag="1" src="assets/img/user-icon/u-sq-pic.jpg" alt="" />
+                          </div>
+                        </div>
+                        <span>{{
+                          empProfileData.reportingPersonName == null
+                          ? "-"
+                          : empProfileData.reportingPersonName +
+                          " (" +
+                          empProfileData.reportingPersonLoginCode +
+                          ")"
+                          }}</span>
+                        <a routerLink="/employees/employeeprofile"> </a>
+                      </div>
+                    </li>
+
+                    <li class="d-flex">
+                      <div class="title">Concern HR :</div>
+                      <div class="text">
+                        <div class="avatar-box">
+                          <div class="avatar avatar-xs">
+                            <img *ngIf="empProfileData.reportingHrProfilePic" src="{{
+                                baseUrl +
+                                empProfileData.reportingHrProfilePic
+                                  ? baseUrl +
+                                    empProfileData.reportingHrProfilePic
+                                  : 'src/assets/img/user-icon/u-sq-pic.jpg'
+                              }}" alt="ok" />
+
+                            <img id="companyLogo" data-flag="1" src="assets/img/user-icon/u-sq-pic.jpg" alt="" />
+                          </div>
+                        </div>
+                        <span>{{
+                          empProfileData.reportingHrName == null
+                          ? "-"
+                          : empProfileData.reportingHrName +
+                          " (" +
+                          empProfileData.reportingHrLoginCode +
+                          ")"
+                          }}</span>
+                        <a routerLink="/employees/employeeprofile"> </a>
+                      </div>
+                    </li>
+
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="formContainerId" class="card tab-box">
+    <div class="row user-tabs">
+      <div class="col-lg-12 col-md-12 col-sm-12 line-tabs">
+        <ul class="nav nav-tabs nav-tabs-bottom">
+          <li class="nav-item">
+            <a href="#emp_profile" data-toggle="tab" class="nav-link {{ this.activeTabCnf.basic }}">Profile</a>
+          </li>
+          <li id="EMP_REF_PR_ASSIGNMENT" class="nav-item d-none" (click)="handlePrimaryAssignmentSectionData()">
+            <a href="#emp_assignment" data-toggle="tab"
+              class="nav-link {{ this.activeTabCnf.assignment }}">Assignment</a>
+          </li>
+          <li id="EMP_REF_BANK_PRL" class="nav-item d-none" (click)="handleBankAndPayrollSectionData()">
+            <a href="#bank_statutory" data-toggle="tab" class="nav-link {{ this.activeTabCnf.payroll }}">Bank & Payroll
+              Elements <small class="text-danger"></small></a>
+          </li>
+          <li id="EMP_REF_EDUCATION" class="nav-item d-none">
+            <a href="#emp_education" (click)="getEducationData()" data-toggle="tab"
+              class="nav-link {{ this.activeTabCnf.education }}">Education</a>
+          </li>
+          <li id="EMP_REF_DOCUMENTS" class="nav-item d-none">
+            <a href="#emp_documents" (click)="_getDocumentsData()" data-toggle="tab"
+              class="nav-link {{ this.activeTabCnf.documents }}">Documents</a>
+          </li>
+          <li id="EMP_REF_ALL" class="nav-item d-none">
+            <a href="#emp_all"  data-toggle="tab"
+              class="nav-link {{ this.activeTabCnf.all }}">ALL</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="tab-content">
+    <!-- Profile Info Tab -->
+    <div id="emp_profile" class="pro-overview tab-pane fade show {{ this.activeTabCnf.basic }}">
+      <div class="row">
+        <div class="col-md-6 d-flex">
+          <div class="card profile-box flex-fill">
+            <div class="card-body">
+              <h3 class="card-title">Personal Informations</h3>
+              <hr />
+              <ul class="personal-info">
+                <li>
+                  <div class="title">Marital status</div>
+                  <div class="text">
+                    {{
+                    empProfileData.maritalStatus
+                    ? empProfileData.maritalStatus
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <!-- <li>
+                  <div class="title">National Identity Number</div>
+                  <div class="text">
+                    {{
+                    empProfileData.nationalIdentityNumber
+                    ? empProfileData.nationalIdentityNumber
+                    : "-"
+                    }}
+                  </div>
+                </li> -->
+
+                <li>
+                  <div class="title">Blood group</div>
+                  <div class="text">
+                    {{
+                    empProfileData.bloodGroup
+                    ? empProfileData.bloodGroup
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <li>
+                  <div class="title">Father Name</div>
+                  <div class="text">
+                    {{
+                    empProfileData.fatherName
+                    ? empProfileData.fatherName
+                    : "-"
+                    }}
+                  </div>
+                </li>
+                <li>
+                  <div class="title">Mother Name</div>
+                  <div class="text">
+                    {{
+                    empProfileData.motherName
+                    ? empProfileData.motherName
+                    : "-"
+                    }}
+                  </div>
+                </li>
+                <li>
+                  <div class="title">Experience year</div>
+                  <div class="text">
+                    {{
+                    empProfileData.experienceYear
+                    ? empProfileData.experienceYear+' year(s)'
+                    : "-"
+                    }}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex">
+          <div class="card profile-box flex-fill">
+            <div class="card-body">
+              <h4 class="card-title">Address</h4>
+              <hr />
+
+              <h5 class="section-title mb-3">Permanent Address</h5>
+              <ul class="personal-info">
+                <li>
+
+                  <div class="title">Division</div>
+                  <div class="text">
+                    {{
+                    empProfileData.addrDiv
+                    ? empProfileData.addrDiv
+                    : "-"
+                    }}
+                  </div>
+                </li>
+                <li>
+                  <div class="title">District</div>
+                  <div class="text">
+                    {{
+                    empProfileData.addrDis
+                    ? empProfileData.addrDis
+                    : "-"
+                    }}
+                  </div>
+                </li>
+                <li>
+                  <div class="title">Upazilla / Thana</div>
+                  <div class="text">
+                    {{
+                    empProfileData.addrUpz
+                    ? empProfileData.addrUpz
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <hr />
+                <li>
+                  <h5 class="title">Present Address</h5>
+                  <div class="text">
+                    {{
+                    empProfileData.addrPrsnt
+                    ? empProfileData.addrPrsnt
+                    : "-"
+                    }}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Profile Info Tab -->
+
+    <!-- Assignment Tab -->
+    <div class="pro-overview tab-pane fade show {{
+        this.activeTabCnf.assignment
+      }} " id="emp_assignment">
+      <div class="row">
+        <div class="col-md-6 d-flex">
+          <div class="card profile-box flex-fill">
+            <div class="card-body">
+              <h3 class="card-title">Current Assignment</h3>
+              <hr />
+              <ul class="personal-info">
+                <li class="d-flex">
+                  <div class="title">Business Group</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentData.businessGroup
+                    ? empPrAssignmentData.businessGroup
+                    : "-"
+                    }}
+                  </div>
+                </li>
+                <li class="d-flex">
+                  <div class="title">Organization</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentData.organization
+                    ? empPrAssignmentData.organization
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <li class="d-flex">
+                  <div class="title">Operating Unit</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentData.operatingUnit
+                    ? empPrAssignmentData.operatingUnit
+                    : "-"
+                    }}
+                  </div>
+                </li>
+                <li class="d-flex">
+                  <div class="title">Product</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentData.product
+                    ? empPrAssignmentData.product
+                    : "-"
+                    }}
+                  </div>
+                </li>
+                <li class="d-flex">
+                  <div class="title">Department</div>
+                  <div class="text" style="list-style-type: circle">
+                    {{
+                    empPrAssignmentData.department
+                    ? empPrAssignmentData.department
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <li class="d-flex">
+                  <div class="title">Section</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentData.section
+                    ? empPrAssignmentData.section
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <li class="d-flex">
+                  <div class="title">Sub Section</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentData.subSection
+                    ? empPrAssignmentData.subSection
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <li class="d-flex">
+                  <div class="title">Team</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentData.team ? empPrAssignmentData.team : "-"
+                    }}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex">
+          <div class="card profile-box flex-fill">
+            <div class="card-body">
+              <h3 class="card-title">
+                <span class="badge badge-danger">Last Assignment History</span>
+              </h3>
+              <hr />
+              <ul class="personal-info">
+                <li class="d-flex">
+                  <div class="title">Business Group</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentLogData.businessGroup
+                    ? empPrAssignmentLogData.businessGroup
+                    : "-"
+                    }}
+                  </div>
+                </li>
+                <li class="d-flex">
+                  <div class="title">Organization</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentLogData.organization
+                    ? empPrAssignmentLogData.organization
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <li class="d-flex">
+                  <div class="title">Operating Unit</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentLogData.operatingUnit
+                    ? empPrAssignmentLogData.operatingUnit
+                    : "-"
+                    }}
+                  </div>
+                </li>
+                <li class="d-flex">
+                  <div class="title">Product</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentLogData.product
+                    ? empPrAssignmentLogData.product
+                    : "-"
+                    }}
+                  </div>
+                </li>
+                <li class="d-flex">
+                  <div class="title">Department</div>
+                  <div class="text" style="list-style-type: circle">
+                    {{
+                    empPrAssignmentLogData.department
+                    ? empPrAssignmentLogData.department
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <li class="d-flex">
+                  <div class="title">Section</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentLogData.section
+                    ? empPrAssignmentLogData.section
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <li class="d-flex">
+                  <div class="title">Sub Section</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentLogData.subSection
+                    ? empPrAssignmentLogData.subSection
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <li class="d-flex">
+                  <div class="title">Team</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentLogData.team
+                    ? empPrAssignmentLogData.team
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <li class="d-flex">
+                  <div class="title">Category</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentLogData.category
+                    ? empPrAssignmentLogData.category
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <li class="d-flex">
+                  <div class="title">Gross Salary</div>
+                  <div class="text">
+                    {{
+                    empPrAssignmentLogData.grossSalary
+                    ? empPrAssignmentLogData.grossSalary
+                    : "-"
+                    }}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Projects Tab -->
+
+    <!-- Bank Statutory Tab -->
+    <div class="pro-overview tab-pane fade show {{ this.activeTabCnf.payroll }}" id="bank_statutory">
+      <div class="row">
+        <div class="col-md-6 d-flex">
+          <div class="card profile-box flex-fill">
+            <div class="card-body">
+              <h3 class="card-title">Payroll Information</h3>
+              <hr />
+              <ul class="personal-info">
+                <li>
+                  <div class="title">House Allowance</div>
+                  <div class="text">
+                    <a href="">{{
+                      empBnkAndPrlData.houseRentAlwPct
+                      ? empBnkAndPrlData.houseRentAlwPct
+                      : "-"
+                      }}</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">Medical Allowance</div>
+                  <div class="text">
+                    <a href="">{{
+                      empBnkAndPrlData.medicalAlwPct
+                      ? empBnkAndPrlData.medicalAlwPct
+                      : "-"
+                      }}</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">Special Allowance</div>
+                  <div class="text">
+                    <a href="">{{
+                      empBnkAndPrlData.specialAlwPct
+                      ? empBnkAndPrlData.specialAlwPct
+                      : "-"
+                      }}</a>
+                  </div>
+                </li>
+                <li>
+                  <div class="title">Gross Salary</div>
+                  <div class="text">
+                    <a href="">
+                      {{
+                      empBnkAndPrlData.grossSalary
+                      ? empBnkAndPrlData.grossSalary
+                      : "-"
+                      }}</a>
+                  </div>
+                </li>
+
+                <li>
+                  <div class="title">Basic Salary</div>
+                  <div class="text">
+                    <a href="">
+                      {{
+                      empBnkAndPrlData.basicSalary
+                      ? empBnkAndPrlData.basicSalary
+                      : "-"
+                      }}</a>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 d-flex">
+          <div class="card profile-box flex-fill">
+            <div class="card-body">
+              <h3 class="card-title">Bank Information</h3>
+              <hr />
+              <ul class="personal-info">
+                <li>
+                  <div class="title">Bank Acc No.</div>
+                  <div class="text">
+                    {{
+                    empBnkAndPrlData.bankAccNo
+                    ? empBnkAndPrlData.bankAccNo
+                    : "-"
+                    }}
+                  </div>
+                </li>
+
+                <li>
+                  <div class="title">Bank Name</div>
+                  <div class="text">
+                    {{
+                    empBnkAndPrlData.bankName
+                    ? empBnkAndPrlData.bankName
+                    : "-"
+                    }}
+                  </div>
+                </li>
+                <li>
+                  <div class="title">Branch Name</div>
+                  <div class="text">
+                    {{
+                    empBnkAndPrlData.branchName
+                    ? empBnkAndPrlData.branchName
+                    : "-"
+                    }}
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /Bank Statutory Tab -->
+
+    <!-- Education Tab -->
+
+    <div class="pro-overview tab-pane fade show {{ this.activeTabCnf.education }}" id="emp_education">
+      <div class="card">
+        <div class="card-body">
+          <h3>List of Education Info</h3>
+
+          <table id="eduListTable" class="table table-striped custom-table">
+            <thead>
+              <tr>
+                <th>Examination</th>
+                <th>Institute</th>
+                <th>Passing Year</th>
+                <th>Group</th>
+                <th>Subject</th>
+                <th>Result</th>
+                <th>Reg No</th>
+
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let thisObj of hrCrEmpEduInfo">
+                <td>{{ thisObj.code }} </td>
+                <td>{{ thisObj.titleInstitute }}</td>
+                <td>{{ thisObj.passingYear }}</td>
+                <td>{{ thisObj.alkpSubGroup? thisObj.alkpSubGroup.title:''}}</td>
+                <td>{{thisObj.subject}}</td>
+                <td *ngIf="thisObj.resultInDivision ===null && thisObj.result !== null ">
+                 {{thisObj.result}} <span style="color: gray;">out of</span>  {{thisObj.resultOutOf}}.00
+                </td>
+                <td *ngIf="thisObj.resultInDivision !=='' && thisObj.result === null ">
+                  {{thisObj.resultInDivision}}
+                 </td>
+                 <td *ngIf="thisObj.resultInDivision ==='' && thisObj.result === null ">
+                 </td>
+                <td>{{ thisObj.regNo }}</td>
+              </tr>
+            </tbody>
+          </table>
+
+
+        </div>
+      </div>
+    </div>
+    <!-- /Education Tab -->
+
+    <!-- Documents Tab -->
+    <div class="pro-overview tab-pane fade show {{ this.activeTabCnf.documents }}" id="emp_documents" #documentsForm>
+      <div class="card">
+        <div class="card-body">
+          <h3>Upload Documents</h3>
+          <hr />
+          <div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row justify-content-center">
+                  <h4 style="border: 1px solid #ddd;">Resume Section</h4>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="row">
+                          <div class="col-md-8">
+                            <input name="files" class="form-control" placeholder="Select CV" type="file" id="file_cv" />
+                          </div>
+                          <div class="col-md-4">
+                            <button type="submit" (click)="uploadFiles('cv')" id="submit"
+                              class="btn btn btn-outline-primary">
+                              <i class="fa fa-upload" aria-hidden="true"></i>
+                              Upload &nbsp;&nbsp;&nbsp;
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+
+                        <div   id="cv_icon_id"  class="card border border-warning mb-1 text-right" style="min-height: 100px" [ngStyle]="{
+                            'background-image': getUrlForCV(),
+                            'background-repeat': 'no-repeat',
+                            'background-size': 'contain'
+                          }">
+
+                          <div class="card-body pt-3"></div>
+                          <div class="card-footer" style="
+                              background-color: transparent;
+                              border-top: none;
+                            ">
+                            <a *ngIf="cvDocumentPath!='NOT_AVAILABLE' "  (click)="removeDocs('cv');"  class="btn-sm btn btn-outline-danger"><i class="fa fa-trash"
+                              aria-hidden="true"></i>
+                            Remove</a> &nbsp;  &nbsp;
+                            <a *ngIf="cvDocumentPath!='NOT_AVAILABLE' "  href="{{cvDocumentPath}}" target="_blank" class="btn-sm btn btn-outline-primary"><i class="fa fa-download"
+                                aria-hidden="true"></i>
+                              Dowload</a>
+                          </div>
+                        </div>
+                        <!-- button right -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row justify-content-center">
+                  <h4 style="border: 1px solid #ddd;">Passport Section</h4>
+                </div>
+                <div class="card">
+                  <div class="card-body">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="row">
+                          <div class="col-md-8">
+                            <input name="files" class="form-control" placeholder="Select CV" type="file" id="file_passport" />
+                          </div>
+                          <div class="col-md-4">
+                            <button type="submit" (click)="uploadFiles('passport')" id="submit"
+                              class="btn btn btn-outline-primary">
+                              <i class="fa fa-upload" aria-hidden="true"></i>
+                              Upload &nbsp;&nbsp;&nbsp;
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div id="passport_icon_id" class="card border border-warning mb-1 text-right" style="min-height: 100px" [ngStyle]="{
+                            'background-image': getUrlForPassport(),
+                            'background-repeat': 'no-repeat',
+                            'background-size': 'contain'
+                          }">
+
+                          <div class="card-body pt-3"></div>
+                          <div class="card-footer" style="
+                              background-color: transparent;
+                              border-top: none;
+                            ">
+                            <a *ngIf="passportDocumentPath!='NOT_AVAILABLE' "  (click)="removeDocs('passport');"   class="btn-sm btn btn-outline-danger"><i class="fa fa-trash"
+                              aria-hidden="true"></i>
+                            Remove</a> &nbsp;  &nbsp;
+
+                            <a *ngIf="passportDocumentPath!='NOT_AVAILABLE' "   href="{{passportDocumentPath}}" target="_blank" class="btn-sm btn btn-outline-primary"><i class="fa fa-download"
+                                aria-hidden="true"></i>
+                              Download</a>
+                          </div>
+                        </div>
+                        <!-- button right -->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- All Tabs -->
+    <div class="pro-overview tab-pane fade show {{ this.activeTabCnf.all }}" id="emp_all" #documentsForm>
+      <div class="card">
+        <div class="card-body">
+          <div id="accordion">
+            <div class="card">
+              <div class="card-header" id="headingOne">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" (click)="getAttenData()">
+                    Attendance Details
+                  </button>
+                </h5>
+              </div>
+
+              <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                <div class="card-body">
+                  <div class="table-responsive">
+
+                    <div class="d-flex justify-content-start pb-1">
+                        <div class="pgn-displayDataInfo">
+                            <span class="page-item disabled">Displaying ( {{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (1) ) }}  to {{configPgn.pngDiplayLastSeq}} of {{configPgn.totalItem}} ) entries</span>
+                        </div>
+                    </div>
+
+                    <table id="eduListTable" class="table table-striped custom-table" >
+                        <thead>
+                            <tr>
+                                <th>SL</th>
+                                <th class="d-none">TB_ROW_ID</th>
+                                <th>Employee ID</th>
+                                <th>Punch Date</th>
+                                <th>Punch Day</th>
+                                <th>In Time</th>
+                                <th>Out Time</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let thisObj of attEmp | paginate : configPgn;  let i = index" [class.active]="i == currentIndex" >
+                                <td>{{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (i+1) ) }}  </td>
+                                <td> {{ thisObj.code }}</td>
+                                <td> {{ thisObj.createDate |date:'mediumDate'}} </td>
+                                <td>{{thisObj.createDate |date:'EEEE'}}</td>
+                                <td>{{thisObj.inTime}}</td>
+                                <td>{{thisObj.outTime}}</td>
+                                <td>{{thisObj.attnDayStsType}}</td>
+
+                            </tr>
+
+                            <tr *ngIf="attEmp.length === 0">
+                                <td colspan="10">
+                                    <h5 style="text-align: center;">No data found</h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+                    <div class="d-flex justify-content-end ">
+
+                        <div class="" [formGroup]="myFromGroup">
+                            Items per Page
+                            <select (change)="handlePageSizeChange($event)" class="pgn-pageSizeOption" formControlName="pageSize">
+                                <option *ngFor="let size of configPgn.pageSizes" [value]="size">
+                                    {{ size }}
+                                </option>
+                            </select>
+                        </div>
+
+                        <div class="pgn-pageSliceCt">
+                            <pagination-controls
+                                responsive="true"
+                                previousLabel="Prev"
+                                nextLabel="Next"
+                                (pageChange)="handlePageChange($event)">
+                            </pagination-controls>
+                        </div>
+
+                    </div>
+
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingTwo">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo" (click)="getEducationData()">
+                    Education Details
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                <div class="card-body">
+                  <table id="eduListTable" class="table table-striped custom-table">
+                    <thead>
+                      <tr>
+                        <th>Examination</th>
+                        <th>Institute</th>
+                        <th>Passing Year</th>
+                        <th>Group</th>
+                        <th>Subject</th>
+                        <th>Result</th>
+                        <th>Reg No</th>
+
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let thisObj of hrCrEmpEduInfo">
+                        <td>{{ thisObj.code }} </td>
+                        <td>{{ thisObj.titleInstitute }}</td>
+                        <td>{{ thisObj.passingYear }}</td>
+                        <td>{{ thisObj.alkpSubGroup? thisObj.alkpSubGroup.title:''}}</td>
+                        <td>{{thisObj.subject}}</td>
+                        <td *ngIf="thisObj.resultInDivision ===null && thisObj.result !== null ">
+                         {{thisObj.result}} <span style="color: gray;">out of</span>  {{thisObj.resultOutOf}}.00
+                        </td>
+                        <td *ngIf="thisObj.resultInDivision !=='' && thisObj.result === null ">
+                          {{thisObj.resultInDivision}}
+                         </td>
+                        <td *ngIf="thisObj.resultInDivision ==='' && thisObj.result === null ">
+                         </td>
+                        <td>{{ thisObj.regNo }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingThree">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree" (click)="getPreExpData()">
+                    Previous Experience
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                <div class="card-body">
+
+                  <div class="table-responsive">
+
+
+
+                    <table id="eduListTable" class="table table-striped custom-table" >
+                        <thead>
+                            <tr>
+                                <th>Organization Name</th>
+                                <th>Designation</th>
+                                <th>Salary</th>
+                                <th>From</th>
+                                <th>To</th>
+                                <th>Reason Of Leave</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let thisObj of hrCrEmpPreExpInfo">
+                                <td>{{thisObj.organizationTitle}}</td>
+                                <td>{{thisObj.designation}}</td>
+                                <td>{{thisObj.salary}}</td>
+                                <td>{{thisObj.fromDate |date:'mediumDate'}}</td>
+                                <td>{{thisObj.toDate |date:'mediumDate'}}</td>
+                                <td>{{thisObj.reasonOfLeave}}</td>
+                            </tr>
+
+                            <tr *ngIf="hrCrEmpPreExpInfo.length === 0">
+                                <td colspan="10">
+                                    <h5 style="text-align: center;">No data found</h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+
+                </div>
+                </div>
+              </div>
+            </div>
+            <div class="card">
+              <div class="card-header" id="headingFour">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFour" aria-expanded="false" aria-controls="collapseFour" (click)="getTrainingData()">
+                    Training
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseFour" class="collapse" aria-labelledby="collapseFour" data-parent="#accordion">
+                <div class="card-body">
+                  <div class="table-responsive">
+
+                    <table id="eduListTable" class="table table-striped custom-table" >
+                        <thead>
+                            <tr>
+                                <th>Training Type</th>
+                                <th>Training Title</th>
+                                <th>Major</th>
+                                <th>Organization</th>
+                                <th>Duration</th>
+                                <th>Achievement</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+
+                            <tr *ngFor="let thisObj of hrCrEmpTrainingInfo">
+                                <td>{{thisObj.trainingType}}</td>
+                                <td>{{thisObj.trainingTitle}}</td>
+                                <td>{{thisObj.major}}</td>
+                                <td>{{thisObj.organization}}</td>
+                                <td>{{thisObj.durationType}}</td>
+                                <td>{{thisObj.achievement}}</td>
+                            </tr>
+
+                            <tr *ngIf="hrCrEmpTrainingInfo.length === 0">
+                                <td colspan="10">
+                                    <h5 style="text-align: center;">No data found</h5>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+                </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header" id="headingFive">
+                <h5 class="mb-0">
+                  <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseFive" aria-expanded="false" aria-controls="collapseFive" (click)="getNomineeData()">
+                    Guarantor/Nominee/Reference Contact
+                  </button>
+                </h5>
+              </div>
+              <div id="collapseFive" class="collapse" aria-labelledby="collapseFive" data-parent="#accordion">
+                <div class="card-body">
+                  <table id="eduListTable" class="table table-striped custom-table">
+                    <thead>
+                      <tr>
+                        <th>Nominee Name</th>
+                        <th>Relation</th>
+                        <th>Mobile</th>
+                        <th>NID</th>
+                        <th>Birth Id no</th>
+                        <th>Percentage</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let thisObj of hrCrEmpNomineeInfo">
+                        <td>{{ thisObj.nomineeName }}</td>
+                        <td>{{ thisObj.relation }}</td>
+                        <td>{{ thisObj.mobile }}</td>
+                        <td>{{ thisObj.nidNominee }}</td>
+                        <td>{{ thisObj.birsNo }}</td>
+                        <td>{{ thisObj.shareOfPercentage }}</td>
+                      </tr>
+
+                      <tr *ngIf="hrCrEmpNomineeInfo.length === 0">
+                        <td colspan="10">
+                          <h5 style="text-align: center">No data found</h5>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                 </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Page Content -->
+
+  <!-- Image upload modal -->
+  <div id="profile_Image" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Upload Profile Image</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="uploadForm" (ngSubmit)="Submit()">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="profile-img-wrap edit-img" *ngIf="empProfileData">
+                  <img class="inline-block" [src]="imageSrc || baseUrl + empProfileData.profilePic" />
+
+                  <div class="fileupload btn">
+                    <span class="btn-text">Change</span>
+                    <input class="upload" type="file" name="profile" accept="image/x-png,image/jpeg,image/jpg"
+                      (change)="onFileSelect($event)" />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="submit-section">
+              <button class="btn btn-primary submit-btn">Upload</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- /Image upload modal -->
+
+  <!-- Family Info Modal -->
+  <div id="family_info_modal" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Family Informations</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-scroll">
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="card-title">
+                    Family Member
+                    <a class="delete-icon"><i class="fa fa-trash-o"></i></a>
+                  </h3>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Name <span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Relationship
+                          <span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Date of birth
+                          <span class="text-danger">*</span></label>
+                        <input class="form-control datetimepicker" type="text" bsDatepicker type="text" [bsConfig]="{
+                            dateInputFormat: 'DD-MM-YYYY',
+                            returnFocusToInput: true
+                          }" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Phone <span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="card-title">
+                    Education Informations
+                    <a class="delete-icon"><i class="fa fa-trash-o"></i></a>
+                  </h3>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Name <span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Relationship
+                          <span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Date of birth
+                          <span class="text-danger">*</span></label>
+                        <input class="form-control datetimepicker" type="text" bsDatepicker type="text" [bsConfig]="{
+                            dateInputFormat: 'DD-MM-YYYY',
+                            returnFocusToInput: true
+                          }" />
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label>Phone <span class="text-danger">*</span></label>
+                        <input class="form-control" type="text" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="add-more">
+                    <a><i class="fa fa-plus-circle"></i> Add More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="submit-section">
+              <button class="btn btn-primary submit-btn">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Family Info Modal -->
+
+  <!-- Education Modal -->
+  <div id="education_info" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Education Informations</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-scroll">
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="card-title">
+                    Education Informations
+                    <a class="delete-icon"><i class="fa fa-trash-o"></i></a>
+                  </h3>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group form-focus focused">
+                        <input type="text" value="Oxford University" class="form-control floating" />
+                        <label class="focus-label">Institution</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus focused">
+                        <input type="text" value="Computer Science" class="form-control floating" />
+                        <label class="focus-label">Subject</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus focused">
+                        <div class="cal-icon">
+                          <input class="form-control datetimepicker" type="text" bsDatepicker type="text" [bsConfig]="{
+                              dateInputFormat: 'DD-MM-YYYY',
+                              returnFocusToInput: true
+                            }" value="01/05/2006" />
+                        </div>
+                        <label class="focus-label">Starting Date</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus focused">
+                        <div class="cal-icon">
+                          <input class="form-control datetimepicker" type="text" bsDatepicker type="text" [bsConfig]="{
+                              dateInputFormat: 'DD-MM-YYYY',
+                              returnFocusToInput: true
+                            }" value="31/05/2006" />
+                        </div>
+                        <label class="focus-label">Complete Date</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus focused">
+                        <input type="text" value="BE Computer Science" class="form-control floating" />
+                        <label class="focus-label">Degree</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus focused">
+                        <input type="text" value="Grade A" class="form-control floating" />
+                        <label class="focus-label">Grade</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="card-title">
+                    Education Informations
+                    <a class="delete-icon"><i class="fa fa-trash-o"></i></a>
+                  </h3>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group form-focus focused">
+                        <input type="text" value="Oxford University" class="form-control floating" />
+                        <label class="focus-label">Institution</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus focused">
+                        <input type="text" value="Computer Science" class="form-control floating" />
+                        <label class="focus-label">Subject</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus focused">
+                        <div class="cal-icon">
+                          <input value="01/06/2002" class="form-control datetimepicker" type="text" bsDatepicker
+                            type="text" [bsConfig]="{
+                              dateInputFormat: 'DD-MM-YYYY',
+                              returnFocusToInput: true
+                            }" />
+                        </div>
+                        <label class="focus-label">Starting Date</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus focused">
+                        <div class="cal-icon">
+                          <input type="text" bsDatepicker type="text" [bsConfig]="{
+                              dateInputFormat: 'DD-MM-YYYY',
+                              returnFocusToInput: true
+                            }" value="31/05/2006" class="form-control floating datetimepicker" />
+                        </div>
+                        <label class="focus-label">Complete Date</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus focused">
+                        <input type="text" value="BE Computer Science" class="form-control floating" />
+                        <label class="focus-label">Degree</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus focused">
+                        <input type="text" value="Grade A" class="form-control floating" />
+                        <label class="focus-label">Grade</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="add-more">
+                    <a><i class="fa fa-plus-circle"></i> Add More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="submit-section">
+              <button class="btn btn-primary submit-btn">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Education Modal -->
+
+  <!-- Experience Modal -->
+  <div id="experience_info" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Experience Informations</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form>
+            <div class="form-scroll">
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="card-title">
+                    Experience Informations
+                    <a class="delete-icon"><i class="fa fa-trash-o"></i></a>
+                  </h3>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group form-focus">
+                        <input type="text" class="form-control floating" />
+                        <label class="focus-label">Company Name</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus">
+                        <input type="text" class="form-control floating" />
+                        <label class="focus-label">Location</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus">
+                        <input type="text" class="form-control floating" />
+                        <label class="focus-label">Job Position</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus">
+                        <div class="cal-icon">
+                          <input type="text" bsDatepicker type="text" [bsConfig]="{
+                              dateInputFormat: 'DD-MM-YYYY',
+                              returnFocusToInput: true
+                            }" class="form-control floating datetimepicker" />
+                        </div>
+                        <label class="focus-label">Period From</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus">
+                        <div class="cal-icon">
+                          <input type="text" bsDatepicker type="text" [bsConfig]="{
+                              dateInputFormat: 'DD-MM-YYYY',
+                              returnFocusToInput: true
+                            }" class="form-control floating datetimepicker" />
+                        </div>
+                        <label class="focus-label">Period To</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="card-title">
+                    Experience Informations
+                    <a class="delete-icon"><i class="fa fa-trash-o"></i></a>
+                  </h3>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <div class="form-group form-focus">
+                        <input type="text" class="form-control floating" />
+                        <label class="focus-label">Company Name</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus">
+                        <input type="text" class="form-control floating" />
+                        <label class="focus-label">Location</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus">
+                        <input type="text" class="form-control floating" />
+                        <label class="focus-label">Job Position</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus">
+                        <div class="cal-icon">
+                          <input type="text" bsDatepicker type="text" [bsConfig]="{
+                              dateInputFormat: 'DD-MM-YYYY',
+                              returnFocusToInput: true
+                            }" class="form-control floating datetimepicker" />
+                        </div>
+                        <label class="focus-label">Period From</label>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group form-focus">
+                        <div class="cal-icon">
+                          <input type="text" bsDatepicker type="text" [bsConfig]="{
+                              dateInputFormat: 'DD-MM-YYYY',
+                              returnFocusToInput: true
+                            }" class="form-control floating datetimepicker" />
+                        </div>
+                        <label class="focus-label">Period To</label>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="add-more">
+                    <a><i class="fa fa-plus-circle"></i> Add More</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="submit-section">
+              <button class="btn btn-primary submit-btn">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- /Experience Modal -->
+
+  <ngx-spinner bdColor="rgba(255,255,255,0.5)" size="medium" color="#667eea" type="ball-clip-rotate"
+    [fullScreen]="false">
+    <p style="color: black">Processing...</p>
+  </ngx-spinner>
+</div>

@@ -1,0 +1,447 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+  <!-- Page Header -->
+  <div class="page-header">
+    <div class="row align-items-center">
+      <div class="col">
+        <h3 class="page-title">System Resources Definition</h3>
+        <ul class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a routerLink="/dashboard">SysResDef</a>
+          </li>
+          <li class="breadcrumb-item active">Add Resourse</li>
+        </ul>
+      </div>
+      <div class="col-auto float-right ml-auto">
+        <a class="btn add-btn" routerLink="/settings/sys-resDef"><i class="fa fa-plus"></i> Add SysDef Resourse</a>
+      </div>
+    </div>
+  </div>
+  <!-- /Page Header -->
+
+  <!-- Search Filter -->
+  <div class="row filter-row">
+    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+      <div class="form-group form-focus">
+        <input type="text" class="form-control floating" (input)="searchEntity($event.target.value,'entityName')" />
+        <label class="focus-label">Entity Name</label>
+      </div>
+    </div>
+
+    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+      <div class="form-group form-focus">
+        <input type="text" class="form-control floating" (input)="searchEntity($event.target.value,'backendUrl')" />
+        <label class="focus-label">Backend Url</label>
+      </div>
+    </div>
+    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+      <div class="form-group form-focus">
+        <input type="text" class="form-control floating" (input)="searchEntity($event.target.value,'resourceType')" />
+        <label class="focus-label">Resource Type</label>
+      </div>
+    </div>
+
+    <div class="col-sm-4 col-md-3 col-lg-3 col-xl-3 col-12">
+      <a class="btn btn-success btn-block"> Search </a>
+    </div>
+  </div>
+  <!-- /Search Filter -->
+
+  <div class="row">
+    <div id="divResListContainer" [ngClass]=" resAuthId && tempClose!=null  ? 'col-md-6' : 'col-md-12'">
+      <div class="card">
+        <div class="card-body">
+          <div class="table-responsive">
+            <div class="d-flex justify-content-start pb-1">
+              <div class="pgn-displayDataInfo">
+                <span class="page-item disabled">Displaying (
+                  {{ (configPgn.pageNum - 1) * configPgn.pageSize + 1 }} to
+                  {{ configPgn.pngDiplayLastSeq }} of {{ configPgn.totalItem }} )
+                  entries</span>
+              </div>
+            </div>
+
+            <table id="genListTable" class="table table-striped custom-table">
+              <thead>
+                <tr>
+                  <th>SL</th>
+                  <th class="d-none">TB_ROW_ID</th>
+                  <th>Entity Name</th>
+                  <th>Client Url</th>
+                  <th>Backend Url</th>
+                  <th>Permission</th>
+                  <th>Sequence</th>
+                  <th>Resource Type</th>
+                  <th class="text-right no-sort">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="
+                    let thisObj of listData
+                      | paginate
+                        : {
+                            itemsPerPage: configPgn.pageSize,
+                            currentPage: configPgn.pageNum,
+                            totalItems: configPgn.totalItem
+                          };
+                    let i = index
+                  " [class.active]="i == currentIndex">
+                  <td>
+                    {{ (configPgn.pageNum - 1) * configPgn.pageSize + (i + 1) }}
+                  </td>
+                  <td class="d-none">{{ thisObj.id }}</td>
+                  <td>{{ thisObj.entityName }}</td>
+                  <td>{{ thisObj.clientReqUrl }}</td>
+                  <td>{{ thisObj.backendUrl }}</td>
+                  <td> <a (click)="getAuthData(thisObj.id)" (click)="actionTableLine($event, thisObj)" class="btn btn-sm btn-primary">Permission</a></td>
+                  <td>{{ thisObj.sequence }}</td>
+                  <td>{{thisObj.resourceType}}</td>
+                  <td class="text-right">
+                    <div class="dropdown dropdown-action">
+                      <a class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                          class="material-icons">more_vert</i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" routerLink="/settings/sys-resDef/{{ thisObj.id }}"><i
+                            class="fa fa-pencil m-r-5"></i> Edit</a>
+                        <a class="dropdown-item" (click)="tempId = thisObj.id" data-toggle="modal"
+                          data-target="#delete_sysResDef"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr *ngIf="listData.length === 0">
+                  <td colspan="10">
+                    <h5 style="text-align: center">No data found</h5>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+
+            <div class="d-flex justify-content-end">
+              <div class="" [formGroup]="myGroup">
+                Items per Page
+                <select (change)="handlePageSizeChange($event)" class="pgn-pageSizeOption" formControlName="pageSize">
+                  <option *ngFor="let size of configPgn.pageSizes" [value]="size">
+                    {{ size }}
+                  </option>
+                </select>
+              </div>
+
+              <div class="pgn-pageSliceCt">
+                <pagination-controls responsive="true" previousLabel="Prev" nextLabel="Next"
+                  (pageChange)="handlePageChange($event)">
+                </pagination-controls>
+              </div>
+            </div>
+            <!-- Delete SysResDef Modal -->
+            <div class="modal custom-modal fade" id="delete_sysResDef" role="dialog">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div class="form-header">
+                      <h3>Delete System Def Resourse</h3>
+                      <p>Are you sure want to delete?</p>
+                    </div>
+                    <div class="modal-btn delete-action">
+                      <div class="row">
+                        <div class="col-6">
+                          <a class="btn btn-primary continue-btn" (click)="deleteSysResDef()">Delete</a>
+                        </div>
+                        <div class="col-6">
+                          <a data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /Delete SysResDef Modal -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="divAuthListContainer" [ngClass]=" tempClose==null  ? 'd-none' : 'col-md-6'" *ngIf="resAuthId">
+      <div class="card">
+        <div class="card-header">
+          <div class="card-title mb-0">
+            <div class="formTitleCt"><span>Resources: </span> <span id="authResourcesTxt"></span></div>
+            <button type="button" (click)=close() class="close" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+
+        </div>
+        <div class="card-body">
+          <div class="addFormAuth">
+            <form (ngSubmit)="formSubmit()" [formGroup]="form">
+
+              <div class="row">
+                <div class="col-sm-4" *ngIf="!editId">
+                  <div class="form-group" >
+                    <label>Username</label>
+                    <ng-select [ngClass]="{ 'is-invalid': submitted && f.username.errors }" [items]="configDDL.listData"
+                      formControlName="username" bindLabel="userTitle" bindValue="username" placeholder="Select users"
+                      [searchable]="true" [clearable]="true"
+                      [virtualScroll]="true" [loading]="ngSelLoader"
+                      (search)="searchDDL($event)"
+                      (scrollToEnd)="scrollToEndDDL()"
+                      [clearOnBackspace]="true"
+                      (clear) = "clearDDL()"
+                      (click)="initSysParamsDDL($event, 'ddlUsername', '/api/common/getUser', 'username')"
+                      ddlActiveFieldName="ddlUsername"
+                      class="custom-ng-select"
+                      >
+                    </ng-select>
+
+                    <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
+                      <div *ngIf="f.username.errors.required">username is required</div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-sm-4"*ngIf="editId">
+                  <div class="form-group" >
+                    <label>Username</label>
+                    <input class="form-control" formControlName="username" class="form-control" type="text" readOnly="readOnly">
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Visible to All</label>
+                    <select class="form-control" formControlName="visibleToAll">
+                      <option value="">-- Select --</option>
+                      <option value="true">Yes</option>
+                      <option value="false">No</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Other String</label>
+                    <input class="form-control" formControlName="othersString" class="form-control" type="text">
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group" *ngIf="listRolesData">
+                    <label>Roles</label>
+                    <select class="form-control" formControlName="role">
+                      <option value="">-- Select --</option>
+                      <option *ngFor="let data of listRolesData" [ngValue]='data.id'>{{data.authority}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Create Auth</label>
+                    <select class="form-control" formControlName="createAuth">
+                      <option value="">-- Select --</option>
+                      <option value="C">Create</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Read Auth</label>
+                    <select class="form-control" formControlName="readAuth">
+                      <option value="">-- Select --</option>
+                      <option value="R">Read</option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Update Auth</label>
+                    <select class="form-control" formControlName="updateAuth">
+                      <option value="">-- Select --</option>
+                      <option value="U">Update</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Delete Auth</label>
+                    <select class="form-control" formControlName="deleteAuth">
+                      <option value="">-- Select --</option>
+                      <option value="D">Delete</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Query Auth</label>
+                    <select class="form-control" formControlName="queryAuth">
+                      <option value="">-- Select --</option>
+                      <option value="Q">Query</option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="row">
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Submit Auth</label>
+                    <select class="form-control" formControlName="submitAuth">
+                      <option value="">-- Select --</option>
+                      <option value="S">Submit</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>ID</label>
+                    <input class="form-control" formControlName="id" class="form-control" type="text">
+                  </div>
+                </div>
+
+                <div class="col-sm-4">
+                  <div class="form-group">
+                    <label>Full Preveliges</label>
+                    <select class="form-control" formControlName="fullPrivilegeString" [ngClass]="{ 'is-invalid': submitted && f.fullPrivilegeString.errors }">
+                      <option value="">-- Select --</option>
+                      <option value="E">Execute</option>
+                      <option value="N">No</option>
+                    </select>
+                    <div *ngIf="submitted && f.fullPrivilegeString.errors" class="invalid-feedback">
+                      <div *ngIf="f.fullPrivilegeString.errors.required">Full Privilege is required</div>
+                  </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <div class="submit-section">
+                <button class="btn btn-primary submit-btn" type="submit">
+                    <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>
+                    Save
+                    <!-- [disabled]="!addEmployeeForm.valid" -->
+                </button>
+            </div>
+
+            </form>
+          </div>
+          <hr>
+
+          <div class="table-responsive">
+            <div class="d-flex justify-content-start pb-1">
+            </div>
+            <br>
+            <table id="genListTable" class="table table-bordered">
+              <thead>
+                <tr>
+                  <th>Username</th>
+                  <th>System Res Name</th>
+                  <th>Full PrivilegeString</th>
+                  <th class="text-right no-sort">Action </th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr *ngFor="
+                    let thisObj of listAuthData
+                    let i = index
+                  " [class.active]="i == currentIndex">
+                  <td>{{thisObj.username}}</td>
+                  <td>{{ thisObj.systemResourceName }}</td>
+                  <td>{{ thisObj.fullPrivilegeString }}</td>
+                  <td class="text-right">
+                    <div class="dropdown dropdown-action">
+                      <a class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i
+                          class="material-icons">more_vert</i></a>
+                      <div class="dropdown-menu dropdown-menu-right">
+                        <a class="dropdown-item" (click)="editSysResAuthClickEvent(thisObj.id)"><i
+                            class="fa fa-pencil m-r-5"></i> Edit</a>
+                        <a class="dropdown-item" (click)="authTempId = thisObj.id" data-toggle="modal"
+                          data-target="#delete_sysResAuth"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                      </div>
+                    </div>
+                  </td>
+                </tr>
+
+                <tr *ngIf="listData.length === 0">
+                  <td colspan="10">
+                    <h5 style="text-align: center">No data found</h5>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+            <!-- Delete SysResDef Modal -->
+            <div class="modal custom-modal fade" id="delete_sysResDef" role="dialog">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div class="form-header">
+                      <h3>Delete System Def Resourse</h3>
+                      <p>Are you sure want to delete?</p>
+                    </div>
+                    <div class="modal-btn delete-action">
+                      <div class="row">
+                        <div class="col-6">
+                          <a class="btn btn-primary continue-btn" (click)="deleteSysResDef()">Delete</a>
+                        </div>
+                        <div class="col-6">
+                          <a data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- /Delete SysResDef Modal -->
+
+
+            <!-- Delete SysResAuth Modal -->
+
+            <div class="modal custom-modal fade" id="delete_sysResAuth" role="dialog">
+              <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                  <div class="modal-body">
+                    <div class="form-header">
+                      <h3>Delete System Def Auth</h3>
+                      <p>Are you sure want to delete?</p>
+                    </div>
+                    <div class="modal-btn delete-action">
+                      <div class="row">
+                        <div class="col-6">
+                          <a class="btn btn-primary continue-btn" (click)="deleteSysResAuth()">Delete</a>
+                        </div>
+                        <div class="col-6">
+                          <a data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- / Delete SysResAuth Modal-->
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- /Page Content -->
+
+<ngx-spinner bdColor="rgba(255,255,255,0.5)" size="medium" color="#667eea" type="ball-clip-rotate" [fullScreen]="false">
+  <p style="color: black">Processing...</p>
+</ngx-spinner>

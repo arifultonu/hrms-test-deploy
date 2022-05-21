@@ -1,0 +1,473 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="payslip_email_report" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="5b75bb25-cc8f-435b-bac6-e38bb81d0362">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="HRMS_PG_ADMIN.xml"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w1" value="429"/>
+	<property name="com.jaspersoft.studio.property.dataset.dialog.DatasetDialog.sash.w2" value="560"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w1" value="252"/>
+	<property name="com.jaspersoft.studio.data.sql.SQLQueryDesigner.sash.w2" value="738"/>
+	<parameter name="EMP_SAL_PROC_UID" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT prl_sal_tbl.id,
+	prl_sal_tbl.bank_account_no,
+	prl_sal_tbl."month",
+	prl_sal_tbl.month_year,
+	prl_sal_tbl.salary_day_month_year,
+	prl_sal_tbl.ou_title,
+	prl_sal_tbl.emp_id,
+	prl_sal_tbl.emp_code,
+	prl_sal_tbl.emp_name,
+	prl_sal_tbl.designation,
+	prl_sal_tbl.attn_late_deduction,
+	prl_sal_tbl.attn_early_gone_deduction,
+	prl_sal_tbl.prl_elmnt_food_deduction,
+	prl_sal_tbl.prl_elmnt_accommodation_deduction,
+	prl_sal_tbl.prl_elmnt_absent_deduction,
+	prl_sal_tbl.total_deduction,
+	prl_sal_tbl.other_allowance,
+	prl_sal_tbl.prl_elmnt_gross,
+	prl_sal_tbl.prl_elmnt_basic,
+	prl_sal_tbl.prl_elmnt_house_rent,
+    prl_sal_tbl.conveyance_allowance,
+    prl_sal_tbl.medical_allowance,
+    prl_sal_tbl.total_earnings,
+     prl_sal_tbl.net_payable_amount
+FROM prl_sal_tbl
+where emp_salary_proc_uid = $P{EMP_SAL_PROC_UID}]]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="bank_account_no" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="bank_account_no"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="month" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="month"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="month_year" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="month_year"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="salary_day_month_year" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="salary_day_month_year"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="ou_title" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="ou_title"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="emp_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.label" value="emp_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="emp_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="emp_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="emp_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="emp_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="designation" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.label" value="designation"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="attn_late_deduction" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="attn_late_deduction"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="attn_early_gone_deduction" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="attn_early_gone_deduction"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="prl_elmnt_food_deduction" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="prl_elmnt_food_deduction"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="prl_elmnt_accommodation_deduction" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="prl_elmnt_accommodation_deduction"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="prl_elmnt_absent_deduction" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="prl_elmnt_absent_deduction"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="total_deduction" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="total_deduction"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="other_allowance" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="other_allowance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="prl_elmnt_gross" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="prl_elmnt_gross"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="prl_elmnt_basic" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="prl_elmnt_basic"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="prl_elmnt_house_rent" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="prl_elmnt_house_rent"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="conveyance_allowance" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="conveyance_allowance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="medical_allowance" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="medical_allowance"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="total_earnings" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="total_earnings"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<field name="net_payable_amount" class="java.lang.Double">
+		<property name="com.jaspersoft.studio.field.label" value="net_payable_amount"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="prl_sal_tbl"/>
+	</field>
+	<group name="id">
+		<groupExpression><![CDATA[$F{id}]]></groupExpression>
+	</group>
+	<group name="bank_account_no">
+		<groupExpression><![CDATA[$F{bank_account_no}]]></groupExpression>
+	</group>
+	<group name="month">
+		<groupExpression><![CDATA[$F{month}]]></groupExpression>
+	</group>
+	<group name="emp_id">
+		<groupExpression><![CDATA[$F{emp_id}]]></groupExpression>
+	</group>
+	<group name="attn_late_deduction">
+		<groupExpression><![CDATA[$F{attn_late_deduction}]]></groupExpression>
+	</group>
+	<group name="attn_early_gone_deduction">
+		<groupExpression><![CDATA[$F{attn_early_gone_deduction}]]></groupExpression>
+	</group>
+	<group name="other_allowance">
+		<groupExpression><![CDATA[$F{other_allowance}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="97" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="555" height="50" uuid="d9b39c32-83d8-484f-adaf-fdbbdeb07231"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="25"/>
+				</textElement>
+				<text><![CDATA[Payslip]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="242" y="67" width="312" height="19" uuid="ce9b0514-d040-4e87-b242-0311839fe30b"/>
+				<textFieldExpression><![CDATA[$F{salary_day_month_year}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="190" y="67" width="100" height="20" uuid="714f3203-2d77-4a06-86eb-c6c425b253ad"/>
+				<text><![CDATA[From ]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="227" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="37" width="150" height="18" uuid="cb5c3de2-6f51-401e-b1d3-5cd945f402e7"/>
+				<text><![CDATA[Operating Unit :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="150" y="37" width="328" height="19" uuid="e95a19e9-8f16-45c0-88e5-457e871f0af0"/>
+				<textFieldExpression><![CDATA[$F{ou_title}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="150" y="56" width="327" height="23" uuid="caaaf795-8e35-4dc2-89d2-8ddae487e2b4"/>
+				<textFieldExpression><![CDATA[$F{emp_code}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="57" width="150" height="22" uuid="ca3332b3-dc94-4ca0-b51f-4c8bbd715283"/>
+				<text><![CDATA[Employee Id :]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="82" width="150" height="18" uuid="6fc382f5-67e6-45a3-8f23-62072c604c94"/>
+				<text><![CDATA[Employee Name :]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="150" y="80" width="327" height="20" uuid="4c602d3f-1dd3-4466-a7a9-c9d685bf6049"/>
+				<textFieldExpression><![CDATA[$F{emp_name}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="100" width="150" height="20" uuid="6bb86990-d329-48aa-9685-44401d32d351"/>
+				<text><![CDATA[Designation:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="150" y="100" width="327" height="20" uuid="97359c6d-b5ea-424c-a1a5-2457ef70bb94"/>
+				<textFieldExpression><![CDATA[$F{designation}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="193" width="114" height="34" printWhenGroupChanges="id" uuid="010fc671-0a47-45f3-8319-63176c5c02f4"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Allowance]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="114" y="193" width="128" height="34" uuid="64445b88-b32c-4d9a-9650-0d15371050b0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="260" y="193" width="128" height="34" uuid="cb97564c-be85-4ec9-a12f-b928881cb123"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Deduction]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="388" y="193" width="120" height="34" uuid="730f6a8d-5dd8-4264-a44a-82f7390a66f6"/>
+				<box>
+					<pen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Amount]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="272" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="30" width="114" height="30" uuid="a7ed64d8-02e5-4a77-9371-6bc3993335ad"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[House Rent]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="114" y="30" width="128" height="30" uuid="05ce2971-06e1-4a45-b41f-8595bd5912b4"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prl_elmnt_house_rent}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="114" height="30" uuid="ba11382f-6626-499c-8351-39022c8db562"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Basic Pay]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="114" y="0" width="128" height="30" uuid="f1203b1d-a13e-483b-ab2a-c9bb27efc518"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prl_elmnt_basic}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="60" width="114" height="30" uuid="a3969369-9bf2-4064-a37c-6f696b3ab79d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Conveyance]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="114" y="60" width="128" height="30" uuid="1cec81eb-151c-4d10-b7c6-6c294e529f89"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{conveyance_allowance}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="90" width="114" height="30" uuid="1984a30e-a2df-41ea-8258-304c963c2687"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Medical Allowance]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="114" y="90" width="128" height="30" uuid="347dfe0c-b365-4ff8-8d35-1e0ddfcebc3e"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{medical_allowance}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="120" width="114" height="30" uuid="c0856420-f117-4a11-bb28-0207e43308d5"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Others Allowance]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="114" y="120" width="128" height="30" uuid="cf250aa9-1834-4477-b809-ba33a9d8c525"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{other_allowance}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="150" width="114" height="30" uuid="110f03b9-ffdb-42c7-bb02-c721f7011e8a"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Earnings]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="114" y="150" width="128" height="30" uuid="e1cd5f32-0904-4926-ac20-15958e2e812f"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_earnings}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="206" width="80" height="23" uuid="1dfdf259-c2df-4e9e-9cff-b8e25089a38b"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Net Pay:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="81" y="206" width="427" height="23" uuid="96b49b07-469d-4cf9-b7f4-40c7b1d4bdd2"/>
+				<box leftPadding="13">
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Justified" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{net_payable_amount}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="0" width="128" height="30" uuid="c21d53d6-2484-479b-97e8-67bd66bdee9d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Food Deduction]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="388" y="0" width="120" height="30" uuid="6f201309-94bc-458b-8235-dd428d3de002"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prl_elmnt_food_deduction}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="30" width="128" height="30" uuid="91ce1237-e606-45a7-8b13-74b20288da00"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Acm. DD]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="388" y="30" width="120" height="30" uuid="61c78524-c25e-4d1e-beaf-99ebee1da9f0"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prl_elmnt_accommodation_deduction}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="60" width="128" height="30" uuid="bb5fff3b-812b-42bc-b7a9-448b82360cdf"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Absent DD]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="388" y="60" width="120" height="30" uuid="a0af9bf6-28f5-4904-91b7-2912cd68acd6"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{prl_elmnt_absent_deduction}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="90" width="128" height="30" uuid="60db58d3-9477-44db-a9bd-efdfbe980240"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Late DD]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="388" y="90" width="120" height="30" uuid="9c7a9761-cd25-4c4b-8229-5562b7ed753d"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{attn_late_deduction}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="121" width="128" height="30" uuid="5f12904a-6086-4f8f-9f99-353f01262a5e"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Early Gone DD]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="388" y="120" width="120" height="30" uuid="61832301-d948-410a-a2b5-6fc9c34d4fe0"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{attn_early_gone_deduction}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="260" y="150" width="128" height="30" uuid="bd4463d1-d1da-4268-8b65-172135fbb950"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Total Deduction]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="388" y="150" width="120" height="30" uuid="d9eb44e5-f27f-4e2a-a9ae-f97f11c38aed"/>
+				<box>
+					<pen lineWidth="0.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{total_deduction}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="42" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>

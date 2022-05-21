@@ -1,0 +1,198 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row">
+            <div class="col">
+                <h3 class="page-title">Attendance Raw </h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item active">Employees</li>
+                    <li class="breadcrumb-item active">AttendanceRaw</li>
+                </ul>
+            </div>
+
+        </div>
+
+    </div>
+    <!-- /Page Header -->
+
+   	<!-- Search Filter -->
+       <!-- <form (ngSubmit)="searchAttn()" [formGroup]="inputForm">
+        <div class="row filter-row mb-4">
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group form-focus">
+                <div >
+                    <input class="form-control floating"   formControlName="empCode" type="text" >
+                </div>
+                <label class="focus-label">Emp Code</label>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <div class="form-group form-focus">
+                <div class="cal-icon">
+                    <input class="form-control floating datetimepicker" formControlName="executeDate" type="text" bsDatepicker>
+                </div>
+                <label class="focus-label">Date</label>
+            </div>
+        </div>
+        <div class="col-sm-6 col-md-3">
+            <button  class="btn btn-primary submit-btn" type="submit">
+                Search
+
+            </button>
+        </div>
+        </div>
+    </form> -->
+    <!-- /Search Filter -->
+    <!-- Search Filter -->
+    <form (ngSubmit)="searchAttn()" [formGroup]="inputForm">
+        <div class="card mb-2" style="background-color:transparent;">
+            <div class="card-body p-3">
+
+                <div class="row filter-row">
+
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-xxl-2 col-12">
+                        <div class="form-group form-focus">
+                            <input class="form-control floating" formControlName="empCode" type="text">
+                            <label class="focus-label">Employee Code</label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+                        <div class="form-group form-focus">
+                            <div class="cal-icon">
+                                <input class="form-control floating datetimepicker" formControlName="executeDate"
+                                    type="text" bsDatepicker>
+                            </div>
+                            <label class="focus-label">Date</label>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+
+                        <button class="btn btn-success btn-block" type="submit">
+                            Search
+                            <!-- [disabled]="!addEmployeeForm.valid" -->
+                        </button>
+                    </div>
+
+                    <div class="col-sm-6 col-md-3 col-lg-3 col-xl-3 col-12">
+
+                      <button class="btn btn-danger btn-block" type="reset" (click)="clearFilter()">
+                          Clear
+                          <!-- [disabled]="!addEmployeeForm.valid" -->
+                      </button>
+                  </div>
+                </div>
+
+            </div>
+        </div>
+    </form>
+    <!-- /Search Filter -->
+
+
+<!-- list view start -->
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+            <div class="card-body">
+            <div class="table-responsive">
+                <div class="d-flex justify-content-start pb-1">
+                    <div class="pgn-displayDataInfo">
+                        <span class="page-item disabled">Displaying ( {{ ( ((pageNum-1) * pageSize) + (1) ) }}  to {{pngDiplayLastSeq}} of {{totalItem}} ) entries</span>
+                    </div>
+                </div>
+                <table   class="table table-striped custom-table datatable">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Employee ID</th>
+                            <th>Card Number</th>
+                            <th>Punch Time</th>
+                            <th>Punch Date</th>
+                            <th>Source Type</th>
+                            <th class="text-right no-sort">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        <tr *ngFor="let row of hrTlAttenDaily | paginate : {
+                            itemsPerPage: pageSize,
+                            currentPage: pageNum,
+                            totalItems: totalItem
+                        };let i = index" [class.active]="i == currentIndex">
+                        <td>
+                            {{ 1 + i}}
+                        </td>
+
+                        <td>{{row.hrCrEmpId?.displayName}}</td>
+                        <td>{{row.hrCrEmpId?.loginCode}}</td>
+                        <td>{{row.cardNumber}}</td>
+                        <td>{{row.entryTime|date:'medium'}}</td>
+                        <td>{{row.entryDate|date}}</td>
+                        <td>{{row.srcType}}</td>
+
+
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action">
+                                    <a  class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item"  data-toggle="modal"
+                                        data-target="#edit_employee" (click)="edit(row.id)"><i
+                                            class="fa fa-user m-r-5"></i> Details</a>
+                                        <a class="dropdown-item"  data-toggle="modal"
+                                            data-target="#edit_employee" (click)="edit(row.id)"><i
+                                                class="fa fa-pencil m-r-5"></i> Edit</a>
+                                        <a class="dropdown-item"  data-toggle="modal"
+                                            data-target="#delete_employee" (click)="tempId = row.id"><i
+                                                class="fa fa-trash-o m-r-5"></i>
+                                            Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="hrTlAttenDaily.length === 0">
+                            <td colspan="10">
+                                <h5 style="text-align: center;">No data found</h5>
+                            </td>
+
+                        </tr>
+                    </tbody>
+
+                </table>
+                <div class="d-flex justify-content-end ">
+
+                    <div >
+                        Items per Page
+                        <select (change)="handlePageSizeChange($event)" class="pgn-pageSizeOption" >
+                            <option *ngFor="let size of pageSizes" [value]="size">
+                                {{ size }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="pgn-pageSliceCt">
+                        <pagination-controls
+                            responsive="true"
+                            previousLabel="Prev"
+                            nextLabel="Next"
+                            (pageChange)="handlePageChange($event)">
+                        </pagination-controls>
+                    </div>
+
+                </div>
+            </div>
+            </div>
+            </div>
+
+        </div>
+    </div>
+    <!-- list view end -->
+</div>
+<!-- /Page Content -->
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>
+

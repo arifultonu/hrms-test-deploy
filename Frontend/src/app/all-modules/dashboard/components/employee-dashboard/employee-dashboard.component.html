@@ -1,0 +1,250 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="welcome-box">
+                <div class="welcome-img">
+                    <img class="img-design" [src]="profileImageUrl" onerror="this.src='assets/img/user-icon/u-sq-pic.jpg'" alt="">
+                </div>
+                <div class="welcome-det">
+                   <div>
+                       <h3>Welcome, <span style="color: darkolivegreen">{{user.firstName}} {{user.lastName}}</span></h3>
+                  </div>
+                  <div class="dayTitle">
+                    {{day}}, {{dateCount}} {{month}} {{year}}
+
+                </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8 col-md-8">
+            <section class="dash-section">
+                <h1 class="dash-sec-title">Notifications </h1>
+            </section>
+            <div class="firework">
+              <div class="before"></div>
+              <div class="after"></div>
+          </div>
+          <div class="pyro">
+            <div class="before"></div>
+            <div class="after"></div>
+        </div>
+
+            <!-- <div class="alert alert-dark" role="alert">
+                This is a dark alert—check it out!
+            </div> -->
+
+            <div class="noti-content">
+                <ul class="notification-list">
+                    <li  *ngFor="let item of onTourNotifications">
+                        <a routerLink="/sefl-service/onTourHrAdmin/view/{{item.id}}">
+                            <div class="media">
+                                <div class="media-body">
+                                    <div class="alert alert-light notification" role="alert">
+                                        <i class="la la-envelope-open-o la-2x" style="margin-right: 35px;"></i>
+                                        {{item.hrCrEmp.displayName}} Applied for OnTour
+
+                                    </div>
+
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="noti-content">
+                <ul class="notification-list">
+                    <li  *ngFor="let item of leaveNotifications">
+                        <a routerLink="/sefl-service/employeeleaves-hr-admin/view/{{item.id}}">
+                            <div class="media">
+                                <div class="media-body">
+                                    <div class="alert alert-light notification" role="alert">
+                                        <i class="la la-envelope-open-o la-2x" style="margin-right: 35px;"></i>
+                                        <img class="avatar" alt="aa" style="height:45px;width:50px;" src="{{ baseUrl + item.hrCrEmp.pic_}}">  {{item.hrCrEmp.displayName}} ({{item.hrCrEmp.code}}) Applied for Leave <span class="text-success" *ngIf="item.leaveApprovalStatus==='Recommended'">({{item.leaveApprovalStatus}})</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="noti-content">
+                <ul class="notification-list">
+                    <li  *ngFor="let item of simNotifications">
+                        <a routerLink="/sim/requisition/show/{{item.id}}">
+                            <div class="media">
+                                <div class="media-body">
+                                    <div class="alert alert-light notification" role="alert">
+                                        <i class="la la-envelope-open-o la-2x" style="margin-right: 35px;"></i>
+                                        {{item.hrCrEmp.displayName}} Applied for sim
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="noti-content">
+              <ul class="notification-list">
+                  <li  *ngFor="let item of transportNotifications">
+                      <a routerLink="/sefl-service/transportRequisition/view/{{item.id}}">
+                          <div class="media">
+                              <div class="media-body">
+                                  <div class="alert alert-light notification" role="alert">
+                                      <i class="la la-envelope-open-o la-2x" style="margin-right: 35px;"></i>
+                                      {{item.hrCrEmp.displayName}} Applied for transport
+                                  </div>
+                              </div>
+                          </div>
+                      </a>
+                  </li>
+              </ul>
+          </div>
+
+
+
+            <div *ngIf="(user.dob.substr(0,5)) != (currentDate| date:'dd-MM'); else templateName">
+
+            </div>
+
+            <ng-template #templateName>
+              <div class="noti-content">
+                <div class="agm">
+                  <div class="back"></div>
+                  <div class="front">
+                    <div class="imgset">
+                         <img width="100%" src="assets/img/bday.png">
+                       </div>
+                  </div>
+                  <div class="text-container">
+                    <p id="head">Happy Birthday <br><span id="pppk" >{{user.firstName}} {{user.lastName}}</span></p>
+                    <p>I hope your special day will bring you lots of happiness, love, and fun. You deserve them a lot. Enjoy!</p>
+                    <p>-Greetings from HRMS</p>
+                  </div>
+                </div>
+              </div>
+            </ng-template>
+
+
+
+</div>
+
+
+        <div class="col-lg-4 col-md-4">
+            <div class="dash-sidebar">
+
+
+                <section>
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="center-clock">
+
+                                <div class="row">
+
+                                    <div class="col-md-12">
+                                        <div class="clock">
+                                          <div class="num num1"><div>1</div></div>
+                                          <div class="num num2"><div>2</div></div>
+                                          <div class="num num3"><div>3</div></div>
+                                          <div class="num num4"><div>4</div></div>
+                                          <div class="num num5"><div>5</div></div>
+                                          <div class="num num6"><div>6</div></div>
+                                          <div class="num num7"><div>7</div></div>
+                                          <div class="num num8"><div>8</div></div>
+                                          <div class="num num9"><div>9</div></div>
+                                          <div class="num num10"><div>10</div></div>
+                                          <div class="num num11"><div>11</div></div>
+                                          <div class="num num12"><div>12</div></div>
+                                          <div class="hr-hand" #hrHand></div>
+                                          <div class="min-hand" #minHand></div>
+                                          <div class="sec-hand" #secHand></div>
+                                      </div>
+                                    </div>
+
+                                    <div class="col-md-12">
+                                        <div class="center-clock">
+
+                                            <div class="digitalClock">
+
+                                                <div class="digitalTime">
+                                                    <div>{{hour}} : &nbsp;</div>
+                                                    <div>{{minute}} : &nbsp;</div>
+                                                    <div>{{second}}  &nbsp;</div>
+                                                    <div>{{ampm}}</div>
+                                                    &nbsp;&nbsp; | &nbsp;&nbsp;{{dateCount}} {{month}} {{year}}
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </div>
+
+
+
+
+                </section>
+                <section>
+                    <h3 >My Last 7 Days Attendance</h3>
+                    <div class="card">
+                        <div class="card-body">
+                            <table class="table table-sm">
+                                <thead>
+                                  <tr>
+
+                                    <th scope="col">Date</th>
+                                    <th scope="col">In </th>
+                                    <th scope="col">Out </th>
+                                    <th scope="col">Status</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let row of last7DaysAttn;let i = index" style="font-size: 12px;">
+
+
+                                        <td>{{row.thisCreateDate| date}}</td>
+                                        <td>{{row.inTime}}</td>
+                                        <td>{{row.outTime}}</td>
+                                        <td *ngIf="row.isColor==1" style="color: green;">
+                                            {{row.attnDayStsFinalType}}
+                                        </td>
+                                        <td *ngIf="row.isColor==2" style="color: #5c592d;">
+                                            {{row.attnDayStsFinalType}}
+                                        </td>
+
+                                        <td *ngIf="row.isColor==null" style="color: rgb(228, 19, 36);">
+                                            {{row.attnDayStsFinalType}}
+                                        </td>
+                                        <td *ngIf="row.isColor==4" style="color: rgb(251, 182, 54);">
+                                            {{row.attnDayStsFinalType}}
+                                        </td>
+                                        <td *ngIf="row.isColor==3" style="color: rgb(251, 182, 54);">
+                                            {{row.attnDayStsFinalType}}
+                                        </td>
+
+                                    </tr>
+
+                                </tbody>
+                              </table>
+
+                        </div>
+                    </div>
+                </section>
+
+
+            </div>
+        </div>
+    </div>
+
+</div>
+<!-- /Page Content -->

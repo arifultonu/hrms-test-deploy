@@ -1,0 +1,38 @@
+
+.content {
+	padding: 30px;
+}
+
+
+/* ================= Purpale Color =========================== */
+input.form-control, select.form-control, textarea.form-control {
+	border-color: #667eea;
+	border-left: 3px solid #667eea;
+    box-shadow: none;
+}
+input.form-group {
+	border-color: #667eea;
+	border-left: 3px solid #667eea;
+    box-shadow: none;
+}
+
+.form-control:focus {
+	border-color: #705CBA;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px rgb(102 175 233 / 60%);
+	box-shadow: inset 0 1px 1px rgb(0 0 0 / 8%), 0 0 8px rgb(102 175 233 / 60%);
+ }
+
+
+ label {
+    font-weight: 600;
+    color: #555;
+}
+ @media screen and (min-width: 600px) {
+	.my-form .grid {
+	  display: grid;
+	  grid-gap: 1.5rem;
+	}.my-form .grid-2 {
+		grid-template-columns: 1fr 1fr;
+	  }
+	}

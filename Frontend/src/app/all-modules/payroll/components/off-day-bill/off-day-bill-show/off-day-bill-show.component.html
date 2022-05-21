@@ -1,0 +1,159 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Off Day Bill</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item active">Payroll</li>
+                    <li class="breadcrumb-item active">Off Day Bill</li>
+                    <li class="breadcrumb-item active">Show</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a class="btn add-btn" routerLink="/payroll/off-day-bill"><i class="fa fa-share"></i> Back To List</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+              
+                <div class="card-body">
+
+                   
+                        
+                        <fieldset class="row fieldsetWithoutBorder">
+                            <legend></legend>
+                            <div class="col-12">
+    
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Employee</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.hrCrEmp.displayName}} (Code:{{myData.hrCrEmp.loginCode}}) </span>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Responsible Employee</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.hrCrEmpResponsible.displayName}} (Code:{{myData.hrCrEmpResponsible.loginCode}}) </span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Contact Number(Given)</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.contactNo}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Contact Number</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.hrCrEmp.mobCode}}</span>
+                                    </div>
+                                </div>
+                               
+                                
+                                
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Start Date</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.startDate|date:'yyyy-MM-dd'}}</span>
+                                    </div>
+                                </div>
+        
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">End Date</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.endDate|date:'yyyy-MM-dd'}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Total Days</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.offDays}}</span>
+                                    </div>
+                                </div>
+
+                                
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Remarks</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.remarks}}</span>
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label class="col-form-label col-md-2">Approval Status</label>
+                                    <div class="col-md-10">
+                                        <span>: &nbsp;</span><span>{{myData.offDayBillApprovalStatus}}</span>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </fieldset>
+
+
+                        <fieldset class="row fieldsetBorder logBox">
+                            <legend>System Log Information</legend>
+
+                            <div class="form-group">
+                                <label class="col-form-label">ID</label>
+                                <div class="">
+                                    <span>{{myData.id}}</span>
+                                </div>
+                            </div>
+                           
+                            <div class="form-group">
+                                <label class="col-form-label">Creation Time</label>
+                                <div class="">
+                                    <span>{{myData.createDate}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Creation User</label>
+                                <div class="">
+                                    <span>{{myData.createdByHrCrEmp.user.username}}</span>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="col-form-label">Last Update Time</label>
+                                <div class="">
+                                    <span>{{myData.updateDateTime}}</span>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label class="col-form-label">Last Update User</label>
+                                <div class="">
+                                    <span>{{myData.updatedByHrCrEmp.user.username}}</span>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        <div class="text-right">
+                            <a class="btn btn-primary btn-ripple" routerLink="/payroll/off-day-bill"><i class="fa fa-share"></i> Close</a>
+                            &nbsp;
+                        </div>
+
+                       
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- /Page Content -->
+
+
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>
+

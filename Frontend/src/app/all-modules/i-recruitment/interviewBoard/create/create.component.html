@@ -1,0 +1,92 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Viva Board</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/irecruitment/vivaboard/list">Viva Board </a></li>
+                    <li class="breadcrumb-item active">Create</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a class="btn add-btn" routerLink="/irecruitment/vivaboard/list"><i class="fa fa-share"></i> Back To List</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+
+    <div class="row">
+
+
+        <div class="col-lg-12">
+            <div class="card">
+                <!-- <div class="card-header"> -->
+                    <!-- <h4 class="card-title mb-0">Payroll Item Value</h4> -->
+                <!-- </div>  -->
+                <div class="card-body">
+
+
+                    <h3 class="card-title"> Viva Board Creation form</h3>
+                    <form (ngSubmit)="myFormSubmita()" [formGroup]="myForm">
+
+                    <div class="row">
+
+
+                        <div class="col-sm-12 form-group">
+                            <label for="Date">Viva Board Code</label>
+                            <input type="text" class="form-control"  formControlName="code" value="{{ result }}" readonly>
+                        </div>
+
+                        <div class="col-sm-12 form-group">
+                            <label for="Date" class="val-required">Viva Board Title</label>
+                            <input type="text" class="form-control invalid"  formControlName="title">
+                            <!-- <span *ngIf="title && title.invalid && title.touched">Required</span> -->
+                        </div>
+                       
+                        
+
+                        <div class="col-sm-12">
+                            <div class="text-right">
+                                <a class="btn btn-warning btn-ripple" routerLink="/irecruitment/vivaboard/list"><i class="fa fa-share"></i> Cancel</a>
+                                &nbsp; &nbsp;
+                                <button type="button" class="btn btn-secondary btn-ripple" (click)="resetFormValues()">
+                                    <i class="fa fa-undo" aria-hidden="true"></i> Reset
+                                </button>
+                                &nbsp; &nbsp;
+                                <button type="submit" class="btn btn-primary btn-ripple">
+                                    <i class="fa fa-check" aria-hidden="true"></i> Save &nbsp;&nbsp;&nbsp;
+                                </button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+       
+
+
+
+
+
+
+
+
+
+
+</div>
+<!-- /Page Content -->
+
+
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>

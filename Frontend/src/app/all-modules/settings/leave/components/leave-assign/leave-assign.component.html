@@ -1,0 +1,293 @@
+
+  <!-- Page Content -->
+  <div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Leave Assign</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Dashboard</a></li>
+                    <li class="breadcrumb-item active">Leave Assign</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a  class="btn add-btn" data-toggle="modal" data-target="#add_leaveassign"><i
+                        class="fa fa-plus"></i>  Leave Assign</a> <br> <br>
+                        <a  class="btn add-btn" data-toggle="modal" data-target="#add_cmleaveassign"><i
+                            class="fa fa-plus"></i> Cmpnstry Leave Assign</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+    	<!-- Search Filter -->
+        <form >
+            <div class="row filter-row mb-4">
+            <div class="col-sm-6 col-md-3">
+                <div class="form-group form-focus">
+                    <div >
+                        <input class="form-control floating"   formControlName="empCode" type="text"  (input)="searchEntity($event.target.value,'empCode')" >
+                    </div>
+
+                    <label class="focus-label">Emp Code</label>
+                </div>
+            </div>
+
+
+            <div class="col-sm-6 col-md-3">
+                <div class="form-group form-focus">
+                    <div >
+                        <input class="form-control floating"   formControlName="leavePrd" type="text"  (input)="searchEntity($event.target.value,'leavePrd')" >
+                    </div>
+                    <label class="focus-label">Leave Prd</label>
+                </div>
+            </div>
+
+            <div class="col-sm-6 col-md-3">
+                <button  class="btn btn-primary submit-btn" type="submit">
+                    Search
+
+                </button>
+            </div>
+            </div>
+        </form>
+        <!-- /Search Filter -->
+
+    <div class="row">
+        <div class="col-md-12">
+            <div class="table-responsive">
+
+                <div class="d-flex justify-content-start pb-1">
+                    <div class="pgn-displayDataInfo">
+                        <span class="page-item disabled">Displaying ( {{ ( ((pageNum2-1) * pageSize2) + (1) ) }}  to {{pngDiplayLastSeq2}} of {{totalItem2}} ) entries</span>
+                    </div>
+                </div>
+
+                <table id="genListTable" class="table table-striped custom-table">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Emp Name</th>
+                            <th>Leave Type</th>
+                            <th>Leave Days</th>
+                            <th>Taken Days</th>
+                            <th>Carry Days</th>
+                            <th>Is Closed</th>
+                            <th>Leave Prd</th>
+
+                            <th class="text-right">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody >
+
+                        <tr *ngFor="let option of leaveAssignList | paginate : {
+                                itemsPerPage: pageSize2,
+                                currentPage: pageNum2,
+                                totalItems: totalItem2
+                            };let i = index" [class.active]="i == currentIndex">
+                            <td>
+                                {{ 1 + i}}
+                            </td>
+                            <td>{{option.hrCrEmp.displayName}}</td>
+                            <td>{{option.leaveType}}</td>
+                            <td>{{option.leaveDays}}</td>
+                            <td>{{option.takenDays}}</td>
+                            <td>{{option.carryDays}}</td>
+
+                            <td>
+                                <div class="dropdown action-label">
+                                    <a class="btn btn-white btn-sm btn-rounded dropdown-toggle"
+                                        data-toggle="dropdown" aria-expanded="false">
+                                        <i class="fa fa-dot-circle-o text-success"></i> {{option.isClose}}
+                                    </a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a  class="dropdown-item"><i
+                                                class="fa fa-dot-circle-o text-success"></i> true</a>
+                                        <a  class="dropdown-item"><i class="fa fa-dot-circle-o text-danger"></i>
+                                            false</a>
+                                    </div>
+                                </div>
+                                </td>
+                            <td>{{option.hrLeavePrd?.title}}</td>
+
+                            <td class="text-right">
+                                <div class="dropdown dropdown-action">
+                                    <a  class="action-icon dropdown-toggle" data-toggle="dropdown"
+                                        aria-expanded="false"><i class="material-icons">more_vert</i></a>
+                                    <div class="dropdown-menu dropdown-menu-right">
+                                        <a class="dropdown-item"  data-toggle="modal"
+                                            data-target="#edit_leavetype" (click)="edit(leaveType.id)"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                        <a class="dropdown-item"  data-toggle="modal"
+                                            data-target="#delete_leavetype" (click)="tempId = leaveType.id"><i class="fa fa-trash-o m-r-5"></i>
+                                            Delete</a>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr *ngIf="leaveAssignList.length === 0">
+                            <td colspan="10">
+                                <h5 style="text-align: center;">No data found</h5>
+                            </td>
+
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="d-flex justify-content-end ">
+
+                    <div >
+                        Items per Page
+                        <select (change)="handlePageSizeChange($event)" class="pgn-pageSizeOption" >
+                            <option *ngFor="let size of pageSizes2" [value]="size">
+                                {{ size }}
+                            </option>
+                        </select>
+                    </div>
+
+                    <div class="pgn-pageSliceCt">
+                        <pagination-controls
+                            responsive="true"
+                            previousLabel="Prev"
+                            nextLabel="Next"
+                            (pageChange)="handlePageChange($event)">
+                        </pagination-controls>
+                    </div>
+
+                </div>
+
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+<!-- Add Leavetype Modal -->
+<div id="add_leaveassign" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Leave Config</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="addLeaveAssignFunc()" [formGroup]="addLeaveAssignForm">
+
+                    <div class="row">
+
+                        <label class="col-form-label col-md-2">All Employees </label>
+                        <div class="col-md-10">
+                            <input formControlName="isAlEmp" type="checkbox" value="1" >
+
+                        </div>
+                        <br><br>
+
+
+                        <!-- <label class="col-form-label col-md-2">Selected Employees </label>
+                        <div class="col-md-10">
+                            <ng-select formControlName="empId" [items]="dropdownList" bindLabel="loginCode" bindValue="id"
+                                placeholder="Select" appendTo="body" [multiple]="true" (scrollToEnd)="onSelectAllEmp()" >
+                            </ng-select>
+
+
+
+                        </div> -->
+
+
+
+
+
+
+                        <br><br>
+                        <label class="col-form-label col-md-2">Leave Types </label>
+                        <div class="col-md-10">
+                            <ng-select formControlName="leaveType" [items]="leaveList" bindLabel="title" bindValue="id"
+                                placeholder="Select" appendTo="body" [multiple]="true" (scrollToEnd)="onSelectAllEmp()">
+                            </ng-select>
+
+                        </div>
+                        <br><br>
+                        <br><br>
+
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary btn-ripple">Start Process</button>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Add Leavetype Modal -->
+
+<!-- Add cm leave Modal -->
+<div id="add_cmleaveassign" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Add Cmpnstry Leave Config</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form (ngSubmit)="addCMLeaveAssignFunc()" [formGroup]="myForm">
+
+                    <div class="row">
+
+                        <label class="col-form-label col-md-2">Selected Employees </label>
+                            <div class="col-md-10">
+                                <ng-select
+                                    [items]="configDDL.listData" formControlName="empIds" placeholder="Select employee"
+                                    bindLabel="ddlDescription" bindValue="ddlCode"
+                                    [multiple]="true"
+                                    [searchable]="true" [clearable]="true" [virtualScroll]="true" [clearOnBackspace]="true"
+                                    (search)="searchDDL($event)" (scrollToEnd)="scrollToEndDDL()" (clear)="clearDDL()"
+                                    (click)="initSysParamsDDL($event, 'ddlDescription', '/api/common/getEmp', 'hrCrEmp')"
+                                    ddlActiveFieldName="ddlDescription" class="custom-ng-select">
+                                </ng-select>
+                            </div>
+                            <br><br>
+                            <label class="col-form-label col-md-2">Status</label>
+                            <div class="col-md-10">
+                            <select  class="form-control" formControlName="status">
+                                <option value=positive>+</option>
+                                <option value=negative>-</option>
+
+                              </select>
+                            </div>
+                            <br><br>
+
+                        <div class="text-right">
+                            <button type="submit" class="btn btn-primary btn-ripple">Start Process</button>
+                        </div>
+
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Add cm leave  Modal -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+<!-- /Page Content -->

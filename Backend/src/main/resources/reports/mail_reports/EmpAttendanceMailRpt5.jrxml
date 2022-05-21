@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.11.0.final using JasperReports Library version 6.11.0-0c4056ccaa4d25a5a8c45672d2f764ea3498bebb  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="EmpAttendanceMailRpt" pageWidth="420" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="380" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="ae4cd4d6-8b04-49f5-8d62-155ca24e789a">
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+	<queryString>
+		<![CDATA[]]>
+	</queryString>
+	<field name="empCode" class="java.lang.String"/>
+	<field name="empName" class="java.lang.String"/>
+	<field name="attnDate" class="java.lang.String"/>
+	<field name="inTime" class="java.lang.String"/>
+	<field name="outTime" class="java.lang.String"/>
+	<field name="status" class="java.lang.String"/>
+	<field name="totalPresent" class="java.lang.String"/>
+	<field name="totalAbsent" class="java.lang.String"/>
+	<field name="totalLate" class="java.lang.String"/>
+	<field name="totalEarlyGone" class="java.lang.String"/>
+	<field name="totalLateAndEarlyGone" class="java.lang.String"/>
+	<field name="totalLeaveAndOthers" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="59" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="-10" width="380" height="30" uuid="59be9dac-8d8d-4647-9e32-ff5d721a2ca0"/>
+				<textElement textAlignment="Center">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Employee Attendance Report]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="23" width="379" height="30" uuid="f41ba6f2-7c9b-4d20-b436-8f5e4d9b0577"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ODCL]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="37" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="-6" width="55" height="20" uuid="3ae21dfd-4bd1-44eb-882f-87f0103d41d3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="3"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Emp Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="14" width="55" height="20" uuid="eb29af8c-05cb-4f16-a6a4-e597187beff9">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<box topPadding="3"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[Emp Code]]></text>
+			</staticText>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="70" y="-6" width="200" height="20" uuid="8c05aaa7-b97f-4433-a850-cc382a47e13d"/>
+				<box topPadding="3">
+					<pen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{empName}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement x="70" y="14" width="200" height="20" uuid="f40bf92f-bb25-4266-adea-44e62fcb25cb"/>
+				<box topPadding="3">
+					<pen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Top"/>
+				<textFieldExpression><![CDATA[$F{empCode}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="55" y="-6" width="15" height="20" uuid="39637d61-9319-4ab7-b8a3-a348d0c539dd"/>
+				<box topPadding="3"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="55" y="14" width="15" height="20" uuid="d8778602-a11f-4ef1-9e01-2957ac540828"/>
+				<box topPadding="3"/>
+				<textElement verticalAlignment="Top"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="25" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<staticText>
+				<reportElement x="0" y="0" width="100" height="25" uuid="0179f3d2-8bc3-48b5-b7ea-8e32388daeee">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="100" height="25" uuid="4ea06544-6f13-44ec-997c-535dee0932dc">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[In Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="200" y="0" width="100" height="25" uuid="c56113be-7b7b-4dd1-8bf7-46078d2959bf">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Out Time]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="300" y="0" width="80" height="25" uuid="a1cbe7ef-3ba5-4bc9-b559-6564905b94b3">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<property name="com.jaspersoft.studio.unit.height" value="px"/>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="100" height="20" uuid="7fa49529-b947-4d89-99de-d44436d24352">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{attnDate}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="100" y="0" width="100" height="20" uuid="1737a35d-d053-44d4-bf6b-ea540cbb76f6">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{inTime}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="200" y="0" width="100" height="20" uuid="8f50db06-7968-4642-991d-1026f6fa3435">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{outTime}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight">
+				<reportElement stretchType="RelativeToTallestObject" x="300" y="0" width="80" height="20" uuid="cfb5cb50-4650-4219-9466-b054f43aecd7">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{status}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="69" splitType="Stretch">
+			<textField>
+				<reportElement x="103" y="6" width="70" height="20" uuid="cad5eebd-fcb9-4d03-a04a-edecf54d3b40">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalPresent}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="28" y="6" width="70" height="20" uuid="cee4d112-7822-4f40-b7d3-4fb035d87803">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total Present]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="103" y="26" width="70" height="20" uuid="5154f0ec-2cd9-492d-828c-acb20a13529c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement textAlignment="Left" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalAbsent}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="28" y="26" width="70" height="20" uuid="1186b73d-70b8-4c6a-8bc4-cb6a5777a3eb">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Total Absent]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="6" width="85" height="20" uuid="3a3cf895-e324-463b-ab35-eaf147edbfe0">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Late]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="203" y="26" width="85" height="20" uuid="4b753da3-2de6-4da7-a73e-f57893e5bfb2">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Early Gone]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="293" y="6" width="70" height="20" uuid="bc69d62d-3a8d-4fb7-a779-76a3d9248aa8">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalLate}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="293" y="26" width="70" height="20" uuid="8a5a0d35-64c8-4278-bd1d-0627a19cc1bd">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalEarlyGone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="203" y="46" width="85" height="20" uuid="6c681e7c-0e0b-4fbf-a21f-8e2248188354">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Late & Early Gone]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="293" y="46" width="70" height="20" uuid="934b9fd1-e119-4ba5-a972-089866a7b5ae">
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalLateAndEarlyGone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="28" y="46" width="70" height="20" uuid="4ac66994-9c9c-40af-a9e0-f7f1d3ef03d8">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[Leave & Others]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="103" y="46" width="70" height="20" uuid="26c2bc46-02e0-4753-b45c-2805ff24c4e6">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+					<property name="com.jaspersoft.studio.unit.height" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{totalLeaveAndOthers}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="98" y="6" width="5" height="20" uuid="5d0904b0-57ff-42ca-ae13-9396fdd1401c">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="98" y="26" width="5" height="20" uuid="3c0f18d1-4325-4163-a7b8-da1dbf5ceeb3"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="98" y="46" width="5" height="20" uuid="4d8d6b8e-c4af-4ede-a011-2fb92eb23f82"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="6" width="5" height="20" uuid="07427338-45a4-4278-8440-3e98567260e3">
+					<property name="com.jaspersoft.studio.unit.width" value="px"/>
+				</reportElement>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="26" width="5" height="20" uuid="9e11b670-6c3b-40c8-90dc-75cd843df250"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="288" y="46" width="5" height="20" uuid="43bfcceb-3eea-4ac4-82f9-dbede7d40fcd"/>
+				<textElement verticalAlignment="Middle"/>
+				<text><![CDATA[:]]></text>
+			</staticText>
+		</band>
+	</summary>
+</jasperReport>

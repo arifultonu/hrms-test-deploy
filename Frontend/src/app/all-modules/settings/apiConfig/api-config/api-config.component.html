@@ -1,0 +1,128 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Api Config</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item active">Api Config</li>
+                    <li class="breadcrumb-item active">List</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <div class="btn-group btn-group">
+                    <button class="btn btn-white">Excel</button>
+                    <button class="btn btn-white">PDF</button>
+                    <button class="btn btn-white"><i class="fa fa-print fa-lg"></i> Print</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+    
+    
+
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="card">
+
+                <div class="card-header">
+                    <div class="card-tools">
+                         <a routerLink = "/settings/api-config/create" class="btn btn-outline-primary"><i class="fa fa-plus"></i> New &nbsp;&nbsp;&nbsp;</a>
+                    </div>
+                </div>
+
+                <div class="card-body">
+
+                    <div class="table-responsive">
+
+                        <div class="d-flex justify-content-start pb-1">
+                            <div class="pgn-displayDataInfo">
+                                <span class="page-item disabled">Displaying ( {{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (1) ) }}  to {{configPgn.pngDiplayLastSeq}} of {{configPgn.totalItem}} ) entries</span>
+                            </div>
+                        </div>
+
+                        <table id="genListTable" class="table table-striped custom-table" >
+                            <thead>
+                                <tr>
+                                    <th>SL</th>
+                                    <th class="d-none">TB_ROW_ID</th>
+                                   
+                                    <th>Api Link</th>
+                                    <th>Switch</th>
+                                    <th>Is Active</th>
+                                    
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr *ngFor="let thisObj of listData | paginate : configPgn; let i = index" [class.active]="i == currentIndex">
+
+                                    <td>{{ ( ((configPgn.pageNum-1) * configPgn.pageSize) + (i+1) ) }}</td>
+                                    <td class="d-none">{{thisObj.id}}</td>
+                                  
+                                    <td>{{thisObj.linkBody}}</td>
+                                    <!-- <td> <input  type="checkbox" id="holidays_module" checked="" class="check"><label  for="holidays_module" class="checktoggle">checkbox</label></td> -->
+ 
+                                    <td> <a *ngIf="thisObj.isActive !=true"   class="btn btn-outline-success btn-sm" (click)="startJob(thisObj.id)">
+                                        <i class="fa fa-play" aria-hidden="true"></i> Start Api</a>
+
+                                        <a *ngIf="thisObj.isActive == true"   class="btn btn-outline-danger btn-sm " (click)="startJob(thisObj.id)">
+                                         <i class="fa fa-pause-circle" aria-hidden="true"></i> Stop Api</a>
+                                    
+                                    </td>
+
+                                    <td>{{thisObj.isActive}}</td>
+                                    
+                                   
+                                  
+                                </tr>
+
+                                <tr *ngIf="listData.length === 0">
+                                    <td colspan="10">
+                                        <h5 style="text-align: center;">No data found</h5>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+
+
+                        <div class="d-flex justify-content-end ">
+
+                            <div class="" [formGroup]="myFromGroup">
+                                Items per Page
+                                <select (change)="handlePageSizeChange($event)" class="pgn-pageSizeOption" formControlName="pageSize">
+                                    <option *ngFor="let size of configPgn.pageSizes" [value]="size">
+                                        {{ size }}
+                                    </option>
+                                </select>
+                            </div>
+
+                            <div class="pgn-pageSliceCt">
+                                <pagination-controls
+                                    responsive="true"
+                                    previousLabel="Prev"
+                                    nextLabel="Next"
+                                    (pageChange)="handlePageChange($event)">
+                                </pagination-controls>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- /Page Content -->
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>

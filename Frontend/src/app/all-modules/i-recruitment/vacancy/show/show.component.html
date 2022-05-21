@@ -1,0 +1,226 @@
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Vacancy</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item active"><a routerLink="/irecruitment/vacancy/list">Vacancy</a></li>
+                    <li class="breadcrumb-item active">{{myFormData.title}}</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+              <button class="btn btn-white mr-1" (click)="onPrint('sectionToPrint')"><i class="fa fa-print fa-lg"></i> Print</button>
+                <a class="btn add-btn" routerLink="/irecruitment/vacancy/list"><i class="fa fa-share"></i> Back To List</a>
+            </div>
+
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+
+    <div class="row" >
+        <div class="col-lg-12">
+
+            <!------->
+
+
+            <div class="container card" id="sectionPrint">
+
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="guide text-center ">
+                      <div class="rba">
+                        <img *ngIf="myFormData.allOrgMstOrgId.title == 'One Direction Companies Limited' " class="avater float-right" src="assets/img/one_direction_full_logo.png" width="8%" height="8%">
+                          <h3 class="m-2">
+
+                            {{myFormData.allOrgMstOrgId.title}}
+
+                          </h3>
+                          {{myFormData.jobLocation}}
+
+                      </div>
+
+                     </div>
+                     <h4 class="text-center mt-4"><i class="fa fa-briefcase"> </i> {{myFormData.title}}</h4><hr>
+                  </div>
+
+                  <div class="col-md-8">
+                    <div class="job-content">
+
+                      <p><b>Department   :   </b>{{myFormData.allOrgMstDeptId.title}}</p>
+
+                      <p><b>Job Nature</b> </p>
+                      <ul>
+                        <li> {{myFormData.jobNature}}</li>
+                      </ul>
+
+
+
+
+
+
+                      <p><b>Educational Requirements</b></p>
+                      <ul>
+                        <li>{{myFormData.relevantEducation}}</li>
+                      </ul>
+
+
+                      <p><b>Experience Requirements</b></p>
+                      <ul>
+                        <li>At least {{myFormData.noExperience}} year(s)</li>
+
+                      </ul>
+
+
+                      <p><b>Job Requirements</b></p>
+
+                      <div [innerHTML]="content">{{myFormData.jobResponsibility}} </div>
+
+                      <p><b>Additional Requirements</b></p>
+
+                      <div [innerHTML]="content1">{{myFormData.addtnlReqrmnt}} </div>
+
+                  <p><b>Gender : </b></p>
+                  <ul>
+                    <li *ngIf="myFormData.vcncMale==1 && myFormData.vcncFemale==1">Both Male & Female are encouraged to apply</li>
+                    <li *ngIf="myFormData.vcncMale==1 && myFormData.vcncFemale==0">Only Male are encouraged to apply</li>
+                    <li *ngIf="myFormData.vcncFemale==1 && myFormData.vcncMale==0">Only Female are encouraged to apply</li>
+                  </ul>
+
+                  <p><b> Salary Range</b></p>
+                  <ul>
+                    <li><span *ngIf="myFormData.salMin === null && myFormData.salMax=== null && myFormData.negotiable==1;else elseBlock ">(Negotiable)</span>
+
+                      <ng-template #elseBlock>
+                        <span *ngIf="myFormData.salMin === null && myFormData.salMax=== null && myFormData.negotiable==0;else elseBlock2 ">(Negotiable)</span>
+
+                      </ng-template>
+                      <ng-template #elseBlock2>
+
+                        {{myFormData.salMin}} - {{myFormData.salMax}} (BDT)
+                      </ng-template>
+                    </li>
+                  </ul>
+                  <p> <b>Published on</b></p>
+                  <ul>
+                    <i class="fa fa-calendar"> </i> {{ myFormData.creationDateTime | date }}
+                  </ul>
+                <p><b>Closing Date</b></p>
+                <ul>
+                  <i class="fa fa-calendar"> </i> {{ myFormData.requiredWithin | date }}
+                </ul>
+                <p><b>Job Conditions</b></p>
+                <ul>
+                  <li>{{myFormData.jobType}}</li>
+                </ul>
+                <p><b> Employee benefits</b></p>
+
+                  <div [innerHTML]="content2">{{myFormData.othersBenefit}} </div>
+<div class="ml-4"><li *ngIf="myFormData.ot == 1">This Position will pay Over Time.</li></div>
+
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card mt-2" style="background-color: #ddd;">
+                      <div class="job-summery">
+                        <h4 class="text-center"><u>Job Summary</u></h4>
+                        <table>
+                          <tr>
+                            <th>Published On</th>
+                            <td>:</td>
+                            <td> {{ myFormData.creationDateTime | date }}</td>
+                          </tr>
+                          <tr>
+                            <th>Closing Date</th>
+                            <td>:</td>
+                            <td>{{ myFormData.requiredWithin | date }}</td>
+                          </tr>
+                          <tr>
+                            <th>Vacancies</th>
+                            <td>:</td>
+                            <td>{{myFormData.vcncyTot}}</td>
+                          </tr>
+                          <tr>
+                            <th>Job Nature</th>
+                            <td>:</td>
+                            <td>{{myFormData.jobNature}}</td>
+                          </tr>
+
+                          <tr>
+                            <th>Experience</th>
+                            <td>:</td>
+                            <td>{{myFormData.noExperience}} Year/s</td>
+
+                          </tr>
+
+
+                          <tr>
+                            <th>Job Location</th>
+                            <td>:</td>
+                            <td>{{myFormData.jobLocation}}</td>
+                          </tr>
+
+                          <tr>
+                            <th>Salary Range</th>
+                            <td>:</td>
+                            <td>
+                             <span *ngIf="myFormData.salMin === null && myFormData.salMax=== null && myFormData.negotiable==1;else elseBlock ">(Negotiable)</span>
+
+                                <ng-template #elseBlock>
+                                  <span *ngIf="myFormData.salMin === null && myFormData.salMax=== null && myFormData.negotiable==0;else elseBlock2 ">(Negotiable)</span>
+
+                                </ng-template>
+                                <ng-template #elseBlock2>
+
+                                  {{myFormData.salMin}} - {{myFormData.salMax}}(BDT)
+                                </ng-template>
+
+                            </td>
+                          </tr>
+
+
+                        </table>
+                      </div>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="card">
+                  <div class="text-center">
+                    <div class="guide text-center ">
+                      <div class="rba">
+                          <h2>
+                            Apply Procedure
+                          </h2>
+
+                  Candidates possessing the requisite skills and qualifications should feel free to apply with Cover Letter &amp; Complete CV
+                </div>
+
+
+                    <div class="text-center">
+                     Send your CV to <strong> hrm.corehr1@onedirectionbd.com</strong>
+                    </div>
+                      <div>
+                          <span class="date">
+                          Application Deadline : <strong>{{ myFormData.requiredWithin | date }}</strong>
+                          </span>
+                      </div>
+                      <div>
+                          <span class="date">
+                           <b><em>(Please mention position along with department name in subject line)</em></b>
+                          </span>
+                      </div>
+
+              </div>
+</div>
+</div>
+</div>
+</div>
+</div>
+            <!--------->
+    </div>

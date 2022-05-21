@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.18.1.final using JasperReports Library version 6.18.1-9d75d1969e774d4f179fb3be8401e98a0e6d1611  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Blank_A4_Landscape_1" pageWidth="1000" pageHeight="595" orientation="Landscape" columnWidth="960" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="2cbc663a-dff7-4af2-bd56-dd13109af5d3">
+	<property name="com.jaspersoft.studio.data.sql.tables" value=""/>
+	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="192.168.61.66"/>
+	<property name="com.jaspersoft.studio.unit." value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageHeight" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.pageWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+	<property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
+	<parameter name="FROM_DATE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{FROM_DATE}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="TO_DATE" class="java.lang.String">
+		<defaultValueExpression><![CDATA[$P{TO_DATE}]]></defaultValueExpression>
+	</parameter>
+	<parameter name="EMP_CODE" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select
+e.id,
+e.login_code,
+e.display_name,
+org.id,
+org.title as Deartment,
+pa.all_org_mst_department_id,
+s.dg_order,
+s.title as designations,
+p.attn_date,
+p.in_time,
+p.out_time,
+p.attn_day_sts_final_type,
+p.out_time-p.in_time As Working_Hour,
+p.hr_tl_shft_dtl_id,
+d.id,
+d.title as shift_type,
+d.start_time,
+d.end_time,
+CONCAT  ((EXTRACT(HOUR FROM d.start_time)),'AM', ' - ', (to_char(to_timestamp(extract(hour from d.end_time)),'HH12')),'PM') AS "Assign_Shift"
+from proc_out_dt_attn p, hr_tl_shft_dtl d,hr_cr_emp e,hr_emp_designations s,all_org_mst org,hr_cr_emp_primary_assgnmnt pa
+where p.hr_tl_shft_dtl_id=d.id and e.id=p.hr_cr_emp_id and s.dg_order=e.dg_order and  e.id=pa.hr_cr_emp_id and org.id = pa.all_org_mst_department_id 
+    AND 
+    to_char(p.attn_date, 'yyyy-MM-dd') >= $P{FROM_DATE}
+    AND
+    to_char(p.attn_date, 'yyyy-MM-dd') <= $P{TO_DATE}
+    AND e.login_code=  $P{EMP_CODE} 
+    and attn_day_sts_final_type='Late']]>
+	</queryString>
+	<field name="id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="login_code" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="login_code"/>
+		<property name="com.jaspersoft.studio.field.label" value="login_code"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="display_name" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="display_name"/>
+		<property name="com.jaspersoft.studio.field.label" value="display_name"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp"/>
+	</field>
+	<field name="deartment" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="deartment"/>
+		<property name="com.jaspersoft.studio.field.label" value="deartment"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="all_org_mst"/>
+	</field>
+	<field name="all_org_mst_department_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="all_org_mst_department_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="all_org_mst_department_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_cr_emp_primary_assgnmnt"/>
+	</field>
+	<field name="dg_order" class="java.lang.Integer">
+		<property name="com.jaspersoft.studio.field.name" value="dg_order"/>
+		<property name="com.jaspersoft.studio.field.label" value="dg_order"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_emp_designations"/>
+	</field>
+	<field name="designations" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="designations"/>
+		<property name="com.jaspersoft.studio.field.label" value="designations"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_emp_designations"/>
+	</field>
+	<field name="attn_date" class="java.sql.Date">
+		<property name="com.jaspersoft.studio.field.name" value="attn_date"/>
+		<property name="com.jaspersoft.studio.field.label" value="attn_date"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proc_out_dt_attn"/>
+	</field>
+	<field name="in_time" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="in_time"/>
+		<property name="com.jaspersoft.studio.field.label" value="in_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proc_out_dt_attn"/>
+	</field>
+	<field name="out_time" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="out_time"/>
+		<property name="com.jaspersoft.studio.field.label" value="out_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proc_out_dt_attn"/>
+	</field>
+	<field name="attn_day_sts_final_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="attn_day_sts_final_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="attn_day_sts_final_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proc_out_dt_attn"/>
+	</field>
+	<field name="working_hour" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="working_hour"/>
+		<property name="com.jaspersoft.studio.field.label" value="working_hour"/>
+	</field>
+	<field name="hr_tl_shft_dtl_id" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="hr_tl_shft_dtl_id"/>
+		<property name="com.jaspersoft.studio.field.label" value="hr_tl_shft_dtl_id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="proc_out_dt_attn"/>
+	</field>
+	<field name="COLUMN_15" class="java.lang.Long">
+		<property name="com.jaspersoft.studio.field.name" value="id"/>
+		<property name="com.jaspersoft.studio.field.label" value="id"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_tl_shft_dtl"/>
+	</field>
+	<field name="shift_type" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="shift_type"/>
+		<property name="com.jaspersoft.studio.field.label" value="shift_type"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_tl_shft_dtl"/>
+	</field>
+	<field name="start_time" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="start_time"/>
+		<property name="com.jaspersoft.studio.field.label" value="start_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_tl_shft_dtl"/>
+	</field>
+	<field name="end_time" class="java.sql.Time">
+		<property name="com.jaspersoft.studio.field.name" value="end_time"/>
+		<property name="com.jaspersoft.studio.field.label" value="end_time"/>
+		<property name="com.jaspersoft.studio.field.tree.path" value="hr_tl_shft_dtl"/>
+	</field>
+	<field name="Assign_Shift" class="java.lang.String">
+		<property name="com.jaspersoft.studio.field.name" value="Assign_Shift"/>
+		<property name="com.jaspersoft.studio.field.label" value="Assign_Shift"/>
+	</field>
+	<group name="login_code">
+		<groupExpression><![CDATA[$F{login_code}]]></groupExpression>
+	</group>
+	<title>
+		<band height="60" splitType="Stretch">
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" mode="Opaque" x="0" y="-10" width="980" height="70" forecolor="#FC312D" backcolor="#CCCCCC" uuid="e0a4101f-92eb-464d-9e17-f72fc46aead5"/>
+				<box>
+					<pen lineWidth="1.0" lineStyle="Solid" lineColor="#121111"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="47" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ONE DIRECTION COMPANIES LIMITED]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="980" height="30" uuid="56ea26dc-1ec3-42d5-bc82-035c80d2a300"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="22" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Irregular Attendance Report:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<columnHeader>
+		<band height="30" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="0" width="20" height="30" uuid="e473d334-dc07-4be3-a90c-2a97758beb69"/>
+				<box>
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[SL No.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="20" y="0" width="80" height="30" uuid="3daadbc3-c27a-47e4-a7cf-7303173007fc"/>
+				<box>
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="169" y="0" width="119" height="30" uuid="4ab847a5-a939-4669-ac03-b0fdf6586c66"/>
+				<box>
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Name]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="288" y="0" width="89" height="30" uuid="13e114ab-71f4-4b58-b594-99e465459674"/>
+				<box>
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Designations]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="459" y="0" width="87" height="30" uuid="17bd5485-3f05-4080-bef3-005e3553f306"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Shift]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="709" y="0" width="90" height="30" uuid="03189b35-d356-4a86-a0de-5ca235d14d19"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Working Hour]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="799" y="0" width="97" height="30" uuid="65e82195-22dc-4f70-b4c9-88cf017721ad"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Status]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="546" y="0" width="73" height="30" uuid="0bca93c0-fff2-4c02-b354-af6040748d3a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="16" isBold="true"/>
+				</textElement>
+				<text><![CDATA[IN]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="619" y="0" width="90" height="30" uuid="eec18c1f-33cb-4001-bdb0-5091ae8d226e"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[OUT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="100" y="0" width="69" height="30" uuid="89df1718-bda1-4877-8d95-2b1475b16c90"/>
+				<box>
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="13" isBold="true"/>
+				</textElement>
+				<text><![CDATA[ID]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="377" y="0" width="82" height="30" uuid="2055dd6d-af74-4692-8f67-a6461a3b818d"/>
+				<box>
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Department]]></text>
+			</staticText>
+			<staticText>
+				<reportElement stretchType="RelativeToTallestObject" x="896" y="0" width="84" height="30" uuid="49d9fd07-bba7-4b69-b125-e0271083f203"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Revised Status]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="30" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="0" width="20" height="30" uuid="2ccd9525-1ce1-45f3-a63c-50cb51e989ac"/>
+				<box>
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{REPORT_COUNT}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="169" y="0" width="119" height="30" uuid="ffd452c1-2c56-4e8a-b84e-551882907064"/>
+				<box>
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{display_name}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="288" y="0" width="89" height="30" uuid="1d64c9af-4a4a-4365-b155-0c8b77161d9d"/>
+				<box>
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{designations}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" pattern="h:mm a" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="459" y="0" width="87" height="30" uuid="3c53191b-6288-4547-a39c-cf93070cfa00"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Assign_Shift}]]></textFieldExpression>
+			</textField>
+			<textField textAdjust="StretchHeight" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="799" y="0" width="97" height="30" forecolor="#FC262D" backcolor="#000000" uuid="5fa3c43f-85c8-49fd-ae34-10214de4c9b0"/>
+				<box>
+					<pen lineWidth="1.25" lineColor="#0A0A0A"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{attn_day_sts_final_type}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="896" y="0" width="84" height="30" uuid="0a680d30-3e19-4fda-9063-bf85f40a5871"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+			</textField>
+			<textField pattern="h:mm:ss a" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="546" y="0" width="73" height="30" uuid="29b331f4-6aad-442a-bfa7-7d85200bdda9"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{in_time}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h:mm:ss a" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="619" y="0" width="90" height="30" uuid="90956077-eff4-4b91-a67a-60b9cb726357"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{out_time}]]></textFieldExpression>
+			</textField>
+			<textField pattern="h:mm:ss " isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="709" y="0" width="90" height="30" uuid="81181c36-a748-4dfd-b649-864e8c0db82a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{working_hour}]]></textFieldExpression>
+			</textField>
+			<textField pattern="MMM d, yyyy">
+				<reportElement stretchType="RelativeToTallestObject" x="20" y="0" width="80" height="30" isPrintWhenDetailOverflows="true" printWhenGroupChanges="login_code" uuid="1176c1b8-9173-43e3-ab6e-e7841919093e"/>
+				<box>
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12" isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{attn_date}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="100" y="0" width="69" height="30" uuid="aaad17ec-e492-4cf6-839b-184c84f8937d"/>
+				<box>
+					<pen lineWidth="1.25"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{login_code}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="377" y="0" width="82" height="30" uuid="a4cbe6d9-403b-4161-bcdf-0c8c18630301"/>
+				<box>
+					<pen lineWidth="0.75"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{deartment}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

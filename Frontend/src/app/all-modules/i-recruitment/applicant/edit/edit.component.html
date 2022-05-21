@@ -1,0 +1,333 @@
+<!-- Page Content -->
+<div class="content container-fluid">
+
+    <!-- Page Header -->
+    <div class="page-header">
+        <div class="row align-items-center">
+            <div class="col">
+                <h3 class="page-title">Applicant</h3>
+                <ul class="breadcrumb">
+                    <li class="breadcrumb-item"><a routerLink="/dashboard">Home</a></li>
+                    <li class="breadcrumb-item"><a routerLink="/irecruitment/applicant/list">Applicant</a></li>
+                    <li class="breadcrumb-item active">Update Applicant</li>
+                </ul>
+            </div>
+            <div class="col-auto float-right ml-auto">
+                <a class="btn add-btn" routerLink="/irecruitment/applicant/list"><i class="fa fa-share"></i> Back To List</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Page Header -->
+
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <!-- <div class="card-header"> -->
+                    <!-- <h4 class="card-title mb-0">Payroll Item Value</h4> -->
+                <!-- </div>  -->
+                <div class="card-body">
+
+                    <h3 class="card-title"> Applicant Edit Form</h3>
+
+                    <form novalidate (ngSubmit)="saveUpdatedFormData()" [formGroup]="myForm" enctype='multipart/form-data'>
+
+
+                      <div class="row">
+                        <div class="col-sm-6 form-group">
+                            <label for="name-f" class="val-required">Vacancy</label>
+
+
+
+                         <select class="select form-control invalid" formControlName="vacancy">
+                          <option value="">Select Vacancy</option>
+                          <option *ngFor="let data of vacList" value="{{ data.id }}">{{data.code}} - {{data.title}}
+                          </option>
+                        </select>
+
+
+                             <span style="font-size: 12px;" class="text-danger" *ngIf="getVacancy && getVacancy.invalid && getVacancy.touched">Field is required</span>
+
+                        </div>
+
+
+                        <div class="col-sm-6 form-group">
+                          <div class="form-group">
+                            <label for="name-f" class="val-required">Blood Group</label>
+                            <select class="select form-control invalid" formControlName="alkpBloodGrpIdAlkp">
+                              <option value="">Select Blood Group</option>
+                              <option *ngFor="let data of org" value="{{ data.id }}">{{data.title}}
+                              </option>
+                            </select>
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="getAlkpBloodGrp && getAlkpBloodGrp.invalid && getAlkpBloodGrp.touched">Field is required</span>
+                          </div>
+                        </div>
+
+                        <div class="col-sm-6 form-group">
+                            <label for="Date" class="val-required">First name</label>
+                            <input type="text"  formControlName="firstName" class="form-control invalid">
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="firstName && firstName.invalid && firstName.touched">Field is required</span>
+
+                        </div>
+
+                        <div class="col-sm-6 form-group">
+                          <label for="Date" class="val-required">Last Name</label>
+                          <input type="text"  class="form-control invalid" id="Date"  formControlName="lastname" required>
+                          <span style="font-size: 12px;" class="text-danger" *ngIf="lastname && lastname.invalid && lastname.touched">Field is required</span>
+                        </div>
+                        <div class="col-sm-6 form-group">
+                            <label for="Date" class="val-required">Father Name</label>
+                            <input type="text"  class="form-control invalid" id="Date"  formControlName="fatherName" required>
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="fatherName && fatherName.invalid && fatherName.touched">Field is required</span>
+                        </div>
+
+
+                        <div class="col-sm-6 form-group">
+                            <label for="Date" class="val-required">Mother Name</label>
+                            <input type="text"  class="form-control invalid" id="Date"  formControlName="motherName">
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="motherName && motherName.invalid && motherName.touched">Field is required</span>
+                        </div>
+
+                        <div class="col-sm-6 form-group">
+
+                            <label for="Date" class="val-required">Email</label>
+                            <input type="email"  class="form-control invalid" id="Date"  formControlName="email">
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="email && email.invalid && email.touched">Enter Valid Email</span>
+                        </div>
+
+
+                        <div class="col-sm-3 form-group">
+                          <label for="Date">Spouse Name</label>
+                          <input type="text"  class="form-control" id="Date"  formControlName="spouseName">
+                        </div>
+
+                        <div class="col-sm-3 form-group">
+                          <label for="Date">Reference</label>
+                          <input type="text"  class="form-control" id="Date"  formControlName="reference">
+                        </div>
+
+
+
+                        <div class="col-sm-3 form-group">
+                            <label for="email" class="val-required">Date of Birth</label>
+
+                            <div class="cal-icon">
+                                <input class="form-control datetimepicker" formControlName="dob"
+                                    class="form-control invalid" bsDatepicker type="text"
+                                     type="text"
+                                    [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD',  returnFocusToInput: true }" placeholder="yyyy-mm-dd">
+
+                            </div>
+                             <span style="font-size: 12px;" class="text-danger" *ngIf="dob && dob.invalid && dob.touched">Field is required</span>
+                        </div>
+
+
+                        <div class="col-sm-3 form-group">
+                            <label for="email" class="val-required">Phone</label>
+                            <input type="text"  class="form-control" id="email"  formControlName="phoneNumber">
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="phoneNumber && phoneNumber.invalid && phoneNumber.touched">Enter valid mobile number</span>
+                        </div>
+
+                        <div class="col-sm-3 form-group">
+                            <label for="State">NID</label>
+                            <input type="number" class="form-control"  id="State"  min="1" formControlName="nationalIdentityNumber">
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label for="zip">Birth Registration Number</label>
+                            <input type="number" class="form-control" id="zip"  min="0" formControlName="bregNum">
+                        </div>
+
+                        <div class="col-sm-6 form-group">
+                            <label for="email">Present Address</label>
+                            <textarea class="form-control"  formControlName="presentAddress"></textarea>
+
+                        </div>
+
+                        <div class="col-sm-6 form-group">
+                            <label for="email">Permanent Address</label>
+
+                            <textarea class="form-control" formControlName="permanentAddress"> </textarea>
+                        </div>
+
+
+                        <div class="col-sm-6 form-group">
+                          <label for="email">Last Education</label>
+                          <textarea class="form-control" formControlName="education"> </textarea>
+                      </div>
+
+                      <div class="col-sm-6 form-group">
+                        <label for="email">Skills</label>
+                        <textarea class="form-control" formControlName="skills"> </textarea>
+                    </div>
+
+                        <div class="col-sm-3 form-group">
+                            <label for="email">Current Salary</label>
+                            <input type="number" min="0" class="form-control" formControlName="salCurr">
+                        </div>
+
+                        <div class="col-sm-3 form-group">
+                            <label for="email">Expected Salary</label>
+                            <input type="number" min="0" class="form-control" formControlName="salExpected">
+                        </div>
+                        <div class="col-sm-3 form-group">
+                            <label for="email" class="val-required">Year(s) of experience</label>
+                            <input type="number" min="0" class="form-control" formControlName="experienceYear" >
+                            <span style="font-size: 12px;" class="text-danger" *ngIf="experienceYear && experienceYear.invalid">Field is required</span>
+
+                        </div>
+
+                        <div class="col-sm-3 form-group">
+                          <label for="email" class="val-required">Group</label>
+
+                          <select class="select form-control invalid" formControlName="user">
+                            <option value="">Select Group</option>
+                            <option *ngFor="let data of usrgrp" value="{{ data.id }}">{{data.userTitle}}
+                            </option>
+                          </select>
+
+                          <span style="font-size: 12px;" class="text-danger" *ngIf="user && user.invalid && user.touched">Field is required</span>
+
+                      </div>
+                <!---       <div class="col-sm-6 form-group">
+                            <label for="email">Photo of applicant : </label>
+                            <a data-target="#aplc_Image" data-toggle="modal" (click)="tempEduId = myFormData.id"> <i class="fa fa-upload m-r-5"> Click</i> </a>
+                        </div>
+
+
+
+
+                   <input type="file" class="form-control" formControlName="pic" name="pic" >
+                        <div class="col-sm-6 form-group">
+                            <label for="email">CV of applicant</label>
+
+                            <input type="file" class="form-control" formControlName="cv">
+                        </div>-->
+
+
+                        <div class="col-sm-12 form-group">
+                            <label for="Date">Career Summary</label>
+
+                            <ckeditor [editor]="Editor" formControlName="careerSummary"></ckeditor>
+
+                        </div>
+                        <div class="col-sm-6 form-group">
+                          <label for="Date">LinkedIn link</label>
+                          <input type="text"  class="form-control" id="Date"  formControlName="portfolioLink">
+                        </div>
+
+                        <div class="col-sm-6 form-group">
+                          <label for="Date">Portfolio link</label>
+                          <input type="text"  class="form-control" id="Date"  formControlName="linkedinLink">
+                        </div>
+
+                        <div class="col-sm-6 form-group">
+                          <div class="form-check form-check-inline">
+                            <label class="form-check-label">
+                              <input class="form-check-input" type="checkbox" formControlName="blocked" id="" value="0"> Blocked ?
+                            </label>
+                          </div>
+                      </div>
+
+                        <div class="col-sm-12">
+                            <div class="text-right">
+                                <a class="btn btn-warning btn-ripple" routerLink="/irecruitment/applicant/list"><i class="fa fa-share"></i> Cancel</a>
+                                &nbsp; &nbsp;
+                                <button type="button" class="btn btn-secondary btn-ripple" (click)="resetFormValues()">
+                                    <i class="fa fa-undo" aria-hidden="true"></i> Reset
+                                </button>
+                                &nbsp; &nbsp;
+                                <button type="submit" class="btn btn-primary btn-ripple" [disabled]="myForm.invalid">
+                                    <i class="fa fa-check" aria-hidden="true"></i> Save &nbsp;&nbsp;&nbsp;
+                                </button>
+                            </div>
+                        </div>
+
+
+
+                    </div>
+                    </form>
+
+
+  <!-- Image upload modal -->
+  <div id="aplc_Image" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Upload Applicant Image</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="myForm" (ngSubmit)="SubmitAplcImg()">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="profile-img-wrap edit-img" >
+
+                  <img [src]="imgSrc" height="100" *ngIf="imgSrc">
+                  <div class="fileupload btn">
+                    <span class="btn-text">Select</span>
+                    <input class="upload" type="file" name="pic" accept="image/x-png,image/jpeg,image/jpg"
+                      (change)="onFileSelect($event)">
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="submit-section">
+              <button class="btn btn-primary submit-btn">Upload</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- /Image upload modal -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+<!-- /Page Content -->
+
+<!-- Image upload modal -->
+<div id="profile_Image" class="modal custom-modal fade" role="dialog">
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Upload Profile Image</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form [formGroup]="uploadForm">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="profile-img-wrap edit-img">
+                  <img class="inline-block" />
+
+                  <div class="fileupload btn">
+                    <span class="btn-text">Change</span>
+                    <input class="upload" type="file" name="pic" accept="image/x-png,image/jpeg,image/jpg"
+                   />
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="submit-section">
+              <button class="btn btn-primary submit-btn">Upload</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+<ngx-spinner bdColor = "rgba(255,255,255,0.5)" size = "medium" color = "#667eea" type = "ball-clip-rotate" [fullScreen] = "false"><p style="color: black" > Processing... </p></ngx-spinner>
